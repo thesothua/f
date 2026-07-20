@@ -16,8 +16,14 @@ use Spatie\Permission\Traits\HasRoles;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, HasRoles;
+
+    /**
+     * The guard name for Spatie permissions.
+     *
+     * @var string
+     */
+    protected $guard_name = 'api';
 
     /**
      * Get the attributes that should be cast.
