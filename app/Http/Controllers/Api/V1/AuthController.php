@@ -17,25 +17,30 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = $this->authService->login($request->all());
-        if (!$user) {
-            return $this->errorResponse('User not found.', 404);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $result = $this->authService->login($request->all());
+        if (!$result) {
+            return $this->errorResponse('Invalid email or password.', 401);
         }
-        return $this->successResponse($user, 'User logged in successfully.');
+        return $this->successResponse($result, 'User logged in successfully.');
     }
 
     public function logout(Request $request)
     {
-        $user = $this->authService->logout();
-        if (!$user) {
-            return $this->errorResponse('User not found.', 404);
+        $status = $this->authService->logout($request->user());
+        if (!$status) {
+            return $this->errorResponse('Logout failed.', 400);
         }
-        return $this->successResponse($user, 'User logged out successfully.');
+        return $this->successResponse(null, 'User logged out successfully.');
     }
 
     public function me(Request $request)
     {
-        $user = $this->authService->me();
+        $user = $this->authService->me($request->user());
         if (!$user) {
             return $this->errorResponse('User not found.', 404);
         }

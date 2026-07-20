@@ -12,18 +12,33 @@ class AuthService
     {
         $user = User::where('email', $data['email'])->first();
         if ($user && Hash::check($data['password'], $user->password)) {
-            return $user;
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return [
+                'user' => $user->load('roles'),
+                'token' => $token,
+            ];
         }
         return false;
     }
 
-    public function logout()
+    public function logout($user)
     {
-        return Auth::logout();
+        if ($user) {
+            if ($user->currentAccessToken()) {
+                $user->currentAccessToken()->delete();
+            } else {
+                $user->tokens()->delete();
+            }
+            return true;
+        }
+        return false;
     }
 
-    public function me()
+    public function me($user)
     {
-        return Auth::user();
+        if ($user) {
+            return $user->load('roles');
+        }
+        return null;
     }
 }

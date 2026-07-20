@@ -4,16 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, HasRoles;
@@ -26,6 +22,41 @@ class User extends Authenticatable
     protected $guard_name = 'api';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'gender',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'firstName',
+        'lastName',
+        'role',
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -36,5 +67,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFirstNameAttribute()
+    {
+        if (!empty($this->attributes['first_name'])) {
+            return $this->attributes['first_name'];
+        }
+        $parts = explode(' ', $this->name ?? '', 2);
+        return $parts[0] ?? '';
+    }
+
+    public function getLastNameAttribute()
+    {
+        if (!empty($this->attributes['last_name'])) {
+            return $this->attributes['last_name'];
+        }
+        $parts = explode(' ', $this->name ?? '', 2);
+        return $parts[1] ?? '';
+    }
+
+    public function getRoleAttribute()
+    {
+        return $this->roles->first()?->name ?? 'User';
     }
 }

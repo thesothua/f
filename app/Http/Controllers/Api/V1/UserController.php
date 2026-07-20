@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = $this->userService->getAllUsers();
+        $users = $this->userService->getAllUsers($request->all());
         return $this->successResponse($users, 'Users retrieved successfully.');
     }
 
@@ -32,6 +33,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'firstName' => 'nullable|string',
+            'lastName' => 'nullable|string',
+            'password' => 'nullable|string|min:6',
+        ]);
+
         $user = $this->userService->createUser($request->all());
         return $this->successResponse($user, 'User created successfully.', 201);
     }
@@ -42,6 +50,14 @@ class UserController extends Controller
         if (!$user) {
             return $this->errorResponse('User not found.', 404);
         }
+
+        $request->validate([
+            'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignore($id)],
+            'firstName' => 'nullable|string',
+            'lastName' => 'nullable|string',
+            'password' => 'nullable|string|min:6',
+        ]);
+
         $updatedUser = $this->userService->updateUser($id, $request->all());
         return $this->successResponse($updatedUser, 'User updated successfully.');
     }
