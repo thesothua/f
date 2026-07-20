@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\V1\AttachmentController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BlogController;
+use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\GalleryController;
+use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
@@ -32,6 +34,15 @@ Route::prefix('blogs')->controller(BlogController::class)->group(function () {
     Route::delete("/{id}", "destroy");
 });
 
+// Contacts routes
+Route::prefix('contacts')->controller(ContactController::class)->group(function () {
+    Route::get("/", "index");
+    Route::get("/{id}", "show");
+    Route::post("/", "store");
+    Route::put("/{id}", "update");
+    Route::delete("/{id}", "destroy");
+});
+
 // Galleries / Media routes
 Route::prefix('galleries')->controller(GalleryController::class)->group(function () {
     Route::get("/", "index");
@@ -42,6 +53,15 @@ Route::prefix('galleries')->controller(GalleryController::class)->group(function
 });
 
 Route::prefix('media')->controller(GalleryController::class)->group(function () {
+    Route::get("/", "index");
+    Route::get("/{id}", "show");
+    Route::post("/", "store");
+    Route::put("/{id}", "update");
+    Route::delete("/{id}", "destroy");
+});
+
+// Plans routes
+Route::prefix('plans')->controller(PlanController::class)->group(function () {
     Route::get("/", "index");
     Route::get("/{id}", "show");
     Route::post("/", "store");
