@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\GalleryController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\VolunteerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,15 @@ Route::prefix('plans')->controller(PlanController::class)->group(function () {
 
 // Users routes
 Route::prefix('users')->controller(UserController::class)->group(function () {
+    Route::get("/", "index");
+    Route::get("/{id}", "show");
+    Route::post("/", "store");
+    Route::put("/{id}", "update");
+    Route::delete("/{id}", "destroy");
+});
+
+// Volunteers routes
+Route::prefix('volunteers')->controller(VolunteerController::class)->group(function () {
     Route::get("/", "index");
     Route::get("/{id}", "show");
     Route::post("/", "store");
