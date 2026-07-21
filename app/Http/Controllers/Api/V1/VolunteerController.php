@@ -32,9 +32,11 @@ class VolunteerController extends Controller
 
     public function store(Request $request)
     {
+        $fullName = $request->input('fullName') ?? $request->input('full_name');
+        $request->merge(['full_name' => $fullName]);
+
         $request->validate([
-            'fullName'    => 'required_without:full_name|string|min:2',
-            'full_name'   => 'required_without:fullName|string|min:2',
+            'full_name'   => 'required|string|min:2',
             'email'       => 'required|email',
             'phone'       => 'nullable|string',
             'city'        => 'nullable|string',
@@ -43,6 +45,11 @@ class VolunteerController extends Controller
             'status'      => 'nullable|string|in:Pending,Approved,Rejected',
             'adminNotes'  => 'nullable|string',
             'admin_notes' => 'nullable|string',
+        ], [
+            'full_name.required' => 'Full Name is required.',
+            'full_name.min'      => 'Full Name must be at least 2 characters.',
+            'email.required'     => 'Email is required.',
+            'email.email'        => 'Please enter a valid email address.',
         ]);
 
         $volunteer = $this->volunteerService->createVolunteer($request->all());
@@ -52,10 +59,14 @@ class VolunteerController extends Controller
 
     public function update(Request $request, $id)
     {
+        if ($request->has('fullName') || $request->has('full_name')) {
+            $fullName = $request->input('fullName') ?? $request->input('full_name');
+            $request->merge(['full_name' => $fullName]);
+        }
+
         $request->validate([
-            'fullName'    => 'sometimes|string|min:2',
-            'full_name'   => 'sometimes|string|min:2',
-            'email'       => 'sometimes|email',
+            'full_name'   => 'sometimes|required|string|min:2',
+            'email'       => 'sometimes|required|email',
             'phone'       => 'nullable|string',
             'city'        => 'nullable|string',
             'role'        => 'sometimes|string',
