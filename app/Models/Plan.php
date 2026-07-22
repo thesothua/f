@@ -20,7 +20,6 @@ class Plan extends Model implements HasMedia
         'image',
         'alt',
         'goal_amount',
-        'raised_amount',
         'status',
         'featured',
         'user_id',
@@ -29,7 +28,6 @@ class Plan extends Model implements HasMedia
     protected $casts = [
         'sort_order' => 'integer',
         'goal_amount' => 'float',
-        'raised_amount' => 'float',
         'featured' => 'boolean',
     ];
 
@@ -37,7 +35,6 @@ class Plan extends Model implements HasMedia
         'cardType',
         'sortOrder',
         'goalAmount',
-        'raisedAmount',
     ];
 
     public function user()
@@ -58,11 +55,6 @@ class Plan extends Model implements HasMedia
     public function getGoalAmountAttribute()
     {
         return isset($this->attributes['goal_amount']) ? (float) $this->attributes['goal_amount'] : 0;
-    }
-
-    public function getRaisedAmountAttribute()
-    {
-        return isset($this->attributes['raised_amount']) ? (float) $this->attributes['raised_amount'] : 0;
     }
 
     public function getImageAttribute()
