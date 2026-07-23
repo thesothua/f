@@ -42,6 +42,14 @@ class ContactController extends Controller
 
         $contact = $this->contactService->createContact($request->all());
 
+        // Trigger Admin Notification
+        try {
+            $admins = \App\Models\User::all();
+            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewContactInquiryReceived($contact));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send NewContactInquiryReceived notification: ' . $e->getMessage());
+        }
+
         return $this->successResponse($contact, 'Message sent successfully! We will get back to you soon.', 201);
     }
 

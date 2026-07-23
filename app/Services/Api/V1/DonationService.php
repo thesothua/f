@@ -22,7 +22,7 @@ class DonationService
      */
     public function getAllDonations($params = [])
     {
-        $query = Donation::with(['plan', 'subscription']);
+        $query = Donation::with(['plan', 'subscription', 'campaign']);
 
         if (!empty($params['search'])) {
             $search = $params['search'];
@@ -52,7 +52,7 @@ class DonationService
 
     public function getDonationById($id)
     {
-        return Donation::with(['plan', 'subscription'])->find($id);
+        return Donation::with(['plan', 'subscription', 'campaign'])->find($id);
     }
 
     /**
@@ -71,6 +71,7 @@ class DonationService
             $donation = Donation::create([
                 'user_id' => $data['user_id'] ?? null,
                 'plan_id' => $data['plan_id'] ?? null, // Target Cause
+                'campaign_id' => $data['campaign_id'] ?? null, // Target Campaign
                 'donor_name' => $data['donor_name'],
                 'donor_email' => $data['donor_email'],
                 'donor_phone' => $data['donor_phone'] ?? null,
@@ -136,6 +137,33 @@ class DonationService
                 }
             }
 
+            // Update associated Campaign raised amount
+            if ($donation->campaign_id) {
+                $campaign = \App\Models\Campaign::find($donation->campaign_id);
+                if ($campaign) {
+                    $oldProgress = $campaign->progress_percentage;
+                    $campaign->increment('raised_amount', $donation->amount);
+                    $campaign->refresh();
+                    
+                    if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
+                        try {
+                            $admins = \App\Models\User::all();
+                            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\CampaignGoalReached($campaign));
+                        } catch (\Exception $e) {
+                            Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
+                        }
+                    }
+                }
+            }
+
+            // Trigger Admin Notification
+            try {
+                $admins = \App\Models\User::all();
+                \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewDonationReceived($donation));
+            } catch (\Exception $e) {
+                Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
+            }
+
             return $donation;
         });
     }
@@ -163,6 +191,7 @@ class DonationService
             $localSub = RecurringSubscription::create([
                 'user_id' => $data['user_id'] ?? null,
                 'plan_id' => $data['plan_id'] ?? null, // Target cause ID
+                'campaign_id' => $data['campaign_id'] ?? null, // Target campaign ID
                 'donor_name' => $data['donor_name'],
                 'donor_email' => $data['donor_email'],
                 'donor_phone' => $data['donor_phone'] ?? null,
@@ -222,6 +251,7 @@ class DonationService
             $donation = Donation::create([
                 'user_id' => $localSub->user_id,
                 'plan_id' => $localSub->plan_id,
+                'campaign_id' => $localSub->campaign_id,
                 'subscription_id' => $localSub->id,
                 'donor_name' => $localSub->donor_name,
                 'donor_email' => $localSub->donor_email,
@@ -241,6 +271,33 @@ class DonationService
                 if ($plan) {
                     $plan->increment('raised_amount', $localSub->amount);
                 }
+            }
+
+            // Update Campaign Raised Amount
+            if ($localSub->campaign_id) {
+                $campaign = \App\Models\Campaign::find($localSub->campaign_id);
+                if ($campaign) {
+                    $oldProgress = $campaign->progress_percentage;
+                    $campaign->increment('raised_amount', $localSub->amount);
+                    $campaign->refresh();
+                    
+                    if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
+                        try {
+                            $admins = \App\Models\User::all();
+                            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\CampaignGoalReached($campaign));
+                        } catch (\Exception $e) {
+                            Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
+                        }
+                    }
+                }
+            }
+
+            // Trigger Admin Notification
+            try {
+                $admins = \App\Models\User::all();
+                \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewDonationReceived($donation));
+            } catch (\Exception $e) {
+                Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
             }
 
             return $localSub;

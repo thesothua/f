@@ -54,6 +54,14 @@ class VolunteerController extends Controller
 
         $volunteer = $this->volunteerService->createVolunteer($request->all());
 
+        // Trigger Admin Notification
+        try {
+            $admins = \App\Models\User::all();
+            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewVolunteerRegistered($volunteer));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send NewVolunteerRegistered notification: ' . $e->getMessage());
+        }
+
         return $this->successResponse($volunteer, 'Volunteer application submitted successfully! Thank you for joining.', 201);
     }
 

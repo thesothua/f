@@ -25,6 +25,7 @@ class Donation extends Model
         'gateway_order_id',
         'receipt_url',
         'anonymous',
+        'campaign_id',
     ];
 
     protected $casts = [
@@ -40,6 +41,11 @@ class Donation extends Model
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
     }
 
     public function subscription()

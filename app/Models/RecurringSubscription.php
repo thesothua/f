@@ -24,6 +24,7 @@ class RecurringSubscription extends Model
         'gateway_customer_id',
         'next_billing_at',
         'ends_at',
+        'campaign_id',
     ];
 
     protected $casts = [
@@ -40,6 +41,11 @@ class RecurringSubscription extends Model
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
     }
 
     public function donations()
