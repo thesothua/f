@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\VolunteerController;
+use App\Http\Controllers\Api\V1\DonationController;
+use App\Http\Controllers\Api\V1\CampaignController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,6 +87,34 @@ Route::prefix('volunteers')->controller(VolunteerController::class)->group(funct
     Route::get("/{id}", "show");
     Route::post("/", "store");
     Route::put("/{id}", "update");
+    Route::delete("/{id}", "destroy");
+});
+
+// Donations routes
+Route::prefix('donations')->controller(DonationController::class)->group(function () {
+    Route::get("/", "index");
+    Route::get("/{id}", "show");
+    Route::delete("/{id}", "destroy");
+    // Public routes to initiate and confirm payments
+    Route::post("/initiate", "initiate");
+    Route::post("/verify", "verify");
+});
+
+// Subscriptions routes
+Route::prefix('subscriptions')->controller(DonationController::class)->group(function () {
+    Route::get("/", "subscriptions");
+    Route::get("/{id}", "showSubscription");
+    Route::put("/{id}", "updateSubscription");
+    Route::post("/{id}/cancel", "cancelSubscription");
+});
+
+// Campaigns routes
+Route::prefix('campaigns')->controller(CampaignController::class)->group(function () {
+    Route::get("/", "index");
+    Route::get("/{id}", "show");
+    Route::post("/", "store");
+    Route::put("/{id}", "update");
+    Route::post("/{id}", "update"); // Supporting file uploads in update
     Route::delete("/{id}", "destroy");
 });
 
