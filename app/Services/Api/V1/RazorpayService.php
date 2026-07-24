@@ -89,7 +89,7 @@ class RazorpayService
     public function verifySubscriptionSignature(array $attributes)
     {
         try {
-            $this->api->utility->verifySubscription([
+            $this->api->utility->verifyPaymentSignature([
                 'razorpay_subscription_id' => $attributes['razorpay_subscription_id'],
                 'razorpay_payment_id' => $attributes['razorpay_payment_id'],
                 'razorpay_signature' => $attributes['razorpay_signature']

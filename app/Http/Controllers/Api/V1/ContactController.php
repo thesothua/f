@@ -38,7 +38,20 @@ class ContactController extends Controller
             'phone' => 'nullable|string',
             'subject' => 'nullable|string',
             'message' => 'required|string',
+            'recaptcha_token' => 'required|string',
         ]);
+
+        $recaptchaToken = $request->input('recaptcha_token');
+
+        $response = \Illuminate\Support\Facades\Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $recaptchaToken,
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (!$response->successful() || !$response->json('success')) {
+            return $this->errorResponse('reCAPTCHA verification failed. Please try again.', 422);
+        }
 
         $contact = $this->contactService->createContact($request->all());
 
