@@ -1,0 +1,10 @@
+/node_modules
+/vendor
+.git
+.github
+.env
+.phpunit.result.cache
+/tests
+Dockerfile
+docker-entrypoint.sh
+docker-compose.yml
