@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\VolunteerController;
 use App\Http\Controllers\Api\V1\DonationController;
 use App\Http\Controllers\Api\V1\CampaignController;
 use App\Http\Controllers\Api\V1\NotificationController;
+use App\Http\Controllers\Api\V1\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -122,7 +123,7 @@ Route::prefix('campaigns')->controller(CampaignController::class)->group(functio
 // Authenticated Auth routes
 Route::middleware('auth:sanctum')->controller(AuthController::class)->group(function () {
     Route::get("/me", "me");
-    Route::post("/me", "me");
+    Route::post("/me", "updateProfile");
     Route::post("/logout", "logout");
 });
 
@@ -132,4 +133,10 @@ Route::middleware('auth:sanctum')->prefix('notifications')->controller(Notificat
     Route::put("/read-all", "markAllAsRead");
     Route::put("/{id}/read", "markAsRead");
     Route::delete("/{id}", "destroy");
+});
+
+// Settings routes
+Route::middleware('auth:sanctum')->prefix('settings')->controller(SettingController::class)->group(function () {
+    Route::get("/", "index");
+    Route::put("/", "update");
 });
