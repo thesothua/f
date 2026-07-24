@@ -41,7 +41,10 @@ class BlogService
 
     public function getBlogById($id)
     {
-        return Blog::with(['seo', 'media', 'user'])->find($id);
+        if (is_numeric($id)) {
+            return Blog::with(['seo', 'media', 'user'])->find($id);
+        }
+        return Blog::with(['seo', 'media', 'user'])->where('slug', $id)->first();
     }
 
     public function createBlog($data, $file = null)

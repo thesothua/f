@@ -57,7 +57,6 @@ class PlanService
         $cardType = $data['cardType'] ?? $data['card_type'] ?? 'cause';
         $sortOrder = $data['sortOrder'] ?? $data['sort_order'] ?? 1;
         $goalAmount = $data['goalAmount'] ?? $data['goal_amount'] ?? 0;
-        $raisedAmount = $data['raisedAmount'] ?? $data['raised_amount'] ?? 0;
 
         $plan = Plan::create([
             'card_type' => $cardType,
@@ -68,7 +67,6 @@ class PlanService
             'image' => $data['image'] ?? null,
             'alt' => $data['alt'] ?? null,
             'goal_amount' => (float) $goalAmount,
-            'raised_amount' => (float) $raisedAmount,
             'status' => $data['status'] ?? 'Active',
             'featured' => filter_var($data['featured'] ?? false, FILTER_VALIDATE_BOOLEAN),
             'user_id' => auth()->id(),
@@ -102,9 +100,6 @@ class PlanService
         if (isset($data['alt'])) $updateData['alt'] = $data['alt'];
         if (isset($data['goalAmount']) || isset($data['goal_amount'])) {
             $updateData['goal_amount'] = (float) ($data['goalAmount'] ?? $data['goal_amount']);
-        }
-        if (isset($data['raisedAmount']) || isset($data['raised_amount'])) {
-            $updateData['raised_amount'] = (float) ($data['raisedAmount'] ?? $data['raised_amount']);
         }
         if (isset($data['status'])) $updateData['status'] = $data['status'];
         if (isset($data['featured'])) {

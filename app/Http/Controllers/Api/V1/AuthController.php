@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -45,5 +46,44 @@ class AuthController extends Controller
             return $this->errorResponse('User not found.', 404);
         }
         return $this->successResponse($user, 'User retrieved successfully.');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:50',
+            'bio' => 'nullable|string',
+            'avatar' => 'nullable|string|max:1000',
+            'current_password' => 'nullable|string|required_with:password',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        if ($request->filled('password')) {
+            if (!Hash::check($request->input('current_password'), $user->password)) {
+                return $this->errorResponse('The provided current password does not match our records.', 422);
+            }
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->fill($request->only([
+            'first_name',
+            'last_name',
+            'phone',
+            'bio',
+            'avatar',
+        ]));
+
+        $user->name = trim($request->input('first_name') . ' ' . $request->input('last_name'));
+        if (empty($user->name)) {
+            $user->name = $user->email;
+        }
+
+        $user->save();
+
+        return $this->successResponse($user->load('roles'), 'Profile updated successfully.');
     }
 }
