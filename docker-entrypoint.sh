@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+# Disable conflicting MPMs at startup to prevent "More than one MPM loaded" error
+echo "Ensuring only prefork MPM is loaded..."
+a2dismod mpm_event mpm_worker || true
+a2enmod mpm_prefork || true
+
 # If $PORT is defined (injected by Railway), update Apache to listen on that port
 if [ -n "$PORT" ]; then
     echo "Updating Apache configurations to listen on port $PORT..."
