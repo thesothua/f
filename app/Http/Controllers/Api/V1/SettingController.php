@@ -19,6 +19,14 @@ class SettingController extends Controller
         ], 'Settings retrieved successfully.');
     }
 
+    public function publicIndex(GeneralSettings $general, SocialSettings $social)
+    {
+        return $this->successResponse([
+            'general' => $general->toArray(),
+            'social' => $social->toArray(),
+        ], 'Public settings retrieved successfully.');
+    }
+
     public function update(Request $request)
     {
         $request->validate([

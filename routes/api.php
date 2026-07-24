@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 // Public Auth routes
 Route::post("/login", [AuthController::class, "login"]);
+Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
+Route::post("/reset-password", [AuthController::class, "resetPassword"]);
 
 // Roles routes
 Route::get("/roles", [RoleController::class, "index"]);
@@ -119,6 +121,9 @@ Route::prefix('campaigns')->controller(CampaignController::class)->group(functio
     Route::post("/{id}", "update"); // Supporting file uploads in update
     Route::delete("/{id}", "destroy");
 });
+
+// Public Settings route
+Route::get("/settings/public", [SettingController::class, "publicIndex"]);
 
 // Authenticated Auth routes
 Route::middleware('auth:sanctum')->controller(AuthController::class)->group(function () {

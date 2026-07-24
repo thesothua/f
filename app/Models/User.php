@@ -94,4 +94,18 @@ class User extends Authenticatable
     {
         return $this->roles->first()?->name ?? 'User';
     }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $frontendUrl = env('FRONTEND_URL', 'http://127.0.0.1:5173');
+        $url = $frontendUrl . '/admin/reset-password?token=' . $token . '&email=' . urlencode($this->email);
+
+        $this->notify(new \App\Notifications\ResetPasswordNotification($url));
+    }
 }
