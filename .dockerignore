@@ -5,6 +5,4 @@
 .env
 .phpunit.result.cache
 /tests
-Dockerfile
-docker-entrypoint.sh
 docker-compose.yml
