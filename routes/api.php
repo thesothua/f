@@ -159,6 +159,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('donations')->controller(DonationController::class)->group(function () {
         Route::get("/", "index");
         Route::get("/{id}", "show");
+        Route::post("/{id}/send-invoice", "sendInvoice");
         Route::delete("/{id}", "destroy");
     });
 

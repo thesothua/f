@@ -163,4 +163,25 @@ class DonationController extends Controller
             return $this->errorResponse('Failed to update subscription: ' . $e->getMessage(), 500);
         }
     }
+
+    /**
+     * Send Donation Invoice PDF to donor's email
+     */
+    public function sendInvoice(Request $request, $id)
+    {
+        $donation = $this->donationService->getDonationById($id);
+        if (!$donation) {
+            return $this->errorResponse('Donation record not found.', 404);
+        }
+
+        try {
+            \Illuminate\Support\Facades\Mail::to($donation->donor_email)
+                ->send(new \App\Mail\DonationInvoiceMail($donation));
+            
+            return $this->successResponse(null, 'Invoice sent successfully to donor email.');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send invoice email: ' . $e->getMessage());
+            return $this->errorResponse('Failed to send invoice: ' . $e->getMessage(), 500);
+        }
+    }
 }

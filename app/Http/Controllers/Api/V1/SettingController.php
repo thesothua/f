@@ -6,24 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Settings\GeneralSettings;
 use App\Settings\SocialSettings;
 use App\Settings\MailSettings;
+use App\Settings\SeoSettings;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    public function index(GeneralSettings $general, SocialSettings $social, MailSettings $mail)
+    public function index(GeneralSettings $general, SocialSettings $social, MailSettings $mail, SeoSettings $seo)
     {
         return $this->successResponse([
             'general' => $general->toArray(),
             'social' => $social->toArray(),
             'mail' => $mail->toArray(),
+            'seo' => $seo->toArray(),
         ], 'Settings retrieved successfully.');
     }
 
-    public function publicIndex(GeneralSettings $general, SocialSettings $social)
+    public function publicIndex(GeneralSettings $general, SocialSettings $social, SeoSettings $seo)
     {
         return $this->successResponse([
             'general' => $general->toArray(),
             'social' => $social->toArray(),
+            'seo' => $seo->toArray(),
         ], 'Public settings retrieved successfully.');
     }
 
@@ -37,6 +40,7 @@ class SettingController extends Controller
             'general.site_address' => 'required|string',
             'general.logo_url' => 'nullable|string',
             'general.favicon_url' => 'nullable|string',
+            'general.signature_url' => 'nullable|string',
 
             'social.facebook_url' => 'nullable|string',
             'social.instagram_url' => 'nullable|string',
@@ -47,6 +51,15 @@ class SettingController extends Controller
             'mail.notify_on_donation' => 'required|boolean',
             'mail.notify_on_volunteer' => 'required|boolean',
             'mail.admin_notify_email' => 'required|email',
+
+            'seo.website_name' => 'required|string',
+            'seo.meta_title' => 'required|string',
+            'seo.meta_description' => 'required|string',
+            'seo.og_image' => 'nullable|string',
+            'seo.favicon' => 'nullable|string',
+            'seo.google_analytics_id' => 'nullable|string',
+            'seo.google_search_console' => 'nullable|string',
+            'seo.robots' => 'nullable|string',
         ]);
 
         if ($request->has('general')) {
@@ -67,10 +80,17 @@ class SettingController extends Controller
             $mail->save();
         }
 
+        if ($request->has('seo')) {
+            $seo = app(SeoSettings::class);
+            $seo->fill($request->input('seo'));
+            $seo->save();
+        }
+
         return $this->successResponse([
             'general' => app(GeneralSettings::class)->toArray(),
             'social' => app(SocialSettings::class)->toArray(),
             'mail' => app(MailSettings::class)->toArray(),
+            'seo' => app(SeoSettings::class)->toArray(),
         ], 'Settings updated successfully.');
     }
 }

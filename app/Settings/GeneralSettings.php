@@ -13,6 +13,7 @@ class GeneralSettings extends Settings
     public string $site_address;
     public ?string $logo_url;
     public ?string $favicon_url;
+    public ?string $signature_url;
 
     public static function group(): string
     {
