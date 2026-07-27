@@ -27,7 +27,23 @@ class CampaignGoalReached extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     */
+    public function toMail(object $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    {
+        return (new \Illuminate\Notifications\Messages\MailMessage)
+            ->subject('🎉 Campaign Goal Reached! - ' . config('app.name'))
+            ->greeting('Hello Admin,')
+            ->line("Great news! The campaign '{$this->campaign->title}' has reached 100% of its fundraising goal!")
+            ->line('**Campaign Details:**')
+            ->line('• Target Goal: ' . $this->campaign->currency . ' ' . number_format($this->campaign->goal_amount, 2))
+            ->line('• Total Raised: ' . $this->campaign->currency . ' ' . number_format($this->campaign->raised_amount, 2))
+            ->action('View Campaign Details', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/campaigns"))
+            ->line('Thank you for making a difference!');
     }
 
     /**

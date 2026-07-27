@@ -54,10 +54,18 @@ class VolunteerController extends Controller
 
         $volunteer = $this->volunteerService->createVolunteer($request->all());
 
+        // Send Email to Volunteer
+        try {
+            \Illuminate\Support\Facades\Mail::to($volunteer->email)
+                ->send(new \App\Mail\VolunteerWelcomeMail($volunteer));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send volunteer welcome email: ' . $e->getMessage());
+        }
+
         // Trigger Admin Notification
         try {
-            $admins = \App\Models\User::all();
-            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewVolunteerRegistered($volunteer));
+            $roles = \App\Models\Role::getNotificationRecipients();
+            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewVolunteerRegistered($volunteer));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Failed to send NewVolunteerRegistered notification: ' . $e->getMessage());
         }

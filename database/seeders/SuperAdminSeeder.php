@@ -18,10 +18,11 @@ class SuperAdminSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create the Super Admin role for 'api' guard
-        $superAdminRole = Role::firstOrCreate([
-            'name' => 'Super Admin',
-            'guard_name' => 'api'
-        ]);
+        $superAdminRole = Role::firstOrCreate(
+            ['name' => 'Super Admin', 'guard_name' => 'api'],
+            ['allow_notification' => true]
+        );
+        $superAdminRole->update(['allow_notification' => true]);
 
         // Create or find the Super Admin user
         $superAdminUser = User::firstOrCreate(
@@ -47,10 +48,11 @@ class SuperAdminSeeder extends Seeder
         ];
 
         foreach ($otherRoles as $roleName) {
-            Role::firstOrCreate([
+            $role = Role::firstOrCreate([
                 'name' => $roleName,
                 'guard_name' => 'api'
             ]);
+            $role->update(['allow_notification' => false]);
         }
 
         $this->command->info('Super Admin user created/updated successfully!');

@@ -55,10 +55,18 @@ class ContactController extends Controller
 
         $contact = $this->contactService->createContact($request->all());
 
+        // Send Email to Contact Sender
+        try {
+            \Illuminate\Support\Facades\Mail::to($contact->email)
+                ->send(new \App\Mail\ContactAcknowledgmentMail($contact));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send contact acknowledgment email: ' . $e->getMessage());
+        }
+
         // Trigger Admin Notification
         try {
-            $admins = \App\Models\User::all();
-            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewContactInquiryReceived($contact));
+            $roles = \App\Models\Role::getNotificationRecipients();
+            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewContactInquiryReceived($contact));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Failed to send NewContactInquiryReceived notification: ' . $e->getMessage());
         }

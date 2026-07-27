@@ -27,7 +27,27 @@ class NewVolunteerRegistered extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     */
+    public function toMail(object $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    {
+        return (new \Illuminate\Notifications\Messages\MailMessage)
+            ->subject('🤝 New Volunteer Application - ' . config('app.name'))
+            ->greeting('Hello Admin,')
+            ->line('A new volunteer application has been submitted.')
+            ->line('**Volunteer Details:**')
+            ->line('• Name: ' . $this->volunteer->full_name)
+            ->line('• Email: ' . $this->volunteer->email)
+            ->line('• Preferred Role: ' . ucfirst($this->volunteer->role))
+            ->line('• Location: ' . ($this->volunteer->city ?? 'N/A'))
+            ->line('**Reason for Joining:**')
+            ->line('"' . $this->volunteer->reason . '"')
+            ->action('Review Application', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/volunteers"))
+            ->line('Manage your volunteers from the dashboard.');
     }
 
     /**

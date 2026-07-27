@@ -15,18 +15,33 @@ class NotificationController extends Controller
         }
 
         $limit = (int) $request->get('limit', 15);
-        $notifications = $user->notifications()->paginate($limit);
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        $notifications = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
+            ->whereIn('notifiable_id', $roleIds)
+            ->orderBy('created_at', 'desc')
+            ->paginate($limit);
+
+        $unreadCount = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
+            ->whereIn('notifiable_id', $roleIds)
+            ->whereNull('read_at')
+            ->count();
 
         return $this->successResponse([
             'notifications' => $notifications,
-            'unread_count' => $user->unreadNotifications()->count()
+            'unread_count' => $unreadCount
         ], 'Notifications retrieved successfully.');
     }
 
     public function markAsRead(Request $request, $id)
     {
         $user = $request->user();
-        $notification = $user->notifications()->findOrFail($id);
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        $notification = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
+            ->whereIn('notifiable_id', $roleIds)
+            ->findOrFail($id);
+
         $notification->markAsRead();
 
         return $this->successResponse(null, 'Notification marked as read.');
@@ -35,7 +50,12 @@ class NotificationController extends Controller
     public function markAllAsRead(Request $request)
     {
         $user = $request->user();
-        $user->unreadNotifications->markAsRead();
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
+            ->whereIn('notifiable_id', $roleIds)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
 
         return $this->successResponse(null, 'All notifications marked as read.');
     }
@@ -43,7 +63,12 @@ class NotificationController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-        $notification = $user->notifications()->findOrFail($id);
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        $notification = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
+            ->whereIn('notifiable_id', $roleIds)
+            ->findOrFail($id);
+
         $notification->delete();
 
         return $this->successResponse(null, 'Notification deleted successfully.');

@@ -129,6 +129,14 @@ class DonationService
                 'gateway_transaction_id' => $data['razorpay_payment_id']
             ]);
 
+            // Send Email to Donor
+            try {
+                \Illuminate\Support\Facades\Mail::to($donation->donor_email)
+                    ->send(new \App\Mail\DonationReceiptMail($donation));
+            } catch (\Exception $e) {
+                Log::error('Failed to send donation receipt email: ' . $e->getMessage());
+            }
+
             // Update associated Plan (cause) raised amount
             if ($donation->plan_id) {
                 $plan = Plan::find($donation->plan_id);
@@ -147,8 +155,8 @@ class DonationService
                     
                     if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
                         try {
-                            $admins = \App\Models\User::all();
-                            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\CampaignGoalReached($campaign));
+                            $roles = \App\Models\Role::getNotificationRecipients();
+                            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\CampaignGoalReached($campaign));
                         } catch (\Exception $e) {
                             Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
                         }
@@ -158,8 +166,8 @@ class DonationService
 
             // Trigger Admin Notification
             try {
-                $admins = \App\Models\User::all();
-                \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewDonationReceived($donation));
+                $roles = \App\Models\Role::getNotificationRecipients();
+                \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewDonationReceived($donation));
             } catch (\Exception $e) {
                 Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
             }
@@ -265,6 +273,14 @@ class DonationService
                 'anonymous' => false
             ]);
 
+            // Send Email to Donor
+            try {
+                \Illuminate\Support\Facades\Mail::to($donation->donor_email)
+                    ->send(new \App\Mail\DonationReceiptMail($donation));
+            } catch (\Exception $e) {
+                Log::error('Failed to send subscription receipt email: ' . $e->getMessage());
+            }
+
             // Update Cause / Plan Raised Amount
             if ($localSub->plan_id) {
                 $plan = Plan::find($localSub->plan_id);
@@ -283,8 +299,8 @@ class DonationService
                     
                     if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
                         try {
-                            $admins = \App\Models\User::all();
-                            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\CampaignGoalReached($campaign));
+                            $roles = \App\Models\Role::getNotificationRecipients();
+                            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\CampaignGoalReached($campaign));
                         } catch (\Exception $e) {
                             Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
                         }
@@ -294,8 +310,8 @@ class DonationService
 
             // Trigger Admin Notification
             try {
-                $admins = \App\Models\User::all();
-                \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewDonationReceived($donation));
+                $roles = \App\Models\Role::getNotificationRecipients();
+                \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewDonationReceived($donation));
             } catch (\Exception $e) {
                 Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
             }
