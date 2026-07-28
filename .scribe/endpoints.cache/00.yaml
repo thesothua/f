@@ -6,8 +6,1341 @@ endpoints:
   -
     custom: []
     httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      password: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/forgot-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/reset-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      token:
+        custom: []
+        name: token
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: true
+        example: '-0pBNvYgxw'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      token: architecto
+      email: zbailey@example.net
+      password: '-0pBNvYgxw'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
       - GET
-    uri: api/user
+    uri: api/settings/public
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Public settings retrieved successfully.","data":{"general":{"site_name":"Furrydom India","site_slogan":"All Lives Matter","contact_email":"info@furrydom.org","contact_phone":"+91 98765 43210","site_address":"Plot 14, Baner Road,\nPune, Maharashtra 411045","logo_url":"http:\/\/localhost:5173\/src\/assets\/images\/furrydom-logo.png","favicon_url":"\/favicon.ico","signature_url":"http:\/\/127.0.0.1:8000\/storage\/11\/1785181133_signature-freedom.png"},"social":{"facebook_url":"https:\/\/facebook.com","instagram_url":"https:\/\/instagram.com","twitter_url":"https:\/\/twitter.com","youtube_url":"https:\/\/youtube.com","google_maps_embed":"<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3782.275477625516!2d73.78453977448501!3d18.561615182539935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bed11be3eef3%3A0xf1f536096e728066!2s14%2C%20Baner%20Rd%2C%20Baner%20Gaon%2C%20Baner%2C%20Pune%2C%20Maharashtra%20411069!5e0!3m2!1sen!2sin!4v1784905085668!5m2!1sen!2sin\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"><\/iframe>"},"seo":{"website_name":"Furrydom India Care Foundation","meta_title":"Furrydom India Care Foundation","meta_description":"Rescue, rehabilitate, and care for stray animals across India.","og_image":"http:\/\/127.0.0.1:8000\/storage\/12\/1785181301_furrydom-logo.png","favicon":"http:\/\/127.0.0.1:8000\/storage\/13\/1785181307_furrydom-logo.png","google_analytics_id":"GA-XXXXXXX","google_search_console":"Verification Code","robots":"index, follow"}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/blogs
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Blogs retrieved successfully.","data":[{"id":4,"title":"Understanding Animal Rescue: What Happens After a Rescue Call","slug":"understanding-animal-rescue-what-happens-after-call","author":"Priya Patel","category":"Rescue Stories","tags":["Rescue Operations","Rehabilitation","Behind the Scenes"],"excerpt":"Take a behind-the-scenes look at our rescue operations and learn about the rehabilitation journey of an injured animal.","content":"<h3>Phase 1: The Emergency Call & Dispatch<\/h3><p>Our helpline receives dozens of calls daily. Once verified, our ambulance team is dispatched with capture nets, cages, and emergency medical kits to safely secure the injured animal.<\/p><h3>Phase 2: Veterinary Assessment<\/h3><p>Upon arrival at the clinic, the rescue animal receives immediate treatment. This includes wound dressing, pain relief injections, blood tests, and X-rays if fractures are suspected.<\/p><h3>Phase 3: Rest & Rehabilitation<\/h3><p>Recovery takes time. Animals are housed in quarantine or general wards depending on their illness. They receive nutritious meals, medicine, and socialization from volunteers to help rebuild their trust in humans.<\/p><h3>Phase 4: Release or Adoption<\/h3><p>Once fully recovered, street animals are released back to their original territories as mandated by animal protection laws, while disabled or highly vulnerable animals are put up for adoption.","status":"Published","featured_image":{"url":"https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80","alt":"Rescued puppy receiving treatment"},"user_id":2,"created_at":"2026-07-23T17:50:50.000000Z","updated_at":"2026-07-23T17:50:50.000000Z","featuredImage":{"url":"https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80","alt":"Rescued puppy receiving treatment"},"seo":null,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":5,"title":"Why Daily Feeding Drives Matter for Street Dogs","slug":"why-daily-feeding-drives-matter-street-dogs","author":"Aman Sen","category":"Daily Feeding","tags":["Feeding Drives","Street Dogs","Dog Care"],"excerpt":"Daily feeding drives do more than just fill bellies. They build trust, reduce aggression, and help monitor the health of street dogs.","content":"<h3>Beyond Just Nutrition<\/h3><p>Feeding street dogs regularly helps calm their survival instinct. When animals know they do not have to fight for scraps of food in garbage piles, dog fights and territorial aggression decrease dramatically.<\/p><h3>Community Vaccination & Health Checks<\/h3><p>Feeding times are the perfect window to check on an animal\u2019s health. Volunteers can spot new injuries, monitor pregnant dogs, and administer oral medications (like deworming or tick treatment) hidden inside the food.<\/p><h3>Connecting Humans and Strays<\/h3><p>Regular feeding drives foster a sense of friendship between local residents and street animals. This reduces complaints and builds a more compassionate community that watches out for their four-legged neighbors.","status":"Published","featured_image":{"url":"https:\/\/images.unsplash.com\/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=800&q=80","alt":"Feeding a street dog"},"user_id":2,"created_at":"2026-07-23T17:50:50.000000Z","updated_at":"2026-07-23T17:50:50.000000Z","featuredImage":{"url":"https:\/\/images.unsplash.com\/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=800&q=80","alt":"Feeding a street dog"},"seo":null,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":3,"title":"10 Ways to Help Stray Animals in Your Neighborhood","slug":"10-ways-help-stray-animals-neighborhood","author":"Dr. Rohan Sharma","category":"Animal Welfare","tags":["Stray Animals","Animal Rescue","Community"],"excerpt":"Discover simple yet impactful ways you can support street animals, from providing fresh water to setting up temporary shelters.","content":"<h3><strong>1. Provide Fresh Water and Food<\/strong><\/h3>\n\n<p>Water is essential, especially during scorching summers. Place clean earthen bowls filled with water in shaded spots outside your gate and replenish them daily.<\/p>\n\n<h3><strong>2. Build Temporary Shelters<\/strong><\/h3>\n\n<p>During heavy rains or severe winters, strays look for warm, dry spots. You can build simple, low-cost rain shelters using discarded plastic boxes, tarps, and old blankets.<\/p>\n\n<h3><strong>3. Coordinate Vaccinations<\/strong><\/h3>\n\n<p>Ensuring local dogs are vaccinated against rabies protects both the animals and your human neighbors. Work with local vets or NGOs to organize local vaccination schedules.<\/p>\n\n<h3><strong>4. Report Injured Animals<\/strong><\/h3>\n\n<p>If you see a dog or cat with wounds, skin disease, or limping, call a local animal rescue group immediately instead of ignoring them. Timely intervention saves lives.<\/p>","status":"Published","featured_image":{"url":"https:\/\/images.unsplash.com\/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80","alt":"Happy dog on street"},"user_id":2,"created_at":"2026-07-23T17:50:50.000000Z","updated_at":"2026-07-23T17:54:00.000000Z","featuredImage":{"url":"https:\/\/images.unsplash.com\/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80","alt":"Happy dog on street"},"seo":{"id":3,"seoable_type":"App\\Models\\Blog","seoable_id":3,"meta_title":null,"meta_description":null,"keywords":[],"created_at":"2026-07-23T17:54:00.000000Z","updated_at":"2026-07-23T17:54:00.000000Z"},"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/blogs/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the blog.'
+        required: true
+        example: 4
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 4
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Blog retrieved successfully.","data":{"id":4,"title":"Understanding Animal Rescue: What Happens After a Rescue Call","slug":"understanding-animal-rescue-what-happens-after-call","author":"Priya Patel","category":"Rescue Stories","tags":["Rescue Operations","Rehabilitation","Behind the Scenes"],"excerpt":"Take a behind-the-scenes look at our rescue operations and learn about the rehabilitation journey of an injured animal.","content":"<h3>Phase 1: The Emergency Call & Dispatch<\/h3><p>Our helpline receives dozens of calls daily. Once verified, our ambulance team is dispatched with capture nets, cages, and emergency medical kits to safely secure the injured animal.<\/p><h3>Phase 2: Veterinary Assessment<\/h3><p>Upon arrival at the clinic, the rescue animal receives immediate treatment. This includes wound dressing, pain relief injections, blood tests, and X-rays if fractures are suspected.<\/p><h3>Phase 3: Rest & Rehabilitation<\/h3><p>Recovery takes time. Animals are housed in quarantine or general wards depending on their illness. They receive nutritious meals, medicine, and socialization from volunteers to help rebuild their trust in humans.<\/p><h3>Phase 4: Release or Adoption<\/h3><p>Once fully recovered, street animals are released back to their original territories as mandated by animal protection laws, while disabled or highly vulnerable animals are put up for adoption.","status":"Published","featured_image":{"url":"https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80","alt":"Rescued puppy receiving treatment"},"user_id":2,"created_at":"2026-07-23T17:50:50.000000Z","updated_at":"2026-07-23T17:50:50.000000Z","featuredImage":{"url":"https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80","alt":"Rescued puppy receiving treatment"},"seo":null,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/campaigns
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List all campaigns'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Campaigns retrieved successfully.","data":[{"id":2,"title":"Purchase Land for Animal Shelter","slug":"purchase-land-animal-shelter","description":"Our current rented shelter facility is at maximum capacity. We aim to purchase a dedicated 2-acre plot of land to build a permanent, safe sanctuary for older, disabled, and recovering animals. This will feature open play areas, quarantine zones, and an onsite clinic.","cover_image":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80","gallery_images":["https:\/\/images.unsplash.com\/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=600&q=80"],"goal_amount":5000000,"raised_amount":3800000,"start_date":"2026-06-23T17:27:34.000000Z","end_date":"2026-10-21T17:27:34.000000Z","status":"Active","created_at":"2026-07-23T17:27:34.000000Z","updated_at":"2026-07-23T17:27:34.000000Z","progress_percentage":76,"cover_image_url":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80","gallery_image_urls":["https:\/\/images.unsplash.com\/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=600&q=80"],"media":[]},{"id":3,"title":"Animal Food Drive","slug":"animal-food-drive","description":"Daily feeding drives keep thousands of stray dogs and cats healthy and prevent starvation. Help us stock up on kibble, wet food, rice, and fresh vegetables for our community kitchens that feed over 500 street animals daily.","cover_image":"https:\/\/images.unsplash.com\/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=800&q=80","gallery_images":["https:\/\/images.unsplash.com\/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=600&q=80"],"goal_amount":500000,"raised_amount":500000,"start_date":"2026-07-18T17:27:34.000000Z","end_date":"2026-08-12T17:27:34.000000Z","status":"Completed","created_at":"2026-07-23T17:27:34.000000Z","updated_at":"2026-07-23T17:27:34.000000Z","progress_percentage":100,"cover_image_url":"https:\/\/images.unsplash.com\/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=800&q=80","gallery_image_urls":["https:\/\/images.unsplash.com\/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=600&q=80"],"media":[]},{"id":4,"title":"Medical Treatment Fund","slug":"medical-treatment-fund","description":"We treat over 100 outdoor animals every month for critical illnesses, skin infections, tumors, and broken bones. This fund is used directly to cover surgeries, diagnostics, boarding fee, and prescription medications.","cover_image":"https:\/\/images.unsplash.com\/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80","gallery_images":[],"goal_amount":1000000,"raised_amount":150000,"start_date":"2026-07-08T17:27:34.000000Z","end_date":"2026-09-06T17:27:34.000000Z","status":"Active","created_at":"2026-07-23T17:27:34.000000Z","updated_at":"2026-07-23T17:27:34.000000Z","progress_percentage":15,"cover_image_url":"https:\/\/images.unsplash.com\/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80","gallery_image_urls":[],"media":[]},{"id":1,"title":"Buy an Animal Ambulance","slug":"buy-animal-ambulance","description":"We need a fully equipped animal ambulance to respond quickly to emergency street rescues, accidents, and trauma cases across the city. The vehicle will include stretchers, oxygen support, first-aid kits, and critical medical supplies.","cover_image":"https:\/\/images.unsplash.com\/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80","gallery_images":["https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80"],"goal_amount":2500000,"raised_amount":1250000,"start_date":"2026-07-13T17:27:34.000000Z","end_date":"2026-09-24T18:30:00.000000Z","status":"Active","created_at":"2026-07-23T17:27:34.000000Z","updated_at":"2026-07-23T17:33:00.000000Z","progress_percentage":50,"cover_image_url":"https:\/\/images.unsplash.com\/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80","gallery_image_urls":["https:\/\/images.unsplash.com\/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80"],"media":[]}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/campaigns/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show a campaign detail'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the campaign.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Campaign retrieved successfully.","data":{"id":2,"title":"Purchase Land for Animal Shelter","slug":"purchase-land-animal-shelter","description":"Our current rented shelter facility is at maximum capacity. We aim to purchase a dedicated 2-acre plot of land to build a permanent, safe sanctuary for older, disabled, and recovering animals. This will feature open play areas, quarantine zones, and an onsite clinic.","cover_image":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80","gallery_images":["https:\/\/images.unsplash.com\/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=600&q=80"],"goal_amount":5000000,"raised_amount":3800000,"start_date":"2026-06-23T17:27:34.000000Z","end_date":"2026-10-21T17:27:34.000000Z","status":"Active","created_at":"2026-07-23T17:27:34.000000Z","updated_at":"2026-07-23T17:27:34.000000Z","progress_percentage":76,"cover_image_url":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80","gallery_image_urls":["https:\/\/images.unsplash.com\/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=600&q=80","https:\/\/images.unsplash.com\/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=600&q=80"],"media":[]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/plans
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Plans retrieved successfully.","data":[{"id":1,"card_type":"cause","title":"Animal Rescue Drive","description":"24\/7 rescue squads across Pune for injured and stray animals.","category":"Animal Rescue","sort_order":1,"image":null,"alt":null,"goal_amount":500000,"raised_amount":"125000.00","status":"Active","featured":true,"user_id":null,"created_at":"2026-07-20T18:24:43.000000Z","updated_at":"2026-07-20T18:24:43.000000Z","cardType":"cause","sortOrder":1,"goalAmount":500000,"media":[],"user":null},{"id":2,"card_type":"mission","title":"Animal Rescue","description":"24\/7 rescue squads across Pune for injured & abandoned animals.","category":"Mission","sort_order":1,"image":null,"alt":null,"goal_amount":0,"raised_amount":"0.00","status":"Active","featured":true,"user_id":4,"created_at":"2026-07-20T18:27:33.000000Z","updated_at":"2026-07-20T18:27:33.000000Z","cardType":"mission","sortOrder":1,"goalAmount":0,"media":[],"user":{"id":4,"name":"Praveen Suthar","email":"thesothua@gmail.com","email_verified_at":"2026-07-18T15:06:34.000000Z","created_at":"2026-07-18T15:06:34.000000Z","updated_at":"2026-07-24T18:00:16.000000Z","first_name":"Praveen","last_name":"Suthar","gender":null,"phone":"9782410487","bio":"Super Admin at Furrydom India, working towards animal welfare, rescue missions, sustainable feeding initiatives, and child development programs since 2020.","avatar":"http:\/\/127.0.0.1:8000\/storage\/9\/1784902966_PhotoRoom-20210518_213747-01.jpeg","firstName":"Praveen","lastName":"Suthar","role":"Super Admin","roles":[{"id":2,"name":"Super Admin","guard_name":"api","created_at":"2026-07-18T14:49:28.000000Z","updated_at":"2026-07-27T18:34:47.000000Z","allow_notification":true,"pivot":{"model_type":"App\\Models\\User","model_id":4,"role_id":2}}]}},{"id":3,"card_type":"cause","title":"Animal Rescue","description":"24\/7 rescue squads across Pune for injured & abandoned animals.","category":"Animal Welfare","sort_order":1,"image":"https:\/\/images.unsplash.com\/photo-1601979031925-424e53b6caaa?w=400&q=80","alt":"Man holding rescued dog on street","goal_amount":21000,"raised_amount":"16400.00","status":"Active","featured":true,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-23T15:07:22.000000Z","cardType":"cause","sortOrder":1,"goalAmount":21000,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":4,"card_type":"cause","title":"Emergency Medical Care","description":"On-ground triage, surgeries and post-op rehabilitation.","category":"Medical Support","sort_order":2,"image":"https:\/\/images.unsplash.com\/photo-1587300003388-59208cc962cb?w=400&q=80","alt":"Puppy receiving veterinary care","goal_amount":32000,"raised_amount":"21800.00","status":"Active","featured":true,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-22T18:54:09.000000Z","cardType":"cause","sortOrder":2,"goalAmount":32000,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":5,"card_type":"cause","title":"Daily Feeding Drives","description":"Hot meals for 1,200+ street animals every single day.","category":"Feeding Programs","sort_order":3,"image":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?w=400&q=80","alt":"Woman feeding stray dogs on street","goal_amount":18000,"raised_amount":"13250.00","status":"Active","featured":true,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-22T18:54:09.000000Z","cardType":"cause","sortOrder":3,"goalAmount":18000,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":6,"card_type":"cause","title":"Child Education Support","description":"School kits, fees and tuition for underprivileged children.","category":"Education","sort_order":4,"image":"https:\/\/furydom-heartbeat-impact.lovable.app\/assets\/education-tQ1cevW9.jpg","alt":"Children reading in a classroom","goal_amount":25,"raised_amount":"17675.00","status":"Active","featured":true,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-27T18:50:49.000000Z","cardType":"cause","sortOrder":4,"goalAmount":25,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":7,"card_type":"cause","title":"Women Hygiene Programs","description":"Sanitary kits and awareness across slum communities.","category":"Women Empowerment","sort_order":5,"image":"https:\/\/images.unsplash.com\/photo-1594824476967-48c8b964273f?w=400&q=80","alt":"Woman receiving hygiene kit","goal_amount":100,"raised_amount":"9800.00","status":"Active","featured":false,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-23T18:19:57.000000Z","cardType":"cause","sortOrder":5,"goalAmount":100,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":8,"card_type":"cause","title":"Ration Kit Distribution","description":"Monthly grocery kits for families in extreme need.","category":"Community Relief","sort_order":6,"image":"https:\/\/images.unsplash.com\/photo-1488521787991-ed7bbaae773c?w=400&q=80","alt":"Volunteers distributing food kits","goal_amount":50,"raised_amount":"15100.00","status":"Active","featured":false,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-23T18:20:26.000000Z","cardType":"cause","sortOrder":6,"goalAmount":50,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":9,"card_type":"cause","title":"Animal Rehabilitation","description":"Post-rescue care and rehoming for recovering animals.","category":"Animal Welfare","sort_order":7,"image":"https:\/\/images.unsplash.com\/photo-1509062522246-3755977927d7?w=400&q=80","alt":"Animal rehabilitation centre","goal_amount":28000,"raised_amount":"19300.00","status":"Active","featured":false,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-22T18:54:09.000000Z","cardType":"cause","sortOrder":7,"goalAmount":28000,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}},{"id":10,"card_type":"cause","title":"Community Development","description":"Building resilient communities through sustainable initiatives.","category":"Community Development","sort_order":8,"image":"https:\/\/images.unsplash.com\/photo-1559027615-cd4628902d4a?w=400&q=80","alt":"Community development initiative","goal_amount":200,"raised_amount":"20100.00","status":"Active","featured":false,"user_id":2,"created_at":"2026-07-22T18:54:09.000000Z","updated_at":"2026-07-23T18:20:12.000000Z","cardType":"cause","sortOrder":8,"goalAmount":200,"media":[],"user":{"id":2,"name":"Super Admin","email":"admin@furrydom.com","email_verified_at":"2026-07-18T14:49:59.000000Z","created_at":"2026-07-18T14:49:59.000000Z","updated_at":"2026-07-18T14:49:59.000000Z","first_name":"Super","last_name":"Admin","gender":null,"phone":null,"bio":null,"avatar":null,"firstName":"Super","lastName":"Admin","role":"User","roles":[]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Plan retrieved successfully.","data":{"id":1,"card_type":"cause","title":"Animal Rescue Drive","description":"24\/7 rescue squads across Pune for injured and stray animals.","category":"Animal Rescue","sort_order":1,"image":null,"alt":null,"goal_amount":500000,"raised_amount":"125000.00","status":"Active","featured":true,"user_id":null,"created_at":"2026-07-20T18:24:43.000000Z","updated_at":"2026-07-20T18:24:43.000000Z","cardType":"cause","sortOrder":1,"goalAmount":500000,"media":[],"user":null}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/galleries
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery items retrieved successfully.","data":[{"id":1,"title":"Feeding Stray Dogs","src":"https:\/\/images.unsplash.com\/photo-1548767797-d8c844163c4c","alt":"Feeding stray dogs in Pune","category":"Feeding Programs","desc":"Daily evening ration drive for street animals.","status":"Active","sort_order":2,"user_id":null,"created_at":"2026-07-20T18:01:04.000000Z","updated_at":"2026-07-20T18:07:27.000000Z","sortOrder":2,"media":[],"user":null},{"id":2,"title":"my image","src":"https:\/\/m.media-amazon.com\/images\/M\/MV5BMWQ5M2VkMDItNmFiOC00ODgyLTg5ZDYtMGVlM2UxYTczYTQxXkEyXkFqcGc@._V1_.jpg","alt":"dummy image","category":"Radium collar Initiative","desc":"This is testing image","status":"Active","sort_order":2,"user_id":4,"created_at":"2026-07-20T18:06:41.000000Z","updated_at":"2026-07-20T18:07:50.000000Z","sortOrder":2,"media":[],"user":{"id":4,"name":"Praveen Suthar","email":"thesothua@gmail.com","email_verified_at":"2026-07-18T15:06:34.000000Z","created_at":"2026-07-18T15:06:34.000000Z","updated_at":"2026-07-24T18:00:16.000000Z","first_name":"Praveen","last_name":"Suthar","gender":null,"phone":"9782410487","bio":"Super Admin at Furrydom India, working towards animal welfare, rescue missions, sustainable feeding initiatives, and child development programs since 2020.","avatar":"http:\/\/127.0.0.1:8000\/storage\/9\/1784902966_PhotoRoom-20210518_213747-01.jpeg","firstName":"Praveen","lastName":"Suthar","role":"Super Admin","roles":[{"id":2,"name":"Super Admin","guard_name":"api","created_at":"2026-07-18T14:49:28.000000Z","updated_at":"2026-07-27T18:34:47.000000Z","allow_notification":true,"pivot":{"model_type":"App\\Models\\User","model_id":4,"role_id":2}}]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery item retrieved successfully.","data":{"id":1,"title":"Feeding Stray Dogs","src":"https:\/\/images.unsplash.com\/photo-1548767797-d8c844163c4c","alt":"Feeding stray dogs in Pune","category":"Feeding Programs","desc":"Daily evening ration drive for street animals.","status":"Active","sort_order":2,"user_id":null,"created_at":"2026-07-20T18:01:04.000000Z","updated_at":"2026-07-20T18:07:27.000000Z","sortOrder":2,"media":[],"user":null}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/media
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery items retrieved successfully.","data":[{"id":1,"title":"Feeding Stray Dogs","src":"https:\/\/images.unsplash.com\/photo-1548767797-d8c844163c4c","alt":"Feeding stray dogs in Pune","category":"Feeding Programs","desc":"Daily evening ration drive for street animals.","status":"Active","sort_order":2,"user_id":null,"created_at":"2026-07-20T18:01:04.000000Z","updated_at":"2026-07-20T18:07:27.000000Z","sortOrder":2,"media":[],"user":null},{"id":2,"title":"my image","src":"https:\/\/m.media-amazon.com\/images\/M\/MV5BMWQ5M2VkMDItNmFiOC00ODgyLTg5ZDYtMGVlM2UxYTczYTQxXkEyXkFqcGc@._V1_.jpg","alt":"dummy image","category":"Radium collar Initiative","desc":"This is testing image","status":"Active","sort_order":2,"user_id":4,"created_at":"2026-07-20T18:06:41.000000Z","updated_at":"2026-07-20T18:07:50.000000Z","sortOrder":2,"media":[],"user":{"id":4,"name":"Praveen Suthar","email":"thesothua@gmail.com","email_verified_at":"2026-07-18T15:06:34.000000Z","created_at":"2026-07-18T15:06:34.000000Z","updated_at":"2026-07-24T18:00:16.000000Z","first_name":"Praveen","last_name":"Suthar","gender":null,"phone":"9782410487","bio":"Super Admin at Furrydom India, working towards animal welfare, rescue missions, sustainable feeding initiatives, and child development programs since 2020.","avatar":"http:\/\/127.0.0.1:8000\/storage\/9\/1784902966_PhotoRoom-20210518_213747-01.jpeg","firstName":"Praveen","lastName":"Suthar","role":"Super Admin","roles":[{"id":2,"name":"Super Admin","guard_name":"api","created_at":"2026-07-18T14:49:28.000000Z","updated_at":"2026-07-27T18:34:47.000000Z","allow_notification":true,"pivot":{"model_type":"App\\Models\\User","model_id":4,"role_id":2}}]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 500
+        content: |-
+          {
+              "message": "Server Error"
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/contacts
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: rempel.chadrick@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      subject:
+        custom: []
+        name: subject
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      message:
+        custom: []
+        name: message
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      recaptcha_token:
+        custom: []
+        name: recaptcha_token
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: bngz
+      email: rempel.chadrick@example.org
+      phone: architecto
+      subject: architecto
+      message: architecto
+      recaptcha_token: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/volunteers
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      full_name:
+        custom: []
+        name: full_name
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: rempel.chadrick@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      reason:
+        custom: []
+        name: reason
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Approved
+        type: string
+        enumValues:
+          - Pending
+          - Approved
+          - Rejected
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      adminNotes:
+        custom: []
+        name: adminNotes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      admin_notes:
+        custom: []
+        name: admin_notes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      full_name: bngz
+      email: rempel.chadrick@example.org
+      phone: architecto
+      city: architecto
+      role: architecto
+      reason: architecto
+      status: Approved
+      adminNotes: architecto
+      admin_notes: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/donations/initiate
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Initiate a donation (One-Time or Recurring)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      amount:
+        custom: []
+        name: amount
+        description: 'Must be at least 1.'
+        required: true
+        example: 16
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      currency:
+        custom: []
+        name: currency
+        description: 'Must be 3 characters.'
+        required: false
+        example: ngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      donor_name:
+        custom: []
+        name: donor_name
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: miyv
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      donor_email:
+        custom: []
+        name: donor_email
+        description: 'Must be a valid email address.'
+        required: true
+        example: jdach@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      donor_phone:
+        custom: []
+        name: donor_phone
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      pan_number:
+        custom: []
+        name: pan_number
+        description: 'Must match the regex /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i.'
+        required: false
+        example: IYVDL3142H$/i
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      plan_id:
+        custom: []
+        name: plan_id
+        description: 'Validation for PAN format. Must match an existing stored value.'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: true
+        example: one_time
+        type: string
+        enumValues:
+          - one_time
+          - recurring
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      anonymous:
+        custom: []
+        name: anonymous
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      amount: 16
+      currency: ngz
+      donor_name: miyv
+      donor_email: jdach@example.org
+      donor_phone: architecto
+      pan_number: IYVDL3142H$/i
+      plan_id: 16
+      type: one_time
+      anonymous: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/donations/verify
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Verify payment signature from checkout (One-Time or Recurring)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: true
+        example: recurring
+        type: string
+        enumValues:
+          - one_time
+          - recurring
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razorpay_payment_id:
+        custom: []
+        name: razorpay_payment_id
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razorpay_signature:
+        custom: []
+        name: razorpay_signature
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razorpay_order_id:
+        custom: []
+        name: razorpay_order_id
+        description: 'This field is required when <code>type</code> is <code>one_time</code>.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razorpay_subscription_id:
+        custom: []
+        name: razorpay_subscription_id
+        description: 'This field is required when <code>type</code> is <code>recurring</code>.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      type: recurring
+      razorpay_payment_id: architecto
+      razorpay_signature: architecto
+      razorpay_order_id: architecto
+      razorpay_subscription_id: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/me
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/me
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 50 characters.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      bio:
+        custom: []
+        name: bio
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      avatar:
+        custom: []
+        name: avatar
+        description: 'Must not be greater than 1000 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      current_password:
+        custom: []
+        name: current_password
+        description: 'This field is required when <code>password</code> is present.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: false
+        example: ']|{+-0pBNvYg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      first_name: b
+      last_name: 'n'
+      phone: g
+      bio: architecto
+      avatar: 'n'
+      current_password: architecto
+      password: ']|{+-0pBNvYg'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/roles
     metadata:
       custom: []
       groupName: Endpoints
@@ -47,6 +1380,2113 @@ endpoints:
     custom: []
     httpMethods:
       - GET
+    uri: api/attachments
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/attachments/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/attachments
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must not be greater than 20480 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Max 20MB file.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      attachable_type:
+        custom: []
+        name: attachable_type
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      attachable_id:
+        custom: []
+        name: attachable_id
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: architecto
+      attachable_type: architecto
+      attachable_id: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/attachments/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/blogs
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: true
+        example: bngzmiyvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtujwvlxjklqppwqbewtnnoqitpxn
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      author:
+        custom: []
+        name: author
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      excerpt:
+        custom: []
+        name: excerpt
+        description: 'Must not be greater than 300 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Published
+        type: string
+        enumValues:
+          - Draft
+          - Published
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngzmiyvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtujwvlxjklqppwqbewtnnoqitpxn
+      slug: architecto
+      author: architecto
+      category: architecto
+      excerpt: 'n'
+      content: architecto
+      status: Published
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/blogs/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the blog.'
+        required: true
+        example: 4
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 4
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: false
+        example: bngzmiyvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtujwvlxjklqppwqbewtnnoqitpxn
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      author:
+        custom: []
+        name: author
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      excerpt:
+        custom: []
+        name: excerpt
+        description: 'Must not be greater than 300 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Published
+        type: string
+        enumValues:
+          - Draft
+          - Published
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngzmiyvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtujwvlxjklqppwqbewtnnoqitpxn
+      slug: architecto
+      author: architecto
+      category: architecto
+      excerpt: 'n'
+      content: architecto
+      status: Published
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/blogs/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the blog.'
+        required: true
+        example: 4
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 4
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/campaigns
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a new campaign'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goal_amount:
+        custom: []
+        name: goal_amount
+        description: 'Must be at least 0.'
+        required: true
+        example: 60
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      raised_amount:
+        custom: []
+        name: raised_amount
+        description: 'Must be at least 0.'
+        required: false
+        example: 42
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      start_date:
+        custom: []
+        name: start_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      end_date:
+        custom: []
+        name: end_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Closed
+        type: string
+        enumValues:
+          - Active
+          - Completed
+          - Closed
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      cover_image_file:
+        custom: []
+        name: cover_image_file
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      gallery_image_files:
+        custom: []
+        name: gallery_image_files
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - null
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      slug: architecto
+      description: 'Eius et animi quos velit et.'
+      goal_amount: 60
+      raised_amount: 42
+      start_date: '2026-07-28T17:49:41'
+      end_date: '2026-07-28T17:49:41'
+      status: Closed
+    fileParameters:
+      cover_image_file: null
+      gallery_image_files:
+        - null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/campaigns/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update an existing campaign'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the campaign.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goal_amount:
+        custom: []
+        name: goal_amount
+        description: 'Must be at least 0.'
+        required: false
+        example: 60
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      raised_amount:
+        custom: []
+        name: raised_amount
+        description: 'Must be at least 0.'
+        required: false
+        example: 42
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      start_date:
+        custom: []
+        name: start_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      end_date:
+        custom: []
+        name: end_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Completed
+          - Closed
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      cover_image_file:
+        custom: []
+        name: cover_image_file
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      gallery_image_files:
+        custom: []
+        name: gallery_image_files
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - null
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      slug: architecto
+      description: 'Eius et animi quos velit et.'
+      goal_amount: 60
+      raised_amount: 42
+      start_date: '2026-07-28T17:49:41'
+      end_date: '2026-07-28T17:49:41'
+      status: Active
+    fileParameters:
+      cover_image_file: null
+      gallery_image_files:
+        - null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/campaigns/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update an existing campaign'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the campaign.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goal_amount:
+        custom: []
+        name: goal_amount
+        description: 'Must be at least 0.'
+        required: false
+        example: 60
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      raised_amount:
+        custom: []
+        name: raised_amount
+        description: 'Must be at least 0.'
+        required: false
+        example: 42
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      start_date:
+        custom: []
+        name: start_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      end_date:
+        custom: []
+        name: end_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-07-28T17:49:41'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Closed
+        type: string
+        enumValues:
+          - Active
+          - Completed
+          - Closed
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      cover_image_file:
+        custom: []
+        name: cover_image_file
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      gallery_image_files:
+        custom: []
+        name: gallery_image_files
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - null
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      slug: architecto
+      description: 'Eius et animi quos velit et.'
+      goal_amount: 60
+      raised_amount: 42
+      start_date: '2026-07-28T17:49:41'
+      end_date: '2026-07-28T17:49:41'
+      status: Closed
+    fileParameters:
+      cover_image_file: null
+      gallery_image_files:
+        - null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/campaigns/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a campaign'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the campaign.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/plans
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cardType:
+        custom: []
+        name: cardType
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      card_type:
+        custom: []
+        name: card_type
+        description: ''
+        required: false
+        example: cause
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: true
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goalAmount:
+        custom: []
+        name: goalAmount
+        description: 'Must be at least 0.'
+        required: false
+        example: 39
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+          - Draft
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      featured:
+        custom: []
+        name: featured
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      cardType: mission
+      card_type: cause
+      title: bngz
+      description: 'Eius et animi quos velit et.'
+      category: architecto
+      sortOrder: 16
+      image: architecto
+      alt: architecto
+      goalAmount: 39
+      status: Active
+      featured: true
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cardType:
+        custom: []
+        name: cardType
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      card_type:
+        custom: []
+        name: card_type
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goalAmount:
+        custom: []
+        name: goalAmount
+        description: 'Must be at least 0.'
+        required: false
+        example: 39
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+          - Draft
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      featured:
+        custom: []
+        name: featured
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      cardType: mission
+      card_type: mission
+      title: bngz
+      description: 'Eius et animi quos velit et.'
+      category: architecto
+      sortOrder: 16
+      image: architecto
+      alt: architecto
+      goalAmount: 39
+      status: Active
+      featured: true
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/galleries
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Active
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/media
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
     uri: api/users
     metadata:
       custom: []
@@ -71,11 +3511,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -110,14 +3547,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: architecto
-        type: string
+        example: 2
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -126,11 +3563,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -163,8 +3597,56 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      firstName:
+        custom: []
+        name: firstName
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      lastName:
+        custom: []
+        name: lastName
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: false
+        example: ']|{+-0pBNvYg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      firstName: architecto
+      lastName: architecto
+      password: ']|{+-0pBNvYg'
     fileParameters: []
     responses: []
     responseFields: []
@@ -196,18 +3678,66 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: architecto
-        type: string
+        example: 2
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: false
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      firstName:
+        custom: []
+        name: firstName
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      lastName:
+        custom: []
+        name: lastName
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: false
+        example: ']|{+-0pBNvYg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      firstName: architecto
+      lastName: architecto
+      password: ']|{+-0pBNvYg'
     fileParameters: []
     responses: []
     responseFields: []
@@ -239,6 +3769,89 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/contacts
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/contacts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the contact.'
+        required: true
         example: architecto
         type: string
         enumValues: []
@@ -251,6 +3864,1376 @@ endpoints:
     cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/contacts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the contact.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Replied
+        type: string
+        enumValues:
+          - Unread
+          - Read
+          - Replied
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      adminNotes:
+        custom: []
+        name: adminNotes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      admin_notes:
+        custom: []
+        name: admin_notes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      status: Replied
+      adminNotes: architecto
+      admin_notes: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/contacts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the contact.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/volunteers
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/volunteers/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the volunteer.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/volunteers/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the volunteer.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      full_name:
+        custom: []
+        name: full_name
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: false
+        example: rempel.chadrick@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      reason:
+        custom: []
+        name: reason
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Rejected
+        type: string
+        enumValues:
+          - Pending
+          - Approved
+          - Rejected
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      adminNotes:
+        custom: []
+        name: adminNotes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      admin_notes:
+        custom: []
+        name: admin_notes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      full_name: bngz
+      email: rempel.chadrick@example.org
+      phone: architecto
+      city: architecto
+      role: architecto
+      reason: architecto
+      status: Rejected
+      adminNotes: architecto
+      admin_notes: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/volunteers/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the volunteer.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/donations
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of donations (Transactions)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/donations/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a specific donation'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the donation.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/donations/{id}/send-invoice'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Send Donation Invoice PDF to donor's email"
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the donation.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/donations/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a donation record'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the donation.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/subscriptions
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display list of all subscriptions'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/subscriptions/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a specific subscription details'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/subscriptions/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update subscription details'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: pending
+        type: string
+        enumValues:
+          - active
+          - pending
+          - cancelled
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      admin_notes:
+        custom: []
+        name: admin_notes
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      status: pending
+      admin_notes: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/subscriptions/{id}/cancel'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cancel a recurring subscription'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/notifications
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/notifications/read-all
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/notifications/{id}/read'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the notification.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/notifications/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the notification.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/settings
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/settings
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      general:
+        custom: []
+        name: general
+        description: ''
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.site_name:
+        custom: []
+        name: general.site_name
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.site_slogan:
+        custom: []
+        name: general.site_slogan
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.contact_email:
+        custom: []
+        name: general.contact_email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.contact_phone:
+        custom: []
+        name: general.contact_phone
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.site_address:
+        custom: []
+        name: general.site_address
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      general.logo_url:
+        custom: []
+        name: general.logo_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      general.favicon_url:
+        custom: []
+        name: general.favicon_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      general.signature_url:
+        custom: []
+        name: general.signature_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      social:
+        custom: []
+        name: social
+        description: ''
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      social.facebook_url:
+        custom: []
+        name: social.facebook_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      social.instagram_url:
+        custom: []
+        name: social.instagram_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      social.twitter_url:
+        custom: []
+        name: social.twitter_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      social.youtube_url:
+        custom: []
+        name: social.youtube_url
+        description: ''
+        required: false
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      social.google_maps_embed:
+        custom: []
+        name: social.google_maps_embed
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      mail:
+        custom: []
+        name: mail
+        description: ''
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      mail.notify_on_donation:
+        custom: []
+        name: mail.notify_on_donation
+        description: ''
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      mail.notify_on_volunteer:
+        custom: []
+        name: mail.notify_on_volunteer
+        description: ''
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      mail.admin_notify_email:
+        custom: []
+        name: mail.admin_notify_email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      seo:
+        custom: []
+        name: seo
+        description: ''
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      seo.website_name:
+        custom: []
+        name: seo.website_name
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      seo.meta_title:
+        custom: []
+        name: seo.meta_title
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      seo.meta_description:
+        custom: []
+        name: seo.meta_description
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      seo.og_image:
+        custom: []
+        name: seo.og_image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      seo.favicon:
+        custom: []
+        name: seo.favicon
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      seo.google_analytics_id:
+        custom: []
+        name: seo.google_analytics_id
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      seo.google_search_console:
+        custom: []
+        name: seo.google_search_console
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      seo.robots:
+        custom: []
+        name: seo.robots
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      general:
+        site_name: architecto
+        site_slogan: architecto
+        contact_email: zbailey@example.net
+        contact_phone: architecto
+        site_address: architecto
+        logo_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        favicon_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        signature_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+      social:
+        facebook_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        instagram_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        twitter_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        youtube_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+        google_maps_embed: architecto
+      mail:
+        notify_on_donation: true
+        notify_on_volunteer: true
+        admin_notify_email: zbailey@example.net
+      seo:
+        website_name: architecto
+        meta_title: architecto
+        meta_description: architecto
+        og_image: architecto
+        favicon: architecto
+        google_analytics_id: architecto
+        google_search_console: architecto
+        robots: architecto
     fileParameters: []
     responses: []
     responseFields: []

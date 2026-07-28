@@ -26,7 +26,7 @@ class SuperAdminSeeder extends Seeder
 
         // Create or find the Super Admin user
         $superAdminUser = User::firstOrCreate(
-            ['email' => env('MAIL_FROM_ADDRESS', 'admin@furrydom.com')],
+            ['email' => env('MAIL_FROM_ADDRESS', 'thesothua@gmail.com')],
             [
                 'name' => 'Praveen Suthar',
                 'password' => Hash::make('password'),
