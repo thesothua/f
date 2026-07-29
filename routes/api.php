@@ -64,6 +64,9 @@ Route::post("/contacts", [ContactController::class, "store"]);
 // Public Volunteer Submission
 Route::post("/volunteers", [VolunteerController::class, "store"]);
 
+// Public Team Members route
+Route::get("/team", [UserController::class, "teamMembers"]);
+
 // Public Donation/Razorpay Payment Initiation & Verification
 Route::prefix('donations')->controller(DonationController::class)->group(function () {
     Route::post("/initiate", "initiate");

@@ -22,6 +22,12 @@ class UserController extends Controller
         return $this->successResponse($users, 'Users retrieved successfully.');
     }
 
+    public function teamMembers(Request $request)
+    {
+        $users = $this->userService->getTeamMembers();
+        return $this->successResponse($users, 'Team members retrieved successfully.');
+    }
+
     public function show(Request $request, $id)
     {
         $user = $this->userService->getUserById($id);
@@ -38,6 +44,10 @@ class UserController extends Controller
             'firstName' => 'nullable|string',
             'lastName' => 'nullable|string',
             'password' => 'nullable|string|min:6',
+            'bio' => 'nullable|string',
+            'avatar' => 'nullable|string',
+            'show_in_website' => 'nullable|boolean',
+            'showInWebsite' => 'nullable|boolean',
         ]);
 
         $user = $this->userService->createUser($request->all());
@@ -56,6 +66,10 @@ class UserController extends Controller
             'firstName' => 'nullable|string',
             'lastName' => 'nullable|string',
             'password' => 'nullable|string|min:6',
+            'bio' => 'nullable|string',
+            'avatar' => 'nullable|string',
+            'show_in_website' => 'nullable|boolean',
+            'showInWebsite' => 'nullable|boolean',
         ]);
 
         $updatedUser = $this->userService->updateUser($id, $request->all());

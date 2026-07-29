@@ -36,6 +36,7 @@ class User extends Authenticatable
         'phone',
         'bio',
         'avatar',
+        'show_in_website',
     ];
 
     /**
@@ -57,6 +58,7 @@ class User extends Authenticatable
         'firstName',
         'lastName',
         'role',
+        'showInWebsite',
     ];
 
     /**
@@ -69,6 +71,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'show_in_website' => 'boolean',
         ];
     }
 
@@ -93,6 +96,11 @@ class User extends Authenticatable
     public function getRoleAttribute()
     {
         return $this->roles->first()?->name ?? 'User';
+    }
+
+    public function getShowInWebsiteAttribute()
+    {
+        return (bool) ($this->attributes['show_in_website'] ?? false);
     }
 
     /**

@@ -36,7 +36,31 @@ class Campaign extends Model implements HasMedia
         'progress_percentage',
         'cover_image_url',
         'gallery_image_urls',
+        'seo',
     ];
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
+    }
+
+    public function getSeoAttribute()
+    {
+        $seo = $this->seo()->first();
+        if (!$seo) {
+            return [
+                'metaTitle' => '',
+                'metaDescription' => '',
+                'keywords' => [],
+            ];
+        }
+
+        return [
+            'metaTitle' => $seo->meta_title ?? '',
+            'metaDescription' => $seo->meta_description ?? '',
+            'keywords' => $seo->keywords ?? [],
+        ];
+    }
 
     /**
      * Relationship: Donations to this campaign

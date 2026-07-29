@@ -12,7 +12,7 @@ class CampaignService
      */
     public function getAllCampaigns($params = [])
     {
-        $query = Campaign::with(['media']);
+        $query = Campaign::with(['media', 'seo']);
 
         if (!empty($params['search'])) {
             $search = $params['search'];
@@ -43,7 +43,7 @@ class CampaignService
      */
     public function getCampaignById($id)
     {
-        return Campaign::with(['media'])->find($id);
+        return Campaign::with(['media', 'seo'])->find($id);
     }
 
     /**
@@ -51,7 +51,7 @@ class CampaignService
      */
     public function getCampaignBySlug($slug)
     {
-        return Campaign::with(['media'])->where('slug', $slug)->first();
+        return Campaign::with(['media', 'seo'])->where('slug', $slug)->first();
     }
 
     /**
@@ -91,7 +91,17 @@ class CampaignService
             }
         }
 
-        return $campaign->fresh(['media']);
+        // Save polymorphic SEO
+        if (!empty($data['seo'])) {
+            $seoData = is_string($data['seo']) ? json_decode($data['seo'], true) : $data['seo'];
+            $campaign->seo()->create([
+                'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
+                'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
+                'keywords' => $seoData['keywords'] ?? [],
+            ]);
+        }
+
+        return $campaign->fresh(['media', 'seo']);
     }
 
     /**
@@ -157,7 +167,20 @@ class CampaignService
             }
         }
 
-        return $campaign->fresh(['media']);
+        // Update polymorphic SEO
+        if (isset($data['seo'])) {
+            $seoData = is_string($data['seo']) ? json_decode($data['seo'], true) : $data['seo'];
+            $campaign->seo()->updateOrCreate(
+                ['seoable_id' => $campaign->id, 'seoable_type' => Campaign::class],
+                [
+                    'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
+                    'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
+                    'keywords' => $seoData['keywords'] ?? [],
+                ]
+            );
+        }
+
+        return $campaign->fresh(['media', 'seo']);
     }
 
     /**
@@ -172,6 +195,7 @@ class CampaignService
 
         $campaign->clearMediaCollection('campaign_cover');
         $campaign->clearMediaCollection('campaign_gallery');
+        $campaign->seo()?->delete();
         $campaign->delete();
         return true;
     }

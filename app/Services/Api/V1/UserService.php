@@ -53,6 +53,10 @@ class UserService
             'last_name' => $lastName,
             'email' => $data['email'],
             'gender' => $data['gender'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'bio' => $data['bio'] ?? null,
+            'avatar' => $data['avatar'] ?? null,
+            'show_in_website' => filter_var($data['show_in_website'] ?? $data['showInWebsite'] ?? false, FILTER_VALIDATE_BOOLEAN),
             'password' => Hash::make($data['password'] ?? 'password123'),
         ];
 
@@ -88,6 +92,20 @@ class UserService
             'gender' => $data['gender'] ?? $user->gender,
         ];
 
+        if (array_key_exists('phone', $data)) {
+            $userData['phone'] = $data['phone'];
+        }
+        if (array_key_exists('bio', $data)) {
+            $userData['bio'] = $data['bio'];
+        }
+        if (array_key_exists('avatar', $data)) {
+            $userData['avatar'] = $data['avatar'];
+        }
+        if (array_key_exists('show_in_website', $data) || array_key_exists('showInWebsite', $data)) {
+            $val = $data['show_in_website'] ?? $data['showInWebsite'];
+            $userData['show_in_website'] = filter_var($val, FILTER_VALIDATE_BOOLEAN);
+        }
+
         if (!empty($data['password'])) {
             $userData['password'] = Hash::make($data['password']);
         }
@@ -103,6 +121,11 @@ class UserService
         }
 
         return $user->fresh(['roles']);
+    }
+
+    public function getTeamMembers()
+    {
+        return User::with('roles')->where('show_in_website', true)->latest()->get();
     }
 
     public function deleteUser($id)
