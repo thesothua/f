@@ -46,6 +46,7 @@ class SettingController extends Controller
             'social.instagram_url' => 'nullable|string',
             'social.twitter_url' => 'nullable|string',
             'social.youtube_url' => 'nullable|string',
+            'social.linkedin_url' => 'nullable|string',
             'social.google_maps_embed' => 'nullable|string',
 
             'mail.notify_on_donation' => 'required|boolean',
