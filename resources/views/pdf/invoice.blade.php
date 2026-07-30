@@ -1,3 +1,37 @@
+@php
+    $imageToBase64 = function($url) {
+        if (empty($url)) {
+            return null;
+        }
+        
+        $localPath = null;
+        
+        if (str_contains($url, 'localhost:5173/src/assets/images/')) {
+            $filename = basename($url);
+            $frontPath = base_path('../furrydom-front/src/assets/images/' . $filename);
+            if (file_exists($frontPath)) {
+                $localPath = $frontPath;
+            }
+        } elseif (str_contains($url, '/storage/')) {
+            $storagePart = explode('/storage/', $url)[1];
+            $localStoragePath = storage_path('app/public/' . $storagePart);
+            if (file_exists($localStoragePath)) {
+                $localPath = $localStoragePath;
+            }
+        }
+        
+        if ($localPath && file_exists($localPath)) {
+            $type = pathinfo($localPath, PATHINFO_EXTENSION);
+            $data = file_get_contents($localPath);
+            return 'data:image/' . $type . ';base64,' . base64_encode($data);
+        }
+        
+        return $url; // Fallback to URL
+    };
+
+    $logoSrc = $imageToBase64($settings->logo_url ?? '');
+    $signatureSrc = $imageToBase64($settings->signature_url ?? '');
+@endphp
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,10 +142,21 @@
             <table>
                 <tr>
                     <td>
-                        <span class="logo">{{ $settings->site_name ?? 'Furrydom' }}</span>
-                        @if(!empty($settings->site_slogan))
-                            <div class="slogan">{{ $settings->site_slogan }}</div>
-                        @endif
+                        <table style="border-collapse: collapse; border: none; margin: 0; padding: 0; width: 100%;">
+                            <tr>
+                                @if(!empty($logoSrc))
+                                    <td style="padding: 0 12px 0 0; border: none; vertical-align: middle; width: 50px;">
+                                        <img src="{{ $logoSrc }}" style="height: 44px; width: auto; display: block;" alt="Logo">
+                                    </td>
+                                @endif
+                                <td style="padding: 0; border: none; vertical-align: middle;">
+                                    <div style="font-size: 18px; font-weight: bold; color: #111827; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2;">{{ $settings->site_name ?? 'Furrydom India' }}</div>
+                                    @if(!empty($settings->site_slogan))
+                                        <div style="font-size: 9px; font-weight: bold; color: #ea580c; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; line-height: 1.2;">{{ $settings->site_slogan }}</div>
+                                    @endif
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                     <td class="invoice-details">
                         <h2>RECEIPT / INVOICE</h2>
@@ -132,7 +177,10 @@
                     <strong>{{ $settings->site_name ?? 'Furrydom NGO' }}</strong><br>
                     {!! nl2br(e($settings->site_address ?? '123 Rescue Way, Animal Haven')) !!}<br>
                     Email: {{ $settings->contact_email ?? 'contact@furrydom.com' }}<br>
-                    Phone: {{ $settings->contact_phone ?? '+1-234-567-890' }}
+                    Phone: {{ $settings->contact_phone ?? '+1-234-567-890' }}<br>
+                    <strong>Section-8 License No:</strong> 151483<br>
+                    <strong>PAN:</strong> AAFCF7270D<br>
+                    <strong>80G:</strong> AAFCF7270DF20241
                 </td>
                 <td>
                     <div class="info-title">Donor Details</div>
@@ -187,9 +235,9 @@
                     </div>
                 </td>
                 <td style="width: 40%; text-align: right; vertical-align: bottom; padding-left: 15px;">
-                    @if(!empty($settings->signature_url))
+                    @if(!empty($signatureSrc))
                         <div style="margin-bottom: 5px;">
-                            <img src="{{ $settings->signature_url }}" style="max-height: 50px; max-width: 180px;" alt="Signature">
+                            <img src="{{ $signatureSrc }}" style="max-height: 50px; max-width: 180px;" alt="Signature">
                         </div>
                     @endif
                     <div style="border-top: 1px solid #e5e7eb; padding-top: 5px; font-size: 12px; font-weight: bold; color: #374151;">

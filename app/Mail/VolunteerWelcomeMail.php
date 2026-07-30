@@ -16,6 +16,20 @@ class VolunteerWelcomeMail extends Mailable implements ShouldQueue
 
     public $volunteer;
 
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
+
+    /**
+     * The number of seconds to wait before retrying the job.
+     *
+     * @var int
+     */
+    public $backoff = 3;
+
     public function __construct(Volunteer $volunteer)
     {
         $this->volunteer = $volunteer;

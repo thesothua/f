@@ -3,12 +3,27 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use App\Models\Donation;
 
-class NewDonationReceived extends Notification
+class NewDonationReceived extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
+
+    /**
+     * The number of seconds to wait before retrying the job.
+     *
+     * @var int
+     */
+    public $backoff = 3;
 
     protected $donation;
 
