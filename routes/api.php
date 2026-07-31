@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\V1\DonationController;
 use App\Http\Controllers\Api\V1\CampaignController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\SettingController;
+use App\Http\Controllers\Api\V1\AnimalReportController;
+use App\Http\Controllers\Api\V1\RescueCaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +65,9 @@ Route::post("/contacts", [ContactController::class, "store"]);
 
 // Public Volunteer Submission
 Route::post("/volunteers", [VolunteerController::class, "store"]);
+
+// Public Animal Report Submission
+Route::post("/animal-reports", [AnimalReportController::class, "store"]);
 
 // Public Team Members route
 Route::get("/team", [UserController::class, "teamMembers"]);
@@ -160,6 +165,23 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get("/{id}", "show")->middleware('permission:view volunteers');
         Route::put("/{id}", "update")->middleware('permission:edit volunteers');
         Route::delete("/{id}", "destroy")->middleware('permission:delete volunteers');
+    });
+
+    // Administrative Animal Reports routes
+    Route::prefix('animal-reports')->controller(AnimalReportController::class)->group(function () {
+        Route::get("/", "index")->middleware('permission:view animal reports');
+        Route::get("/{id}", "show")->middleware('permission:view animal reports');
+        Route::put("/{id}", "update")->middleware('permission:edit animal reports');
+        Route::post("/{id}/accept", "accept")->middleware('permission:edit animal reports');
+        Route::delete("/{id}", "destroy")->middleware('permission:delete animal reports');
+    });
+
+    // Administrative Rescue Cases routes
+    Route::prefix('rescue-cases')->controller(RescueCaseController::class)->group(function () {
+        Route::get("/", "index")->middleware('permission:view rescue cases');
+        Route::get("/{id}", "show")->middleware('permission:view rescue cases');
+        Route::put("/{id}", "update")->middleware('permission:edit rescue cases');
+        Route::delete("/{id}", "destroy")->middleware('permission:delete rescue cases');
     });
 
     // Administrative Donations routes
