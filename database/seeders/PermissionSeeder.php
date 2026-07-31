@@ -1,0 +1,103 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class PermissionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $permissions = [
+            // Dashboard
+            'view dashboard',
+
+            // Users
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+
+            // Roles & Permissions
+            'view roles',
+            'create roles',
+            'edit roles',
+            'delete roles',
+            'assign roles',
+
+            // Campaigns
+            'view campaigns',
+            'create campaigns',
+            'edit campaigns',
+            'delete campaigns',
+
+            // Plans
+            'view plans',
+            'create plans',
+            'edit plans',
+            'delete plans',
+
+            // Donations
+            'view donations',
+            'edit donations',
+            'delete donations',
+            'send donations invoice',
+
+            // Subscriptions
+            'view subscriptions',
+            'edit subscriptions',
+            'cancel subscriptions',
+
+            // Volunteers
+            'view volunteers',
+            'create volunteers',
+            'edit volunteers',
+            'delete volunteers',
+            'approve volunteers',
+
+            // Blogs
+            'view blogs',
+            'create blogs',
+            'edit blogs',
+            'delete blogs',
+
+            // Media
+            'view media',
+            'create media',
+            'edit media',
+            'delete media',
+
+            // Contacts
+            'view contacts',
+            'edit contacts',
+            'delete contacts',
+
+            // Settings
+            'view settings',
+            'edit settings',
+        ];
+
+        foreach ($permissions as $permName) {
+            Permission::firstOrCreate([
+                'name' => $permName,
+                'guard_name' => 'api'
+            ]);
+        }
+
+        // Give all permissions to Super Admin role
+        $superAdmin = Role::where('name', 'Super Admin')->where('guard_name', 'api')->first();
+        if ($superAdmin) {
+            $superAdmin->syncPermissions($permissions);
+        }
+
+        $this->command->info('Permissions seeded and assigned to Super Admin successfully!');
+    }
+}

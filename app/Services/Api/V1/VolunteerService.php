@@ -3,6 +3,13 @@
 namespace App\Services\Api\V1;
 
 use App\Models\Volunteer;
+use App\Models\User;
+use App\Mail\VolunteerApprovedMail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class VolunteerService
 {
@@ -72,6 +79,8 @@ class VolunteerService
             return null;
         }
 
+        $oldStatus = $volunteer->status;
+
         $updateData = [];
 
         if (isset($data['fullName']) || isset($data['full_name'])) {
@@ -100,8 +109,70 @@ class VolunteerService
         }
 
         $volunteer->update($updateData);
+        $volunteer = $volunteer->fresh();
 
-        return $volunteer->fresh();
+        if ($volunteer->status === 'Approved' && $oldStatus !== 'Approved') {
+            $this->approveVolunteer($volunteer);
+        }
+
+        return $volunteer;
+    }
+
+    protected function approveVolunteer($volunteer)
+    {
+        // Check if user already exists
+        $user = User::where('email', $volunteer->email)->first();
+
+        // Map volunteer roles to Spatie roles
+        $roleMap = [
+            'rescue' => 'Rescue Volunteer',
+            'event' => 'Event Volunteer',
+            'fundraising' => 'Fundraising Volunteer',
+            'social' => 'Social Media Volunteer',
+        ];
+        $roleName = $roleMap[$volunteer->role] ?? ucwords($volunteer->role) . ' Volunteer';
+
+        // Ensure Spatie role exists for the api guard
+        Role::firstOrCreate([
+            'name' => $roleName,
+            'guard_name' => 'api'
+        ]);
+
+        if ($user) {
+            // Assign the role if not already assigned
+            if (!$user->hasRole($roleName)) {
+                $user->assignRole($roleName);
+            }
+            return;
+        }
+
+        // Split name into first and last name
+        $parts = explode(' ', trim($volunteer->full_name), 2);
+        $firstName = $parts[0] ?? '';
+        $lastName = $parts[1] ?? '';
+
+        // Generate clean temporary password
+        $password = Str::random(10);
+
+        // Create the user
+        $user = User::create([
+            'name' => $volunteer->full_name,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $volunteer->email,
+            'phone' => $volunteer->phone,
+            'password' => Hash::make($password),
+        ]);
+
+        // Assign the role
+        $user->assignRole($roleName);
+
+        // Send email
+        try {
+            Mail::to($user->email)->send(new VolunteerApprovedMail($user, $password, $roleName));
+        } catch (\Exception $e) {
+            Log::error('Failed to send volunteer credentials email: ' . $e->getMessage());
+        }
     }
 
     public function deleteVolunteer($id)

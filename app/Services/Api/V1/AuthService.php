@@ -14,7 +14,7 @@ class AuthService
         if ($user && Hash::check($data['password'], $user->password)) {
             $token = $user->createToken('auth_token')->plainTextToken;
             return [
-                'user' => $user->load('roles'),
+                'user' => $user->load('roles.permissions', 'permissions'),
                 'token' => $token,
             ];
         }
@@ -37,7 +37,7 @@ class AuthService
     public function me($user)
     {
         if ($user) {
-            return $user->load('roles');
+            return $user->load('roles.permissions', 'permissions');
         }
         return null;
     }

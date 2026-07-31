@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return $this->successResponse($user->load('roles'), 'Profile updated successfully.');
+        return $this->successResponse($user->load('roles.permissions', 'permissions'), 'Profile updated successfully.');
     }
 
     public function forgotPassword(Request $request)
