@@ -83,6 +83,16 @@ class PermissionSeeder extends Seeder
             // Settings
             'view settings',
             'edit settings',
+
+            // Animal Reports
+            'view animal reports',
+            'edit animal reports',
+            'delete animal reports',
+
+            // Rescue Cases
+            'view rescue cases',
+            'edit rescue cases',
+            'delete rescue cases',
         ];
 
         foreach ($permissions as $permName) {
