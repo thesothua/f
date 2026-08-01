@@ -20,12 +20,37 @@ class RescueCase extends Model
         'gender',
         'status',
         'description',
+        'clinic_details',
+        'recovery_details',
+        'adoption_details',
+        'release_details',
+        'deceased_details',
+    ];
+
+    protected $casts = [
+        'clinic_details' => 'array',
+        'recovery_details' => 'array',
+        'adoption_details' => 'array',
+        'release_details' => 'array',
+        'deceased_details' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['status', 'rescuer_id', 'description', 'animal_type', 'color', 'gender'])
+            ->logOnly([
+                'status',
+                'rescuer_id',
+                'description',
+                'animal_type',
+                'color',
+                'gender',
+                'clinic_details',
+                'recovery_details',
+                'adoption_details',
+                'release_details',
+                'deceased_details'
+            ])
             ->logOnlyDirty()
             ->useLogName('rescue_cases')
             ->setDescriptionForEvent(fn(string $eventName) => "Rescue case {$eventName}");

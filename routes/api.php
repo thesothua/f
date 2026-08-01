@@ -180,6 +180,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('rescue-cases')->controller(RescueCaseController::class)->group(function () {
         Route::get("/", "index")->middleware('permission:view rescue cases');
         Route::get("/{id}", "show")->middleware('permission:view rescue cases');
+        Route::get("/{id}/download", "downloadReport")->middleware('permission:view rescue cases');
+        Route::post("/{id}/send-report", "sendReportToReporter")->middleware('permission:edit rescue cases');
         Route::put("/{id}", "update")->middleware('permission:edit rescue cases');
         Route::delete("/{id}", "destroy")->middleware('permission:delete rescue cases');
     });
