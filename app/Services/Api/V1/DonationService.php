@@ -123,10 +123,22 @@ class DonationService
                 throw new \Exception('Payment verification failed.');
             }
 
+            // Fetch payment method from Razorpay
+            $paymentMethod = null;
+            try {
+                $payment = $this->razorpay->fetchPayment($data['razorpay_payment_id']);
+                if ($payment) {
+                    $paymentMethod = is_object($payment) ? ($payment->method ?? null) : ($payment['method'] ?? null);
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to retrieve payment method from Razorpay: ' . $e->getMessage());
+            }
+
             // Update donation record
             $donation->update([
                 'status' => 'succeeded',
-                'gateway_transaction_id' => $data['razorpay_payment_id']
+                'gateway_transaction_id' => $data['razorpay_payment_id'],
+                'payment_method' => $paymentMethod
             ]);
 
             // Send Email to Donor
@@ -255,6 +267,17 @@ class DonationService
                 'next_billing_at' => now()->addDays(30)
             ]);
 
+            // Fetch payment method from Razorpay
+            $paymentMethod = null;
+            try {
+                $payment = $this->razorpay->fetchPayment($data['razorpay_payment_id']);
+                if ($payment) {
+                    $paymentMethod = is_object($payment) ? ($payment->method ?? null) : ($payment['method'] ?? null);
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to retrieve subscription payment method from Razorpay: ' . $e->getMessage());
+            }
+
             // Create the first cycle Donation record
             $donation = Donation::create([
                 'user_id' => $localSub->user_id,
@@ -269,6 +292,7 @@ class DonationService
                 'currency' => $localSub->currency,
                 'status' => 'succeeded',
                 'payment_gateway' => 'razorpay',
+                'payment_method' => $paymentMethod,
                 'gateway_transaction_id' => $data['razorpay_payment_id'],
                 'anonymous' => false
             ]);
@@ -423,7 +447,10 @@ class DonationService
             $amount = floatval($data['amount']);
             $currency = $data['currency'] ?? 'INR';
             $status = $data['status'] ?? 'succeeded';
-            $gateway = $data['payment_gateway'] ?? 'offline';
+            
+            $gatewayInput = $data['payment_gateway'] ?? 'cash';
+            $gateway = ($gatewayInput === 'razorpay_qr') ? 'razorpay_qr' : 'offline';
+            $paymentMethod = $gatewayInput;
 
             $donationData = [
                 'user_id' => $data['user_id'] ?? null,
@@ -437,6 +464,7 @@ class DonationService
                 'currency' => $currency,
                 'status' => $status,
                 'payment_gateway' => $gateway,
+                'payment_method' => $paymentMethod,
                 'gateway_transaction_id' => $data['gateway_transaction_id'] ?? null,
                 'anonymous' => filter_var($data['anonymous'] ?? false, FILTER_VALIDATE_BOOLEAN),
             ];
@@ -545,12 +573,14 @@ class DonationService
 
             $paymentSucceeded = false;
             $transactionId = null;
+            $paymentMethod = 'upi';
 
             if ($payments && isset($payments['items']) && count($payments['items']) > 0) {
                 foreach ($payments['items'] as $payment) {
                     if ($payment['status'] === 'captured') {
                         $paymentSucceeded = true;
                         $transactionId = $payment['id'];
+                        $paymentMethod = $payment['method'] ?? 'upi';
                         break;
                     }
                 }
@@ -559,7 +589,8 @@ class DonationService
             if ($paymentSucceeded) {
                 $donation->update([
                     'status' => 'succeeded',
-                    'gateway_transaction_id' => $transactionId
+                    'gateway_transaction_id' => $transactionId,
+                    'payment_method' => $paymentMethod
                 ]);
 
                 // Run success actions

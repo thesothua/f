@@ -167,4 +167,17 @@ class RazorpayService
             return null;
         }
     }
+
+    /**
+     * Fetch details of a specific payment from Razorpay
+     */
+    public function fetchPayment($paymentId)
+    {
+        try {
+            return $this->api->payment->fetch($paymentId);
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch Razorpay payment ' . $paymentId . ': ' . $e->getMessage());
+            return null;
+        }
+    }
 }

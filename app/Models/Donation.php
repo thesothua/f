@@ -45,6 +45,7 @@ class Donation extends Model
         'currency',
         'status',
         'payment_gateway',
+        'payment_method',
         'gateway_transaction_id',
         'gateway_order_id',
         'receipt_url',

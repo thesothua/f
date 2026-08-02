@@ -31,6 +31,27 @@
 
     $logoSrc = $imageToBase64($settings->logo_url ?? '');
     $signatureSrc = $imageToBase64($settings->signature_url ?? '');
+
+    // Map payment methods to human readable labels
+    $paymentMethodLabel = 'Razorpay';
+    if (!empty($donation->payment_method)) {
+        $methodMap = [
+            'cash' => 'Cash',
+            'bank_transfer' => 'Bank Transfer',
+            'cheque' => 'Cheque',
+            'upi_manual' => 'UPI (Manual)',
+            'razorpay_qr' => 'Razorpay UPI QR',
+            'upi' => 'UPI',
+            'card' => 'Card',
+            'netbanking' => 'Netbanking',
+            'wallet' => 'Wallet',
+        ];
+        $paymentMethodLabel = $methodMap[$donation->payment_method] ?? ucwords(str_replace('_', ' ', $donation->payment_method));
+    } elseif ($donation->payment_gateway === 'offline') {
+        $paymentMethodLabel = 'Offline Payment';
+    } elseif ($donation->payment_gateway === 'razorpay_qr') {
+        $paymentMethodLabel = 'Razorpay UPI QR';
+    }
 @endphp
 <!DOCTYPE html>
 <html>
@@ -214,7 +235,7 @@
                         @endif
                         <br><small style="color: #666;">Donation Type: {{ !empty($donation->subscription_id) ? 'Monthly' : 'One-time' }}</small>
                     </td>
-                    <td>{{ strtoupper($donation->payment_method ?? 'Razorpay') }}</td>
+                    <td>{{ $paymentMethodLabel }}</td>
                     <td><code>{{ $donation->gateway_transaction_id ?? $donation->transaction_id ?? 'N/A' }}</code></td>
                     <td style="text-align: right;">{{ number_format($donation->amount, 2) }} {{ strtoupper($donation->currency ?? 'INR') }}</td>
                 </tr>
