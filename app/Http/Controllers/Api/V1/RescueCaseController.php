@@ -192,6 +192,12 @@ class RescueCaseController extends Controller
 
         \Illuminate\Support\Facades\Mail::to($reporterEmail)->send(new \App\Mail\RescueCaseReportMail($case));
 
+        // Log this action to the activity timeline
+        activity('rescue_cases')
+            ->performedOn($case)
+            ->causedBy(auth()->user())
+            ->log("Email sent to reporter ({$reporterEmail})");
+
         return $this->successResponse(null, 'Rescue case report has been successfully sent to the reporter.');
     }
 }

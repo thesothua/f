@@ -178,6 +178,12 @@ class DonationController extends Controller
             \Illuminate\Support\Facades\Mail::to($donation->donor_email)
                 ->send(new \App\Mail\DonationInvoiceMail($donation));
             
+            // Log this action to the activity timeline
+            activity('donations')
+                ->performedOn($donation)
+                ->causedBy(auth()->user())
+                ->log("Invoice sent to donor ({$donation->donor_email})");
+
             return $this->successResponse(null, 'Invoice sent successfully to donor email.');
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Failed to send invoice email: ' . $e->getMessage());

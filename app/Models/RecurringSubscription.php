@@ -4,10 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class RecurringSubscription extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'status',
+                'amount',
+                'ends_at',
+                'next_billing_at',
+                'admin_notes',
+            ])
+            ->logOnlyDirty()
+            ->useLogName('subscriptions')
+            ->setDescriptionForEvent(fn(string $eventName) => "Subscription {$eventName}");
+    }
+
+    /**
+     * Relationship: Get all of the subscription's activities.
+     */
+    public function activities()
+    {
+        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject');
+    }
 
     protected $fillable = [
         'user_id',
@@ -25,6 +50,7 @@ class RecurringSubscription extends Model
         'next_billing_at',
         'ends_at',
         'campaign_id',
+        'admin_notes',
     ];
 
     protected $casts = [

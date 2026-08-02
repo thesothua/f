@@ -52,7 +52,7 @@ class DonationService
 
     public function getDonationById($id)
     {
-        return Donation::with(['plan', 'subscription', 'campaign'])->find($id);
+        return Donation::with(['plan', 'subscription', 'campaign', 'activities.causer'])->find($id);
     }
 
     /**
@@ -355,7 +355,7 @@ class DonationService
 
     public function getSubscriptionById($id)
     {
-        return RecurringSubscription::with('plan')->find($id);
+        return RecurringSubscription::with(['plan', 'activities.causer'])->find($id);
     }
 
     /**

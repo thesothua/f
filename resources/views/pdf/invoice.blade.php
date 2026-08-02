@@ -212,9 +212,7 @@
                         @if($donation->campaign)
                             <br><small style="color: #666;">Campaign: {{ $donation->campaign->title }}</small>
                         @endif
-                        @if($donation->donation_type === 'recurring')
-                            <br><small style="color: #666; font-style: italic;">Monthly Recurring Subscription</small>
-                        @endif
+                        <br><small style="color: #666;">Donation Type: {{ !empty($donation->subscription_id) ? 'Monthly' : 'One-time' }}</small>
                     </td>
                     <td>{{ strtoupper($donation->payment_method ?? 'Razorpay') }}</td>
                     <td><code>{{ $donation->gateway_transaction_id ?? $donation->transaction_id ?? 'N/A' }}</code></td>

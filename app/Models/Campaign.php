@@ -6,10 +6,37 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Campaign extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'title',
+                'description',
+                'goal_amount',
+                'raised_amount',
+                'start_date',
+                'end_date',
+                'status',
+            ])
+            ->logOnlyDirty()
+            ->useLogName('campaigns')
+            ->setDescriptionForEvent(fn(string $eventName) => "Campaign {$eventName}");
+    }
+
+    /**
+     * Relationship: Get all of the campaign's activities.
+     */
+    public function activities()
+    {
+        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject');
+    }
 
     protected $fillable = [
         'title',

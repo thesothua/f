@@ -5,9 +5,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
 class Donation extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'status',
+                'amount',
+                'anonymous',
+            ])
+            ->logOnlyDirty()
+            ->useLogName('donations')
+            ->setDescriptionForEvent(fn(string $eventName) => "Donation {$eventName}");
+    }
+
+    /**
+     * Relationship: Get all of the donation's activities.
+     */
+    public function activities()
+    {
+        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject');
+    }
 
     protected $fillable = [
         'user_id',

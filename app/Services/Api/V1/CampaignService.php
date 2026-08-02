@@ -43,7 +43,7 @@ class CampaignService
      */
     public function getCampaignById($id)
     {
-        return Campaign::with(['media', 'seo'])->find($id);
+        return Campaign::with(['media', 'seo', 'activities.causer'])->find($id);
     }
 
     /**
@@ -51,7 +51,7 @@ class CampaignService
      */
     public function getCampaignBySlug($slug)
     {
-        return Campaign::with(['media', 'seo'])->where('slug', $slug)->first();
+        return Campaign::with(['media', 'seo', 'activities.causer'])->where('slug', $slug)->first();
     }
 
     /**

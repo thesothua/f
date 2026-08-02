@@ -7,10 +7,35 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Blog extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'title',
+                'category',
+                'excerpt',
+                'content',
+                'status',
+            ])
+            ->logOnlyDirty()
+            ->useLogName('blogs')
+            ->setDescriptionForEvent(fn(string $eventName) => "Blog {$eventName}");
+    }
+
+    /**
+     * Relationship: Get all of the blog's activities.
+     */
+    public function activities()
+    {
+        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject');
+    }
 
     protected $fillable = [
         'title',

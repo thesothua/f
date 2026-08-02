@@ -55,7 +55,7 @@ class VolunteerService
 
     public function getVolunteerById($id)
     {
-        return Volunteer::find($id);
+        return Volunteer::with(['activities.causer'])->find($id);
     }
 
     public function createVolunteer($data)
