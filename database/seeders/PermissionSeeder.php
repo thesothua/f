@@ -47,6 +47,7 @@ class PermissionSeeder extends Seeder
 
             // Donations
             'view donations',
+            'create donations',
             'edit donations',
             'delete donations',
             'send donations invoice',

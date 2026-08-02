@@ -113,4 +113,58 @@ class RazorpayService
             return null;
         }
     }
+
+    /**
+     * Create a Razorpay QR Code for dynamic payments
+     */
+    public function createQrCode($amount, $description = 'Donation', $notes = [])
+    {
+        try {
+            return $this->api->qrCode->create([
+                'type' => 'upi_qr',
+                'name' => 'Furrydom India',
+                'usage' => 'single_use',
+                'fixed_amount' => true,
+                'payment_amount' => intval($amount * 100), // in paise
+                'description' => $description,
+                'notes' => $notes
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to create Razorpay QR Code: ' . $e->getMessage());
+            throw new \Exception('Failed to generate UPI QR code from Razorpay: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch a Razorpay QR Code
+     */
+    public function fetchQrCode($qrCodeId)
+    {
+        try {
+            return $this->api->qrCode->fetch($qrCodeId);
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch Razorpay QR Code ' . $qrCodeId . ': ' . $e->getMessage());
+            throw new \Exception('Failed to fetch QR Code details: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch payments made against a specific Razorpay QR Code
+     */
+    public function fetchQrCodePayments($qrCodeId)
+    {
+        try {
+            $qrCode = $this->api->qrCode->fetch($qrCodeId);
+            $payments = $qrCode->fetchAllPayments();
+            
+            if ($payments && method_exists($payments, 'toArray')) {
+                return $payments->toArray();
+            }
+            
+            return $payments;
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch Razorpay QR Code payments for ' . $qrCodeId . ': ' . $e->getMessage());
+            return null;
+        }
+    }
 }

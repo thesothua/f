@@ -190,4 +190,46 @@ class DonationController extends Controller
             return $this->errorResponse('Failed to send invoice: ' . $e->getMessage(), 500);
         }
     }
+
+    /**
+     * Store a manually created donation record
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'currency' => 'nullable|string|size:3',
+            'donor_name' => 'required|string|min:2',
+            'donor_email' => 'required|email',
+            'donor_phone' => 'nullable|string',
+            'pan_number' => 'nullable|string|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i',
+            'plan_id' => 'nullable|integer|exists:plans,id',
+            'campaign_id' => 'nullable|integer|exists:campaigns,id',
+            'status' => 'required|string|in:succeeded,pending,failed',
+            'payment_gateway' => 'required|string',
+            'gateway_transaction_id' => 'nullable|string',
+            'anonymous' => 'nullable|boolean',
+            'created_at' => 'nullable|date',
+        ]);
+
+        try {
+            $donation = $this->donationService->createManualDonation($request->all());
+            return $this->successResponse($donation, 'Manual donation record created successfully.', 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to create donation record: ' . $e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Verify payment status of a dynamic UPI QR Code donation
+     */
+    public function verifyQrCode(Request $request, $id)
+    {
+        try {
+            $donation = $this->donationService->verifyQrCodePayment($id);
+            return $this->successResponse($donation, 'QR code payment verified.');
+        } catch (\Exception $e) {
+            return $this->errorResponse('Verification failed: ' . $e->getMessage(), 500);
+        }
+    }
 }

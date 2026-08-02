@@ -413,4 +413,172 @@ class DonationService
         $sub->update($updateData);
         return $sub->fresh();
     }
+
+    /**
+     * Create a manual or Razorpay QR donation
+     */
+    public function createManualDonation($data)
+    {
+        return DB::transaction(function () use ($data) {
+            $amount = floatval($data['amount']);
+            $currency = $data['currency'] ?? 'INR';
+            $status = $data['status'] ?? 'succeeded';
+            $gateway = $data['payment_gateway'] ?? 'offline';
+
+            $donationData = [
+                'user_id' => $data['user_id'] ?? null,
+                'plan_id' => $data['plan_id'] ?? null,
+                'campaign_id' => $data['campaign_id'] ?? null,
+                'donor_name' => $data['donor_name'],
+                'donor_email' => $data['donor_email'],
+                'donor_phone' => $data['donor_phone'] ?? null,
+                'pan_number' => $data['pan_number'] ?? null,
+                'amount' => $amount,
+                'currency' => $currency,
+                'status' => $status,
+                'payment_gateway' => $gateway,
+                'gateway_transaction_id' => $data['gateway_transaction_id'] ?? null,
+                'anonymous' => filter_var($data['anonymous'] ?? false, FILTER_VALIDATE_BOOLEAN),
+            ];
+
+            // If a custom created_at date is provided, set it
+            if (!empty($data['created_at'])) {
+                $donationData['created_at'] = $data['created_at'];
+            }
+
+            // Generate Razorpay QR Code if that's the payment gateway
+            if ($gateway === 'razorpay_qr') {
+                $description = 'Donation from ' . $data['donor_name'];
+                $notes = [
+                    'donor_email' => $data['donor_email'],
+                    'plan_id' => $data['plan_id'] ?? null,
+                    'campaign_id' => $data['campaign_id'] ?? null,
+                ];
+
+                $qrCode = $this->razorpay->createQrCode($amount, $description, $notes);
+
+                $donationData['gateway_order_id'] = $qrCode['id']; // Store QR Code ID in gateway_order_id
+                $donationData['receipt_url'] = $qrCode['image_url']; // Store QR Code Image URL in receipt_url temporarily
+                $donationData['status'] = 'pending';
+            }
+
+            $donation = Donation::create($donationData);
+
+            // Execute success actions immediately if status is succeeded
+            if ($donation->status === 'succeeded') {
+                $this->executeDonationSuccessActions($donation);
+            }
+
+            return $donation;
+        });
+    }
+
+    /**
+     * Helper to execute common actions after a donation succeeded (update amounts, send receipt, notify)
+     */
+    protected function executeDonationSuccessActions($donation)
+    {
+        // Update associated Plan (cause) raised amount
+        if ($donation->plan_id) {
+            $plan = Plan::find($donation->plan_id);
+            if ($plan) {
+                $plan->increment('raised_amount', $donation->amount);
+            }
+        }
+
+        // Update associated Campaign raised amount
+        if ($donation->campaign_id) {
+            $campaign = \App\Models\Campaign::find($donation->campaign_id);
+            if ($campaign) {
+                $oldProgress = $campaign->progress_percentage;
+                $campaign->increment('raised_amount', $donation->amount);
+                $campaign->refresh();
+                
+                if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
+                    try {
+                        $roles = \App\Models\Role::getNotificationRecipients();
+                        \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\CampaignGoalReached($campaign));
+                    } catch (\Exception $e) {
+                        Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
+                    }
+                }
+            }
+        }
+
+        // Send Email to Donor
+        try {
+            \Illuminate\Support\Facades\Mail::to($donation->donor_email)
+                ->send(new \App\Mail\DonationReceiptMail($donation));
+        } catch (\Exception $e) {
+            Log::error('Failed to send donation receipt email: ' . $e->getMessage());
+        }
+
+        // Trigger Admin Notification
+        try {
+            $roles = \App\Models\Role::getNotificationRecipients();
+            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewDonationReceived($donation));
+        } catch (\Exception $e) {
+            Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Verify dynamic UPI QR Code payment status from Razorpay
+     */
+    public function verifyQrCodePayment($id)
+    {
+        return DB::transaction(function () use ($id) {
+            $donation = Donation::findOrFail($id);
+
+            if ($donation->status === 'succeeded') {
+                return $donation;
+            }
+
+            if ($donation->payment_gateway !== 'razorpay_qr' || !$donation->gateway_order_id) {
+                throw new \Exception('Not a valid QR code donation.');
+            }
+
+            $qrCode = $this->razorpay->fetchQrCode($donation->gateway_order_id);
+
+            // Fetch payments received on this QR Code
+            $payments = $this->razorpay->fetchQrCodePayments($donation->gateway_order_id);
+
+            $paymentSucceeded = false;
+            $transactionId = null;
+
+            if ($payments && isset($payments['items']) && count($payments['items']) > 0) {
+                foreach ($payments['items'] as $payment) {
+                    if ($payment['status'] === 'captured') {
+                        $paymentSucceeded = true;
+                        $transactionId = $payment['id'];
+                        break;
+                    }
+                }
+            }
+
+            if ($paymentSucceeded) {
+                $donation->update([
+                    'status' => 'succeeded',
+                    'gateway_transaction_id' => $transactionId
+                ]);
+
+                // Run success actions
+                $this->executeDonationSuccessActions($donation);
+            } else {
+                // If the QR Code has been closed but no captured payment was found
+                $qrCodeStatus = null;
+                if (is_object($qrCode)) {
+                    $qrCodeStatus = $qrCode->status ?? null;
+                } elseif (is_array($qrCode)) {
+                    $qrCodeStatus = $qrCode['status'] ?? null;
+                }
+
+                if ($qrCodeStatus === 'closed') {
+                    $donation->update(['status' => 'failed']);
+                }
+            }
+
+            return $donation;
+        });
+    }
 }

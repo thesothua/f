@@ -189,8 +189,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Administrative Donations routes
     Route::prefix('donations')->controller(DonationController::class)->group(function () {
         Route::get("/", "index")->middleware('permission:view donations');
+        Route::post("/", "store")->middleware('permission:create donations');
         Route::get("/{id}", "show")->middleware('permission:view donations');
         Route::post("/{id}/send-invoice", "sendInvoice")->middleware('permission:send donations invoice');
+        Route::post("/{id}/verify-qr", "verifyQrCode")->middleware('permission:create donations');
         Route::delete("/{id}", "destroy")->middleware('permission:delete donations');
     });
 
