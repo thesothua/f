@@ -21,6 +21,12 @@ class VolunteerController extends Controller
         return $this->successResponse($volunteers, 'Volunteers retrieved successfully.');
     }
 
+    public function publicVolunteers(Request $request)
+    {
+        $volunteers = $this->volunteerService->getPublicVolunteers();
+        return $this->successResponse($volunteers, 'Public volunteers retrieved successfully.');
+    }
+
     public function show(Request $request, $id)
     {
         $volunteer = $this->volunteerService->getVolunteerById($id);
@@ -43,8 +49,10 @@ class VolunteerController extends Controller
             'role'        => 'nullable|string',
             'reason'      => 'nullable|string',
             'status'      => 'nullable|string|in:Pending,Approved,Rejected',
-            'adminNotes'  => 'nullable|string',
-            'admin_notes' => 'nullable|string',
+            'adminNotes'      => 'nullable|string',
+            'admin_notes'     => 'nullable|string',
+            'showInWebsite'   => 'nullable|boolean',
+            'show_in_website' => 'nullable|boolean',
         ], [
             'full_name.required' => 'Full Name is required.',
             'full_name.min'      => 'Full Name must be at least 2 characters.',
@@ -81,15 +89,17 @@ class VolunteerController extends Controller
         }
 
         $request->validate([
-            'full_name'   => 'sometimes|required|string|min:2',
-            'email'       => 'sometimes|required|email',
-            'phone'       => 'nullable|string',
-            'city'        => 'nullable|string',
-            'role'        => 'sometimes|string',
-            'reason'      => 'nullable|string',
-            'status'      => 'sometimes|string|in:Pending,Approved,Rejected',
-            'adminNotes'  => 'nullable|string',
-            'admin_notes' => 'nullable|string',
+            'full_name'       => 'sometimes|required|string|min:2',
+            'email'           => 'sometimes|required|email',
+            'phone'           => 'nullable|string',
+            'city'            => 'nullable|string',
+            'role'            => 'sometimes|string',
+            'reason'          => 'nullable|string',
+            'status'          => 'sometimes|string|in:Pending,Approved,Rejected',
+            'adminNotes'      => 'nullable|string',
+            'admin_notes'     => 'nullable|string',
+            'showInWebsite'   => 'nullable|boolean',
+            'show_in_website' => 'nullable|boolean',
         ]);
 
         $volunteer = $this->volunteerService->updateVolunteer($id, $request->all());

@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\RescueCase;
+use App\Models\User;
+use App\Mail\RescueCaseAssignedMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class RescueCaseController extends Controller
 {
@@ -127,7 +131,20 @@ class RescueCaseController extends Controller
             $updateData['deceased_details'] = $request->input('deceased_details');
         }
 
+        $oldRescuerId = $case->rescuer_id;
         $case->update($updateData);
+
+        // If rescuer_id changed and is set, notify the newly assigned volunteer
+        if (isset($updateData['rescuer_id']) && $updateData['rescuer_id'] != $oldRescuerId && !empty($updateData['rescuer_id'])) {
+            $newRescuer = User::find($updateData['rescuer_id']);
+            if ($newRescuer && !empty($newRescuer->email)) {
+                try {
+                    Mail::to($newRescuer->email)->send(new RescueCaseAssignedMail($case, $newRescuer));
+                } catch (\Exception $e) {
+                    Log::error('Failed to send rescue case assignment mail to volunteer: ' . $e->getMessage());
+                }
+            }
+        }
 
         // Eager load relationships after updating to return complete object
         return $this->successResponse(

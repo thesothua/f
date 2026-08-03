@@ -75,6 +75,14 @@ class AnimalReportController extends Controller
 
         $report = $this->animalReportService->createReport($request->all());
 
+        // Trigger Admin Notification
+        try {
+            $roles = \App\Models\Role::getNotificationRecipients();
+            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewAnimalReportReceived($report));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send NewAnimalReportReceived notification: ' . $e->getMessage());
+        }
+
         return $this->successResponse(
             $report,
             'Thank you for reporting! The case has been logged successfully and our rescue team is notified.',

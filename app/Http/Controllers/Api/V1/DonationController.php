@@ -48,7 +48,8 @@ class DonationController extends Controller
             'donor_email' => 'required|email',
             'donor_phone' => 'nullable|string',
             'pan_number' => 'nullable|string|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i', // Validation for PAN format
-            'plan_id' => 'nullable|integer|exists:plans,id',
+            'plan_id' => 'nullable|integer|exists:plans,id|prohibits:campaign_id',
+            'campaign_id' => 'nullable|integer|exists:campaigns,id|prohibits:plan_id',
             'type' => 'required|string|in:one_time,recurring',
             'anonymous' => 'nullable|boolean',
         ]);
@@ -203,8 +204,8 @@ class DonationController extends Controller
             'donor_email' => 'required|email',
             'donor_phone' => 'nullable|string',
             'pan_number' => 'nullable|string|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i',
-            'plan_id' => 'nullable|integer|exists:plans,id',
-            'campaign_id' => 'nullable|integer|exists:campaigns,id',
+            'plan_id' => 'nullable|integer|exists:plans,id|prohibits:campaign_id',
+            'campaign_id' => 'nullable|integer|exists:campaigns,id|prohibits:plan_id',
             'status' => 'required|string|in:succeeded,pending,failed',
             'payment_gateway' => 'required|string',
             'gateway_transaction_id' => 'nullable|string',

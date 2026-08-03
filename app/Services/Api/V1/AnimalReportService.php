@@ -4,7 +4,12 @@ namespace App\Services\Api\V1;
 
 use App\Models\AnimalReport;
 use App\Models\RescueCase;
+use App\Models\User;
+use App\Mail\AnimalReportAcceptedMail;
+use App\Mail\RescueCaseAssignedMail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class AnimalReportService
 {
@@ -163,6 +168,27 @@ class AnimalReportService
                 ->performedOn($rescueCase)
                 ->causedBy(auth()->user())
                 ->log("Rescue case created from report #{$report->id}");
+
+            // Send notification email to reporter if email is provided
+            if (!empty($report->reporter_email)) {
+                try {
+                    Mail::to($report->reporter_email)->send(new AnimalReportAcceptedMail($rescueCase));
+                } catch (\Exception $e) {
+                    Log::error('Failed to send animal report acceptance mail to reporter: ' . $e->getMessage());
+                }
+            }
+
+            // Send assignment notification email to rescuer/volunteer if assigned
+            if ($rescueCase->rescuer_id) {
+                $rescuer = User::find($rescueCase->rescuer_id);
+                if ($rescuer && !empty($rescuer->email)) {
+                    try {
+                        Mail::to($rescuer->email)->send(new RescueCaseAssignedMail($rescueCase, $rescuer));
+                    } catch (\Exception $e) {
+                        Log::error('Failed to send rescue case assignment mail to volunteer: ' . $e->getMessage());
+                    }
+                }
+            }
 
             return $rescueCase;
         });

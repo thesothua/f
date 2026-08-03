@@ -61,14 +61,15 @@ class VolunteerService
     public function createVolunteer($data)
     {
         return Volunteer::create([
-            'full_name'   => $data['fullName'] ?? $data['full_name'] ?? '',
-            'email'       => $data['email'] ?? '',
-            'phone'       => $data['phone'] ?? null,
-            'city'        => $data['city'] ?? null,
-            'role'        => $data['role'] ?? 'rescue',
-            'reason'      => $data['reason'] ?? null,
-            'status'      => $data['status'] ?? 'Pending',
-            'admin_notes' => $data['adminNotes'] ?? $data['admin_notes'] ?? null,
+            'full_name'       => $data['fullName'] ?? $data['full_name'] ?? '',
+            'email'           => $data['email'] ?? '',
+            'phone'           => $data['phone'] ?? null,
+            'city'            => $data['city'] ?? null,
+            'role'            => $data['role'] ?? 'rescue',
+            'reason'          => $data['reason'] ?? null,
+            'status'          => $data['status'] ?? 'Pending',
+            'admin_notes'     => $data['adminNotes'] ?? $data['admin_notes'] ?? null,
+            'show_in_website' => isset($data['showInWebsite']) ? filter_var($data['showInWebsite'], FILTER_VALIDATE_BOOLEAN) : (isset($data['show_in_website']) ? filter_var($data['show_in_website'], FILTER_VALIDATE_BOOLEAN) : false),
         ]);
     }
 
@@ -106,6 +107,10 @@ class VolunteerService
         }
         if (array_key_exists('adminNotes', $data) || array_key_exists('admin_notes', $data)) {
             $updateData['admin_notes'] = $data['adminNotes'] ?? $data['admin_notes'] ?? null;
+        }
+        if (array_key_exists('showInWebsite', $data) || array_key_exists('show_in_website', $data)) {
+            $val = $data['showInWebsite'] ?? $data['show_in_website'];
+            $updateData['show_in_website'] = filter_var($val, FILTER_VALIDATE_BOOLEAN);
         }
 
         $volunteer->update($updateData);
@@ -173,6 +178,11 @@ class VolunteerService
         } catch (\Exception $e) {
             Log::error('Failed to send volunteer credentials email: ' . $e->getMessage());
         }
+    }
+
+    public function getPublicVolunteers()
+    {
+        return Volunteer::where('show_in_website', true)->latest()->get();
     }
 
     public function deleteVolunteer($id)
