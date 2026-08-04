@@ -56,6 +56,8 @@ class UserService
             'phone' => $data['phone'] ?? null,
             'bio' => $data['bio'] ?? null,
             'avatar' => $data['avatar'] ?? null,
+            'dob' => $data['dob'] ?? null,
+            'anniversary' => $data['anniversary'] ?? null,
             'show_in_website' => filter_var($data['show_in_website'] ?? $data['showInWebsite'] ?? false, FILTER_VALIDATE_BOOLEAN),
             'password' => Hash::make($data['password'] ?? 'password123'),
         ];
@@ -100,6 +102,12 @@ class UserService
         }
         if (array_key_exists('avatar', $data)) {
             $userData['avatar'] = $data['avatar'];
+        }
+        if (array_key_exists('dob', $data)) {
+            $userData['dob'] = $data['dob'];
+        }
+        if (array_key_exists('anniversary', $data)) {
+            $userData['anniversary'] = $data['anniversary'];
         }
         if (array_key_exists('show_in_website', $data) || array_key_exists('showInWebsite', $data)) {
             $val = $data['show_in_website'] ?? $data['showInWebsite'];

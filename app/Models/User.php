@@ -36,6 +36,8 @@ class User extends Authenticatable
         'phone',
         'bio',
         'avatar',
+        'dob',
+        'anniversary',
         'show_in_website',
     ];
 

@@ -30,6 +30,60 @@ class AuthController extends Controller
         return $this->successResponse($result, 'User logged in successfully.');
     }
 
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'phone' => 'nullable|string|max:50',
+            'dob' => 'nullable|date',
+            'anniversary' => 'nullable|date',
+            'avatar' => 'nullable',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('avatars', $filename, 'public');
+            $data['avatar'] = url('storage/' . $path);
+        }
+
+        $result = $this->authService->register($data);
+        return $this->successResponse($result, 'User registered successfully.', 201);
+    }
+
+    public function googleLogin(Request $request)
+    {
+        $data = $request->all();
+
+        // Decode JWT payload if credential string is provided by Google SDK
+        if (!empty($request->credential)) {
+            try {
+                $parts = explode('.', $request->credential);
+                if (count($parts) === 3) {
+                    $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
+                    if ($payload && isset($payload['email'])) {
+                        $data['email'] = $payload['email'];
+                        $data['name'] = $payload['name'] ?? ($data['name'] ?? null);
+                        $data['avatar'] = $payload['picture'] ?? ($data['avatar'] ?? null);
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore decoding error and fallback to passed email
+            }
+        }
+
+        if (empty($data['email'])) {
+            return $this->errorResponse('Valid email is required for Google login.', 422);
+        }
+
+        $result = $this->authService->googleLogin($data);
+        return $this->successResponse($result, 'Google login successful.');
+    }
+
     public function logout(Request $request)
     {
         $status = $this->authService->logout($request->user());

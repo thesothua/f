@@ -46,6 +46,8 @@ class UserController extends Controller
             'password' => 'nullable|string|min:6',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
+            'dob' => 'nullable|date',
+            'anniversary' => 'nullable|date',
             'show_in_website' => 'nullable|boolean',
             'showInWebsite' => 'nullable|boolean',
         ]);
@@ -68,6 +70,8 @@ class UserController extends Controller
             'password' => 'nullable|string|min:6',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
+            'dob' => 'nullable|date',
+            'anniversary' => 'nullable|date',
             'show_in_website' => 'nullable|boolean',
             'showInWebsite' => 'nullable|boolean',
         ]);
