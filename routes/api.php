@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\CampaignController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\SettingController;
 use App\Http\Controllers\Api\V1\AnimalReportController;
+use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\RescueCaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,9 @@ Route::prefix('donations')->controller(DonationController::class)->group(functio
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth:sanctum')->group(function () {
+
+    // Dashboard Stats
+    Route::get('/dashboard/stats', [DashboardController::class, 'getStats'])->middleware('permission:view dashboard');
 
     // Authenticated User Profile & Logout
     Route::controller(AuthController::class)->group(function () {
