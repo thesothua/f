@@ -11,6 +11,7 @@ class SocialSettings extends Settings
     public ?string $twitter_url;
     public ?string $youtube_url;
     public ?string $linkedin_url;
+    public ?string $whatsapp_group_url;
     public ?string $google_maps_embed;
 
     public static function group(): string
