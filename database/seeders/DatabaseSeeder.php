@@ -23,9 +23,8 @@ class DatabaseSeeder extends Seeder
             CausePlansSeeder::class,
             CampaignSeeder::class,
             BlogSeeder::class,
+            SettingSeeder::class,
         ]);
-
-        // User::factory(10)->create();
 
         User::firstOrCreate(
             ['email' => 'test@example.com'],
