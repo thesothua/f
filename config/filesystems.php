@@ -38,21 +38,21 @@ return [
             'report' => false,
         ],
 
-        // 'public' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/public'),
-        //     'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
-        //     'visibility' => 'public',
-        //     'throw' => false,
-        //     'report' => false,
-        // ],
-
         'public' => [
             'driver' => 'local',
-            'root' => env('MEDIA_ROOT', storage_path('app/public')),
-            'url' => env('APP_URL') . '/storage',
+            'root' => storage_path('app/public'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
             'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
         ],
+
+        // 'public' => [
+        //     'driver' => 'local',
+        //     'root' => env('MEDIA_ROOT', storage_path('app/public')),
+        //     'url' => env('APP_URL') . '/storage',
+        //     'visibility' => 'public',
+        // ],
 
         's3' => [
             'driver' => 's3',
