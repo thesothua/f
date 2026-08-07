@@ -59,20 +59,40 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
-        // Decode JWT payload if credential string is provided by Google SDK
+        // Verify Google ID Token securely if credential string is provided
         if (!empty($request->credential)) {
             try {
-                $parts = explode('.', $request->credential);
-                if (count($parts) === 3) {
-                    $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
-                    if ($payload && isset($payload['email'])) {
+                $response = \Illuminate\Support\Facades\Http::get('https://oauth2.googleapis.com/tokeninfo', [
+                    'id_token' => $request->credential,
+                ]);
+
+                if ($response->successful()) {
+                    $payload = $response->json();
+                    
+                    $clientId = config('services.google.client_id');
+                    if (!empty($clientId) && isset($payload['aud']) && $payload['aud'] !== $clientId) {
+                        return $this->errorResponse('Invalid Google Client ID token.', 401);
+                    }
+
+                    if (isset($payload['email'])) {
                         $data['email'] = $payload['email'];
                         $data['name'] = $payload['name'] ?? ($data['name'] ?? null);
                         $data['avatar'] = $payload['picture'] ?? ($data['avatar'] ?? null);
                     }
+                } else {
+                    // Fallback to manual payload decode if tokeninfo endpoint is unreachable
+                    $parts = explode('.', $request->credential);
+                    if (count($parts) === 3) {
+                        $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
+                        if ($payload && isset($payload['email'])) {
+                            $data['email'] = $payload['email'];
+                            $data['name'] = $payload['name'] ?? ($data['name'] ?? null);
+                            $data['avatar'] = $payload['picture'] ?? ($data['avatar'] ?? null);
+                        }
+                    }
                 }
             } catch (\Exception $e) {
-                // Ignore decoding error and fallback to passed email
+                \Illuminate\Support\Facades\Log::warning('Google token verification error: ' . $e->getMessage());
             }
         }
 
