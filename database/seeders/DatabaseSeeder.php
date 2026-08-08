@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CampaignSeeder::class,
             BlogSeeder::class,
             SettingSeeder::class,
+            PageSeeder::class,
         ]);
 
         User::firstOrCreate(
