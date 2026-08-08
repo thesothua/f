@@ -100,6 +100,11 @@ class AuthController extends Controller
             return $this->errorResponse('Valid email is required for Google login.', 422);
         }
 
+        if ($request->has('phone')) $data['phone'] = $request->input('phone');
+        if ($request->has('dob')) $data['dob'] = $request->input('dob');
+        if ($request->has('gender')) $data['gender'] = $request->input('gender');
+        if ($request->has('anniversary')) $data['anniversary'] = $request->input('anniversary');
+
         $result = $this->authService->googleLogin($data);
         return $this->successResponse($result, 'Google login successful.');
     }
@@ -129,7 +134,11 @@ class AuthController extends Controller
         $request->validate([
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
+            'gender' => 'nullable|string|max:50',
+            'dob' => 'nullable|date',
+            'anniversary' => 'nullable|date',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string|max:1000',
             'current_password' => 'nullable|string|required_with:password',
@@ -147,11 +156,19 @@ class AuthController extends Controller
             'first_name',
             'last_name',
             'phone',
+            'gender',
+            'dob',
+            'anniversary',
             'bio',
             'avatar',
         ]));
 
-        $user->name = trim($request->input('first_name') . ' ' . $request->input('last_name'));
+        if ($request->filled('name')) {
+            $user->name = $request->input('name');
+        } else if ($request->filled('first_name') || $request->filled('last_name')) {
+            $user->name = trim($request->input('first_name') . ' ' . $request->input('last_name'));
+        }
+
         if (empty($user->name)) {
             $user->name = $user->email;
         }

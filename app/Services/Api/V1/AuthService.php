@@ -54,6 +54,10 @@ class AuthService
         $email = $data['email'];
         $name = $data['name'] ?? explode('@', $email)[0];
         $avatar = $data['avatar'] ?? null;
+        $phone = $data['phone'] ?? null;
+        $dob = $data['dob'] ?? null;
+        $gender = $data['gender'] ?? null;
+        $anniversary = $data['anniversary'] ?? null;
 
         $user = User::where('email', $email)->first();
 
@@ -63,6 +67,10 @@ class AuthService
                 'email' => $email,
                 'password' => Hash::make(\Illuminate\Support\Str::random(24)),
                 'avatar' => $avatar,
+                'phone' => $phone,
+                'dob' => $dob,
+                'gender' => $gender,
+                'anniversary' => $anniversary,
             ]);
 
             if (class_exists(\Spatie\Permission\Models\Role::class)) {
@@ -72,8 +80,28 @@ class AuthService
                 }
             }
         } else {
+            $updated = false;
             if (empty($user->avatar) && !empty($avatar)) {
                 $user->avatar = $avatar;
+                $updated = true;
+            }
+            if (!empty($phone)) {
+                $user->phone = $phone;
+                $updated = true;
+            }
+            if (!empty($dob)) {
+                $user->dob = $dob;
+                $updated = true;
+            }
+            if (!empty($gender)) {
+                $user->gender = $gender;
+                $updated = true;
+            }
+            if (!empty($anniversary)) {
+                $user->anniversary = $anniversary;
+                $updated = true;
+            }
+            if ($updated) {
                 $user->save();
             }
         }
