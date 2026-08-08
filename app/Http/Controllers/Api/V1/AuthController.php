@@ -59,8 +59,80 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
-        // Verify Google ID Token securely if credential string is provided
-        if (!empty($request->credential)) {
+        // 1. If access_token is provided, use Google People API to fetch birthdays, genders, phone numbers, name, email & photo
+        if (!empty($request->access_token)) {
+            try {
+                $peopleResp = \Illuminate\Support\Facades\Http::withToken($request->access_token)
+                    ->get('https://people.googleapis.com/v1/people/me', [
+                        'personFields' => 'names,emailAddresses,photos,phoneNumbers,birthdays,genders',
+                    ]);
+
+                if ($peopleResp->successful()) {
+                    $payload = $peopleResp->json();
+
+                    // Extract email
+                    if (!empty($payload['emailAddresses'][0]['value'])) {
+                        $data['email'] = $payload['emailAddresses'][0]['value'];
+                    }
+
+                    // Extract name
+                    if (!empty($payload['names'][0]['displayName'])) {
+                        $data['name'] = $payload['names'][0]['displayName'];
+                    }
+
+                    // Extract photo / avatar
+                    if (!empty($payload['photos'][0]['url'])) {
+                        $data['avatar'] = $payload['photos'][0]['url'];
+                    }
+
+                    // Extract phone number
+                    if (!empty($payload['phoneNumbers'][0]['value'])) {
+                        $data['phone'] = $payload['phoneNumbers'][0]['value'];
+                    }
+
+                    // Extract birthday (dob)
+                    if (!empty($payload['birthdays'])) {
+                        foreach ($payload['birthdays'] as $bday) {
+                            if (!empty($bday['date'])) {
+                                $d = $bday['date'];
+                                $year = $d['year'] ?? 2000;
+                                $month = isset($d['month']) ? str_pad($d['month'], 2, '0', STR_PAD_LEFT) : null;
+                                $day = isset($d['day']) ? str_pad($d['day'], 2, '0', STR_PAD_LEFT) : null;
+
+                                if ($month && $day) {
+                                    $data['dob'] = "{$year}-{$month}-{$day}";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    // Extract gender
+                    if (!empty($payload['genders'][0]['value'])) {
+                        $g = strtolower($payload['genders'][0]['value']);
+                        if ($g === 'male') $data['gender'] = 'Male';
+                        elseif ($g === 'female') $data['gender'] = 'Female';
+                        elseif ($g === 'other') $data['gender'] = 'Other';
+                        else $data['gender'] = ucfirst($g);
+                    }
+                } else {
+                    // Fallback to Google UserInfo endpoint
+                    $userinfoResp = \Illuminate\Support\Facades\Http::withToken($request->access_token)
+                        ->get('https://www.googleapis.com/oauth2/v3/userinfo');
+                    if ($userinfoResp->successful()) {
+                        $info = $userinfoResp->json();
+                        $data['email'] = $info['email'] ?? ($data['email'] ?? null);
+                        $data['name'] = $info['name'] ?? ($data['name'] ?? null);
+                        $data['avatar'] = $info['picture'] ?? ($data['avatar'] ?? null);
+                    }
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::warning('Google People API fetch error: ' . $e->getMessage());
+            }
+        }
+
+        // 2. Verify Google ID Token securely if credential string is provided
+        if (empty($data['email']) && !empty($request->credential)) {
             try {
                 $response = \Illuminate\Support\Facades\Http::get('https://oauth2.googleapis.com/tokeninfo', [
                     'id_token' => $request->credential,
@@ -100,10 +172,10 @@ class AuthController extends Controller
             return $this->errorResponse('Valid email is required for Google login.', 422);
         }
 
-        if ($request->has('phone')) $data['phone'] = $request->input('phone');
-        if ($request->has('dob')) $data['dob'] = $request->input('dob');
-        if ($request->has('gender')) $data['gender'] = $request->input('gender');
-        if ($request->has('anniversary')) $data['anniversary'] = $request->input('anniversary');
+        if ($request->has('phone') && !empty($request->input('phone'))) $data['phone'] = $request->input('phone');
+        if ($request->has('dob') && !empty($request->input('dob'))) $data['dob'] = $request->input('dob');
+        if ($request->has('gender') && !empty($request->input('gender'))) $data['gender'] = $request->input('gender');
+        if ($request->has('anniversary') && !empty($request->input('anniversary'))) $data['anniversary'] = $request->input('anniversary');
 
         $result = $this->authService->googleLogin($data);
         return $this->successResponse($result, 'Google login successful.');
