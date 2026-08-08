@@ -18,6 +18,12 @@ else
     sed -i "s/<VirtualHost \*:80>/<VirtualHost *:8080>/g" /etc/apache2/sites-available/*.conf
 fi
 
+# Ensure storage directory exists and symlink is created
+echo "Creating storage symlink & setting permissions..."
+mkdir -p /var/www/html/storage/app/public
+php artisan storage:link --force || true
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
+
 # Run caching optimizations for production
 echo "Running Laravel optimizations..."
 php artisan config:cache || true
