@@ -51,8 +51,6 @@ class VolunteerController extends Controller
             'status'      => 'nullable|string|in:Pending,Approved,Rejected',
             'adminNotes'      => 'nullable|string',
             'admin_notes'     => 'nullable|string',
-            'showInWebsite'   => 'nullable|boolean',
-            'show_in_website' => 'nullable|boolean',
         ], [
             'full_name.required' => 'Full Name is required.',
             'full_name.min'      => 'Full Name must be at least 2 characters.',
@@ -98,8 +96,6 @@ class VolunteerController extends Controller
             'status'          => 'sometimes|string|in:Pending,Approved,Rejected',
             'adminNotes'      => 'nullable|string',
             'admin_notes'     => 'nullable|string',
-            'showInWebsite'   => 'nullable|boolean',
-            'show_in_website' => 'nullable|boolean',
         ]);
 
         $volunteer = $this->volunteerService->updateVolunteer($id, $request->all());

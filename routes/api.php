@@ -70,7 +70,8 @@ Route::prefix('media')->controller(GalleryController::class)->group(function () 
 // Public Contact Submission
 Route::post("/contacts", [ContactController::class, "store"]);
 
-// Public Volunteer Submission & Public Volunteers Listing
+// Public Volunteer Submission & Public Volunteers Listing & Roles
+Route::get("/volunteer-roles/public", [RoleController::class, "publicVolunteerRoles"]);
 Route::get("/volunteers/public", [VolunteerController::class, "publicVolunteers"]);
 Route::post("/volunteers", [VolunteerController::class, "store"]);
 

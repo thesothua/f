@@ -109,12 +109,19 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
-        // Give all permissions to Super Admin role
-        $superAdmin = Role::where('name', 'Super Admin')->where('guard_name', 'api')->first();
-        if ($superAdmin) {
-            $superAdmin->syncPermissions($permissions);
+        // Give all permissions to team roles
+        $teamRoles = Role::whereIn('name', [
+            'Founder & Director',
+            'Director for Operations (COO)',
+            'Rescue & Field Operations Head',
+            'Social Media & Content Manager',
+            'Technical Advisor',
+        ])->get();
+
+        foreach ($teamRoles as $role) {
+            $role->syncPermissions($permissions);
         }
 
-        $this->command->info('Permissions seeded and assigned to Super Admin successfully!');
+        $this->command->info('Permissions seeded and assigned to team roles successfully!');
     }
 }

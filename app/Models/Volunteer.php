@@ -23,7 +23,6 @@ class Volunteer extends Model
                 'reason',
                 'status',
                 'admin_notes',
-                'show_in_website',
             ])
             ->logOnlyDirty()
             ->useLogName('volunteers')
@@ -47,14 +46,9 @@ class Volunteer extends Model
         'reason',
         'status',
         'admin_notes',
-        'show_in_website',
     ];
 
-    protected $casts = [
-        'show_in_website' => 'boolean',
-    ];
-
-    protected $appends = ['fullName', 'adminNotes', 'showInWebsite'];
+    protected $appends = ['fullName', 'adminNotes'];
 
     public function getFullNameAttribute()
     {
@@ -64,10 +58,5 @@ class Volunteer extends Model
     public function getAdminNotesAttribute()
     {
         return $this->attributes['admin_notes'] ?? null;
-    }
-
-    public function getShowInWebsiteAttribute()
-    {
-        return (bool) ($this->attributes['show_in_website'] ?? false);
     }
 }

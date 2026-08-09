@@ -21,11 +21,11 @@ class VolunteerService
             $search = $params['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('full_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%")
-                  ->orWhere('role', 'like', "%{$search}%")
-                  ->orWhere('reason', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('city', 'like', "%{$search}%")
+                    ->orWhere('role', 'like', "%{$search}%")
+                    ->orWhere('reason', 'like', "%{$search}%");
             });
         }
 
@@ -61,15 +61,14 @@ class VolunteerService
     public function createVolunteer($data)
     {
         return Volunteer::create([
-            'full_name'       => $data['fullName'] ?? $data['full_name'] ?? '',
-            'email'           => $data['email'] ?? '',
-            'phone'           => $data['phone'] ?? null,
-            'city'            => $data['city'] ?? null,
-            'role'            => $data['role'] ?? 'rescue',
-            'reason'          => $data['reason'] ?? null,
-            'status'          => $data['status'] ?? 'Pending',
-            'admin_notes'     => $data['adminNotes'] ?? $data['admin_notes'] ?? null,
-            'show_in_website' => isset($data['showInWebsite']) ? filter_var($data['showInWebsite'], FILTER_VALIDATE_BOOLEAN) : (isset($data['show_in_website']) ? filter_var($data['show_in_website'], FILTER_VALIDATE_BOOLEAN) : false),
+            'full_name'   => $data['fullName'] ?? $data['full_name'] ?? '',
+            'email'       => $data['email'] ?? '',
+            'phone'       => $data['phone'] ?? null,
+            'city'        => $data['city'] ?? null,
+            'role'        => $data['role'] ?? 'rescue',
+            'reason'      => $data['reason'] ?? null,
+            'status'      => $data['status'] ?? 'Pending',
+            'admin_notes' => $data['adminNotes'] ?? $data['admin_notes'] ?? null,
         ]);
     }
 
@@ -108,10 +107,6 @@ class VolunteerService
         if (array_key_exists('adminNotes', $data) || array_key_exists('admin_notes', $data)) {
             $updateData['admin_notes'] = $data['adminNotes'] ?? $data['admin_notes'] ?? null;
         }
-        if (array_key_exists('showInWebsite', $data) || array_key_exists('show_in_website', $data)) {
-            $val = $data['showInWebsite'] ?? $data['show_in_website'];
-            $updateData['show_in_website'] = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-        }
 
         $volunteer->update($updateData);
         $volunteer = $volunteer->fresh();
@@ -128,26 +123,32 @@ class VolunteerService
         // Check if user already exists
         $user = User::where('email', $volunteer->email)->first();
 
-        // Map volunteer roles to Spatie roles
-        $roleMap = [
-            'rescue' => 'Rescue Volunteer',
-            'event' => 'Event Volunteer',
-            'fundraising' => 'Fundraising Volunteer',
-            'social' => 'Social Media Volunteer',
-        ];
-        $roleName = $roleMap[$volunteer->role] ?? ucwords($volunteer->role) . ' Volunteer';
+        // Resolve volunteer role dynamically
+        $roleName = trim($volunteer->role);
 
-        // Ensure Spatie role exists for the api guard
-        Role::firstOrCreate([
-            'name' => $roleName,
-            'guard_name' => 'api'
-        ]);
+        $existingRole = \App\Models\Role::where('guard_name', 'api')
+            ->where(function ($query) use ($roleName) {
+                $query->where('name', $roleName)
+                    ->orWhereRaw('LOWER(name) = ?', [strtolower($roleName)]);
+            })
+            ->first();
+
+        if ($existingRole) {
+            $roleName = $existingRole->name;
+        }
+
+        // Ensure role exists for the api guard with is_volunteer = true
+        \App\Models\Role::firstOrCreate(
+            ['name' => $roleName, 'guard_name' => 'api'],
+            ['is_volunteer' => true]
+        );
 
         if ($user) {
             // Assign the role if not already assigned
             if (!$user->hasRole($roleName)) {
                 $user->assignRole($roleName);
             }
+            $user->update(['show_in_website' => true]);
             return;
         }
 
@@ -166,7 +167,9 @@ class VolunteerService
             'last_name' => $lastName,
             'email' => $volunteer->email,
             'phone' => $volunteer->phone,
+            'bio' => $volunteer->reason ?? ("As a " . $volunteer->role),
             'password' => Hash::make($password),
+            'show_in_website' => false,
         ]);
 
         // Assign the role
@@ -182,7 +185,34 @@ class VolunteerService
 
     public function getPublicVolunteers()
     {
-        return Volunteer::where('show_in_website', true)->latest()->get();
+        // Fetch Users who have roles marked as volunteer roles (is_volunteer = true) and show_in_website = true
+        return User::where('show_in_website', true)
+            ->whereHas('roles', function ($query) {
+                $query->where('is_volunteer', true);
+            })
+            ->with('roles')
+            ->latest()
+            ->get()
+            ->map(function ($user) {
+                $volunteerRole = $user->roles->firstWhere('is_volunteer', true);
+                $roleName = $volunteerRole ? $volunteerRole->name : ($user->roles->first()?->name ?? 'Volunteer');
+
+                return [
+                    'id'              => $user->id,
+                    'full_name'       => $user->name,
+                    'fullName'        => $user->name,
+                    'email'           => $user->email,
+                    'phone'           => $user->phone,
+                    'city'            => $user->city ?? 'Pune',
+                    'role'            => $roleName,
+                    'reason'          => $user->bio,
+                    'bio'             => $user->bio,
+                    'avatar'          => $user->avatar,
+                    'show_in_website' => (bool) $user->show_in_website,
+                    'created_at'      => $user->created_at,
+                ];
+            })
+            ->values();
     }
 
     public function deleteVolunteer($id)

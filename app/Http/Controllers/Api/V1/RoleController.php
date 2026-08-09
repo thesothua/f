@@ -31,11 +31,18 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|unique:roles,name,NULL,id,guard_name,api',
+            'is_volunteer' => 'nullable|boolean',
+            'allow_notification' => 'nullable|boolean',
+            'role_description' => 'nullable|string',
+            'roleDescription' => 'nullable|string',
             'permissions' => 'nullable|array',
             'permissions.*' => 'string',
         ]);
 
-        $role = $this->roleService->createRole($request->only(['name', 'permissions']));
+        $data = $request->only(['name', 'is_volunteer', 'allow_notification', 'permissions']);
+        $data['role_description'] = $request->input('role_description') ?? $request->input('roleDescription');
+
+        $role = $this->roleService->createRole($data);
         return $this->successResponse($role, 'Role created successfully.');
     }
 
@@ -43,12 +50,28 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|unique:roles,name,' . $id . ',id,guard_name,api',
+            'is_volunteer' => 'nullable|boolean',
+            'allow_notification' => 'nullable|boolean',
+            'role_description' => 'nullable|string',
+            'roleDescription' => 'nullable|string',
             'permissions' => 'nullable|array',
             'permissions.*' => 'string',
         ]);
 
-        $role = $this->roleService->updateRole($id, $request->only(['name', 'permissions']));
+        $data = $request->only(['name', 'is_volunteer', 'allow_notification', 'permissions']);
+        $data['role_description'] = $request->input('role_description') ?? $request->input('roleDescription');
+
+        $role = $this->roleService->updateRole($id, $data);
         return $this->successResponse($role, 'Role updated successfully.');
+    }
+
+    public function publicVolunteerRoles()
+    {
+        $roles = \App\Models\Role::where('guard_name', 'api')
+            ->where('is_volunteer', true)
+            ->get();
+
+        return $this->successResponse($roles, 'Public volunteer roles retrieved successfully.');
     }
 
     public function destroy($id)
