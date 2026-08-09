@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Settings\GeneralSettings;
 use App\Settings\SocialSettings;
-use App\Settings\MailSettings;
 use App\Settings\SeoSettings;
 use Illuminate\Database\Seeder;
 
@@ -35,12 +34,6 @@ class SettingSeeder extends Seeder
         $social->whatsapp_group_url = 'https://chat.whatsapp.com/demo';
         $social->google_maps_embed = '';
         $social->save();
-
-        $mail = app(MailSettings::class);
-        $mail->notify_on_donation = true;
-        $mail->notify_on_volunteer = true;
-        $mail->admin_notify_email = 'care@furrydom.org';
-        $mail->save();
 
         $seo = app(SeoSettings::class);
         $seo->website_name = 'Furrydom India';

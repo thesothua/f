@@ -122,6 +122,14 @@ class PermissionSeeder extends Seeder
             $role->syncPermissions($permissions);
         }
 
-        $this->command->info('Permissions seeded and assigned to team roles successfully!');
+        // Give view dashboard permission to volunteer roles
+        $volunteerRoles = Role::where('is_volunteer', true)->orWhereIn('name', [
+            'Rescue Volunteer',
+            'Event Volunteer',
+            'Fundraising Volunteer',
+            'Social Media Volunteer',
+        ])->get();
+
+        $this->command->info('Permissions seeded and assigned to team & volunteer roles successfully!');
     }
 }

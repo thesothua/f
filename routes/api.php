@@ -216,12 +216,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/{id}/cancel", "cancelSubscription")->middleware('permission:cancel subscriptions');
     });
 
-    // Administrative Notifications routes
+    // Notifications routes (accessible to all authenticated users)
     Route::prefix('notifications')->controller(NotificationController::class)->group(function () {
-        Route::get("/", "index")->middleware('permission:view dashboard');
-        Route::put("/read-all", "markAllAsRead")->middleware('permission:view dashboard');
-        Route::put("/{id}/read", "markAsRead")->middleware('permission:view dashboard');
-        Route::delete("/{id}", "destroy")->middleware('permission:view dashboard');
+        Route::get("/", "index");
+        Route::put("/read-all", "markAllAsRead");
+        Route::put("/{id}/read", "markAsRead");
+        Route::delete("/{id}", "destroy");
     });
 
     // Administrative Settings routes
