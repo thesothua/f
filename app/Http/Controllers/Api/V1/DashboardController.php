@@ -24,6 +24,55 @@ class DashboardController extends Controller
      */
     public function getStats(Request $request)
     {
+        $user = $request->user() ?? auth('sanctum')->user() ?? auth()->user();
+
+        if ($user) {
+            $hasSuperAdmin = $user->hasRole('Super Admin');
+            $roleNames = strtolower(implode(' ', $user->getRoleNames()->toArray()));
+            $isVolunteerRole = \DB::table('roles')
+                ->join('model_has_roles', 'roles.id', '=', 'model_has_roles.role_id')
+                ->where('model_has_roles.model_id', $user->id)
+                ->where('roles.is_volunteer', true)
+                ->exists();
+
+            $isVolunteer = !$hasSuperAdmin && ($isVolunteerRole || str_contains($roleNames, 'volunteer'));
+
+            if ($isVolunteer) {
+                $assignedQuery = RescueCase::where('rescuer_id', $user->id);
+
+                $assignedCasesCount = (clone $assignedQuery)->count();
+                $activeCasesCount   = (clone $assignedQuery)
+                    ->whereIn('status', ['dispatched', 'admitted', 'in_treatment', 'Reported', 'In Progress', 'Medical Treatment'])
+                    ->count();
+                $resolvedCasesCount = (clone $assignedQuery)
+                    ->whereIn('status', ['recovered', 'released', 'adopted', 'Rescued', 'Released', 'Adopted'])
+                    ->count();
+
+                $assignedCases = (clone $assignedQuery)
+                    ->with('animalReport:id,animal_type,address,reporter_name,reporter_mobile')
+                    ->orderByDesc('created_at')
+                    ->take(10)
+                    ->get(['id', 'case_number', 'animal_type', 'status', 'rescuer_id', 'created_at', 'animal_report_id']);
+
+                $rescueStatusDistribution = (clone $assignedQuery)
+                    ->select('status', \DB::raw('count(*) as count'))
+                    ->groupBy('status')
+                    ->pluck('count', 'status')
+                    ->toArray();
+
+                return response()->json([
+                    'isVolunteer' => true,
+                    'volunteerStats' => [
+                        'assignedCasesCount' => $assignedCasesCount,
+                        'activeCasesCount'   => $activeCasesCount,
+                        'resolvedCasesCount' => $resolvedCasesCount,
+                        'assignedCases'      => $assignedCases,
+                        'rescueStatus'       => $rescueStatusDistribution,
+                    ],
+                ]);
+            }
+        }
+
         $now = Carbon::now();
 
         // ─── OVERVIEW TOTALS ─────────────────────────────────────
