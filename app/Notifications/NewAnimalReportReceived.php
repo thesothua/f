@@ -55,9 +55,11 @@ class NewAnimalReportReceived extends Notification implements ShouldQueue
             ? implode(', ', $this->report->injuries) 
             : $this->report->injuries;
 
+        $recipientName = !empty($notifiable->name) ? $notifiable->name : 'Team Member';
+
         return (new MailMessage)
             ->subject('🚨 New Injured Animal Report Received - ' . config('app.name'))
-            ->greeting('Hello Admin,')
+            ->greeting("Hello {$recipientName},")
             ->line('A new injured animal report has been successfully submitted on ' . config('app.name') . '.')
             ->line('**Report Details:**')
             ->line('• Animal Type: ' . $this->report->animal_type)

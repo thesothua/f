@@ -166,23 +166,13 @@ class DonationService
                     $campaign->refresh();
                     
                     if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
-                        try {
-                            $roles = \App\Models\Role::getNotificationRecipients();
-                            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\CampaignGoalReached($campaign));
-                        } catch (\Exception $e) {
-                            Log::error('Failed to send CampaignGoalReached notification: ' . $e->getMessage());
-                        }
+                        \App\Services\Api\V1\NotificationRoutingService::send('campaign_goal', new \App\Notifications\CampaignGoalReached($campaign));
                     }
                 }
             }
 
-            // Trigger Admin Notification
-            try {
-                $roles = \App\Models\Role::getNotificationRecipients();
-                \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewDonationReceived($donation));
-            } catch (\Exception $e) {
-                Log::error('Failed to send NewDonationReceived notification: ' . $e->getMessage());
-            }
+            // Trigger Admin Notification via NotificationRoutingService
+            \App\Services\Api\V1\NotificationRoutingService::send('new_donation', new \App\Notifications\NewDonationReceived($donation));
 
             return $donation;
         });

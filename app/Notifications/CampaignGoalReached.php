@@ -50,9 +50,11 @@ class CampaignGoalReached extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
+        $recipientName = !empty($notifiable->name) ? $notifiable->name : 'Team Member';
+
         return (new \Illuminate\Notifications\Messages\MailMessage)
             ->subject('🎉 Campaign Goal Reached! - ' . config('app.name'))
-            ->greeting('Hello Admin,')
+            ->greeting("Hello {$recipientName},")
             ->line("Great news! The campaign '{$this->campaign->title}' has reached 100% of its fundraising goal!")
             ->line('**Campaign Details:**')
             ->line('• Target Goal: ' . $this->campaign->currency . ' ' . number_format($this->campaign->goal_amount, 2))

@@ -68,13 +68,8 @@ class VolunteerController extends Controller
             \Illuminate\Support\Facades\Log::error('Failed to send volunteer welcome email: ' . $e->getMessage());
         }
 
-        // Trigger Admin Notification
-        try {
-            $roles = \App\Models\Role::getNotificationRecipients();
-            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewVolunteerRegistered($volunteer));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Failed to send NewVolunteerRegistered notification: ' . $e->getMessage());
-        }
+        // Trigger Admin Notification via NotificationRoutingService
+        \App\Services\Api\V1\NotificationRoutingService::send('volunteer_registered', new \App\Notifications\NewVolunteerRegistered($volunteer));
 
         return $this->successResponse($volunteer, 'Volunteer application submitted successfully! Thank you for joining.', 201);
     }

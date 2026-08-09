@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Settings\GeneralSettings;
 use App\Settings\SocialSettings;
 use App\Settings\SeoSettings;
+use App\Settings\NotificationSettings;
+use App\Services\Api\V1\NotificationRoutingService;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -16,6 +18,7 @@ class SettingController extends Controller
             'general' => $general->toArray(),
             'social' => $social->toArray(),
             'seo' => $seo->toArray(),
+            'notification' => NotificationRoutingService::getRoutingSettings(),
         ], 'Settings retrieved successfully.');
     }
 
@@ -56,6 +59,8 @@ class SettingController extends Controller
             'seo.google_analytics_id' => 'nullable|string',
             'seo.google_search_console' => 'nullable|string',
             'seo.robots' => 'nullable|string',
+
+            'notification' => 'nullable|array',
         ]);
 
         if ($request->has('general')) {
@@ -76,10 +81,25 @@ class SettingController extends Controller
             $seo->save();
         }
 
+        if ($request->has('notification')) {
+            try {
+                $notificationSettings = app(NotificationSettings::class);
+                $notificationSettings->routing = $request->input('notification');
+                $notificationSettings->save();
+            } catch (\Throwable $e) {
+                // Ignore if migration has not run yet, settings will fallback to array in DB or memory
+                \Illuminate\Support\Facades\DB::table('settings')->updateOrInsert(
+                    ['group' => 'notification', 'name' => 'routing'],
+                    ['payload' => json_encode($request->input('notification'))]
+                );
+            }
+        }
+
         return $this->successResponse([
             'general' => app(GeneralSettings::class)->toArray(),
             'social' => app(SocialSettings::class)->toArray(),
             'seo' => app(SeoSettings::class)->toArray(),
+            'notification' => NotificationRoutingService::getRoutingSettings(),
         ], 'Settings updated successfully.');
     }
 }

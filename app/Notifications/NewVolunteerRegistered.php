@@ -50,9 +50,11 @@ class NewVolunteerRegistered extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
+        $recipientName = !empty($notifiable->name) ? $notifiable->name : 'Team Member';
+
         return (new \Illuminate\Notifications\Messages\MailMessage)
             ->subject('🤝 New Volunteer Application - ' . config('app.name'))
-            ->greeting('Hello Admin,')
+            ->greeting("Hello {$recipientName},")
             ->line('A new volunteer application has been submitted.')
             ->line('**Volunteer Details:**')
             ->line('• Name: ' . $this->volunteer->full_name)

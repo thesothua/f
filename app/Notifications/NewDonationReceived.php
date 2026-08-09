@@ -52,10 +52,11 @@ class NewDonationReceived extends Notification implements ShouldQueue
     {
         $campaignTitle = $this->donation->plan ? $this->donation->plan->title : null;
         $desc = $campaignTitle ? "for '{$campaignTitle}'" : "for General Support";
+        $recipientName = !empty($notifiable->name) ? $notifiable->name : 'Team Member';
 
         return (new \Illuminate\Notifications\Messages\MailMessage)
             ->subject('🐾 New Donation Received - ' . config('app.name'))
-            ->greeting('Hello Admin,')
+            ->greeting("Hello {$recipientName},")
             ->line('A new donation has been successfully processed on ' . config('app.name') . '.')
             ->line('**Donor Details:**')
             ->line('• Name: ' . $this->donation->donor_name)

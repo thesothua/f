@@ -63,13 +63,8 @@ class ContactController extends Controller
             \Illuminate\Support\Facades\Log::error('Failed to send contact acknowledgment email: ' . $e->getMessage());
         }
 
-        // Trigger Admin Notification
-        try {
-            $roles = \App\Models\Role::getNotificationRecipients();
-            \Illuminate\Support\Facades\Notification::send($roles, new \App\Notifications\NewContactInquiryReceived($contact));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Failed to send NewContactInquiryReceived notification: ' . $e->getMessage());
-        }
+        // Trigger Admin Notification via NotificationRoutingService
+        \App\Services\Api\V1\NotificationRoutingService::send('contact_inquiry', new \App\Notifications\NewContactInquiryReceived($contact));
 
         return $this->successResponse($contact, 'Message sent successfully! We will get back to you soon.', 201);
     }

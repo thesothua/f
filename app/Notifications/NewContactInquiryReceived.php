@@ -50,9 +50,11 @@ class NewContactInquiryReceived extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
+        $recipientName = !empty($notifiable->name) ? $notifiable->name : 'Team Member';
+
         return (new \Illuminate\Notifications\Messages\MailMessage)
             ->subject('✉️ New Contact Inquiry - ' . config('app.name'))
-            ->greeting('Hello Admin,')
+            ->greeting("Hello {$recipientName},")
             ->line('You have received a new inquiry from the website contact form.')
             ->line('**Inquiry Details:**')
             ->line('• Sender Name: ' . $this->contact->name)
