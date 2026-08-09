@@ -58,8 +58,9 @@ class UserService
             'avatar' => $data['avatar'] ?? null,
             'dob' => $data['dob'] ?? null,
             'anniversary' => $data['anniversary'] ?? null,
+            'status' => $data['status'] ?? 'Active',
             'show_in_website' => filter_var($data['show_in_website'] ?? $data['showInWebsite'] ?? false, FILTER_VALIDATE_BOOLEAN),
-            'password' => Hash::make($data['password'] ?? 'password123'),
+            'password' => Hash::make($data['password'] ?? \Illuminate\Support\Str::random(16)),
         ];
 
         $user = User::create($userData);
@@ -94,6 +95,9 @@ class UserService
             'gender' => $data['gender'] ?? $user->gender,
         ];
 
+        if (array_key_exists('status', $data)) {
+            $userData['status'] = $data['status'];
+        }
         if (array_key_exists('phone', $data)) {
             $userData['phone'] = $data['phone'];
         }

@@ -24,6 +24,9 @@ class AuthController extends Controller
         ]);
 
         $result = $this->authService->login($request->all());
+        if (is_array($result) && isset($result['error'])) {
+            return $this->errorResponse($result['error'], $result['status_code'] ?? 403);
+        }
         if (!$result) {
             return $this->errorResponse('Invalid email or password.', 401);
         }
@@ -178,6 +181,9 @@ class AuthController extends Controller
         if ($request->has('anniversary') && !empty($request->input('anniversary'))) $data['anniversary'] = $request->input('anniversary');
 
         $result = $this->authService->googleLogin($data);
+        if (is_array($result) && isset($result['error'])) {
+            return $this->errorResponse($result['error'], $result['status_code'] ?? 403);
+        }
         return $this->successResponse($result, 'Google login successful.');
     }
 

@@ -11,12 +11,17 @@ class AuthService
     public function login($data)
     {
         $user = User::where('email', $data['email'])->first();
-        if ($user && Hash::check($data['password'], $user->password)) {
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return [
-                'user' => $user->load('roles.permissions', 'permissions'),
-                'token' => $token,
-            ];
+        if ($user) {
+            if (strtolower($user->status ?? 'Active') === 'inactive') {
+                return ['error' => 'Your account is inactive. Please contact administrator.', 'status_code' => 403];
+            }
+            if (Hash::check($data['password'], $user->password)) {
+                $token = $user->createToken('auth_token')->plainTextToken;
+                return [
+                    'user' => $user->load('roles.permissions', 'permissions'),
+                    'token' => $token,
+                ];
+            }
         }
         return false;
     }
@@ -31,6 +36,7 @@ class AuthService
             'avatar' => $data['avatar'] ?? null,
             'dob' => $data['dob'] ?? null,
             'anniversary' => $data['anniversary'] ?? null,
+            'status' => 'Active',
         ]);
 
         // Assign default 'User' role if Spatie Role exists
@@ -60,6 +66,10 @@ class AuthService
         $anniversary = $data['anniversary'] ?? null;
 
         $user = User::where('email', $email)->first();
+
+        if ($user && strtolower($user->status ?? 'Active') === 'inactive') {
+            return ['error' => 'Your account is inactive. Please contact administrator.', 'status_code' => 403];
+        }
 
         if (!$user) {
             $user = User::create([

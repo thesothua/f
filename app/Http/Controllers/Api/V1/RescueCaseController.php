@@ -13,11 +13,32 @@ use Illuminate\Support\Facades\Log;
 class RescueCaseController extends Controller
 {
     /**
+     * Check if the authenticated user has a volunteer role.
+     */
+    private function isVolunteerUser(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if ($user->hasRole('Super Admin')) {
+            return false;
+        }
+
+        return $user->roles()->where('is_volunteer', true)->exists();
+    }
+
+    /**
      * Display a listing of rescue cases.
      */
     public function index(Request $request)
     {
         $query = RescueCase::query()->with(['animalReport', 'rescuer']);
+
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user)) {
+            $query->where('rescuer_id', $user->id);
+        }
 
         // Search filter
         if (!empty($request->input('search'))) {
@@ -54,7 +75,7 @@ class RescueCaseController extends Controller
     /**
      * Display the specified rescue case with relationships and activities.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $case = RescueCase::with(['animalReport.media', 'rescuer', 'activities.causer'])->find($id);
 
@@ -62,8 +83,14 @@ class RescueCaseController extends Controller
             return $this->errorResponse('Rescue case not found.', 404);
         }
 
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user) && $case->rescuer_id != $user?->id) {
+            return $this->errorResponse('Unauthorized. You can only view rescue cases assigned to you.', 403);
+        }
+
         return $this->successResponse($case, 'Rescue case retrieved successfully.');
     }
+
     /**
      * Update the specified rescue case in storage.
      */
@@ -103,6 +130,11 @@ class RescueCaseController extends Controller
         $case = RescueCase::find($id);
         if (!$case) {
             return $this->errorResponse('Rescue case not found.', 404);
+        }
+
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user) && $case->rescuer_id != $user?->id) {
+            return $this->errorResponse('Unauthorized. You can only update rescue cases assigned to you.', 403);
         }
 
         $updateData = [];
@@ -156,11 +188,16 @@ class RescueCaseController extends Controller
     /**
      * Remove the specified rescue case from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $case = RescueCase::find($id);
         if (!$case) {
             return $this->errorResponse('Rescue case not found.', 404);
+        }
+
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user) && $case->rescuer_id != $user?->id) {
+            return $this->errorResponse('Unauthorized. You can only delete rescue cases assigned to you.', 403);
         }
 
         $case->delete();
@@ -170,12 +207,17 @@ class RescueCaseController extends Controller
     /**
      * Download the rescue case report as PDF.
      */
-    public function downloadReport($id)
+    public function downloadReport(Request $request, $id)
     {
         $case = RescueCase::with(['animalReport.media', 'rescuer', 'activities.causer'])->find($id);
 
         if (!$case) {
             return $this->errorResponse('Rescue case not found.', 404);
+        }
+
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user) && $case->rescuer_id != $user?->id) {
+            return $this->errorResponse('Unauthorized. You can only access rescue cases assigned to you.', 403);
         }
 
         $settings = app(\App\Settings\GeneralSettings::class);
@@ -193,12 +235,17 @@ class RescueCaseController extends Controller
     /**
      * Send the rescue case report PDF to the reporter's email.
      */
-    public function sendReportToReporter($id)
+    public function sendReportToReporter(Request $request, $id)
     {
         $case = RescueCase::with(['animalReport.media', 'rescuer', 'activities.causer'])->find($id);
 
         if (!$case) {
             return $this->errorResponse('Rescue case not found.', 404);
+        }
+
+        $user = $request->user() ?? auth()->user();
+        if ($this->isVolunteerUser($user) && $case->rescuer_id != $user?->id) {
+            return $this->errorResponse('Unauthorized. You can only access rescue cases assigned to you.', 403);
         }
 
         $reporterEmail = $case->animalReport->reporter_email ?? null;

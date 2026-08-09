@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $general = app(GeneralSettings::class);
-        $general->site_name = 'Furrydom India Care Foundation';
+        $general->site_name = 'Furrydom India';
         $general->site_slogan = 'All Lives Matter';
         $general->contact_email = 'care@furrydom.org';
         $general->contact_phone = '+91 98220 14785';

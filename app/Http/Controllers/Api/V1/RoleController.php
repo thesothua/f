@@ -76,11 +76,6 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $this->roleService->deleteRole($id);
-            return $this->successResponse(null, 'Role deleted successfully.');
-        } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), 400);
-        }
+        return $this->errorResponse('Deleting roles is disabled.', 403);
     }
 }

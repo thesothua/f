@@ -43,7 +43,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'firstName' => 'nullable|string',
             'lastName' => 'nullable|string',
-            'password' => 'nullable|string|min:6',
+            'status' => 'nullable|string|in:Active,Inactive',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
             'dob' => 'nullable|date',
@@ -67,7 +67,7 @@ class UserController extends Controller
             'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignore($id)],
             'firstName' => 'nullable|string',
             'lastName' => 'nullable|string',
-            'password' => 'nullable|string|min:6',
+            'status' => 'nullable|string|in:Active,Inactive',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
             'dob' => 'nullable|date',
@@ -82,11 +82,6 @@ class UserController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $user = $this->userService->getUserById($id);
-        if (!$user) {
-            return $this->errorResponse('User not found.', 404);
-        }
-        $this->userService->deleteUser($id);
-        return $this->successResponse(null, 'User deleted successfully.');
+        return $this->errorResponse('Deleting users is disabled. You can change user status to Inactive instead.', 403);
     }
 }

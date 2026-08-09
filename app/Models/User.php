@@ -39,6 +39,7 @@ class User extends Authenticatable
         'dob',
         'anniversary',
         'show_in_website',
+        'status',
     ];
 
     /**

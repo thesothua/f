@@ -116,7 +116,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('attachments')->controller(AttachmentController::class)->group(function () {
         Route::get("/", "index")->middleware('permission:view media');
         Route::get("/{id}", "show")->middleware('permission:view media');
-        Route::post("/", "store")->middleware('permission:create media');
+        Route::post("/", "store");
         Route::delete("/{id}", "destroy")->middleware('permission:delete media');
     });
 
