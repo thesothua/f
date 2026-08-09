@@ -73,11 +73,10 @@ class VolunteerSeeder extends Seeder
 
             if ($volunteer->status === 'Approved') {
                 // Ensure role exists with is_volunteer = true
-                $role = Role::firstOrCreate(
+                Role::updateOrCreate(
                     ['name' => $roleName, 'guard_name' => 'api'],
                     ['is_volunteer' => true]
                 );
-                $role->update(['is_volunteer' => true]);
 
                 // Create/Update User account with volunteer role
                 $parts = explode(' ', trim($v['full_name']), 2);

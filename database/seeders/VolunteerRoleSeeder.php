@@ -23,7 +23,7 @@ class VolunteerRoleSeeder extends Seeder
         ];
 
         foreach ($volunteerRoles as $roleName => $description) {
-            $role = Role::firstOrCreate(
+            Role::updateOrCreate(
                 ['name' => $roleName, 'guard_name' => 'api'],
                 [
                     'allow_notification' => false,
@@ -31,11 +31,6 @@ class VolunteerRoleSeeder extends Seeder
                     'role_description' => $description,
                 ]
             );
-            $role->update([
-                'allow_notification' => false,
-                'is_volunteer' => true,
-                'role_description' => $description,
-            ]);
         }
 
         $this->command->info('Volunteer roles with descriptions seeded successfully!');

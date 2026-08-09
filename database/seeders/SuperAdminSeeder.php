@@ -27,11 +27,10 @@ class SuperAdminSeeder extends Seeder
         ];
 
         foreach ($rolesData as $roleName => $attributes) {
-            $role = Role::firstOrCreate(
+            Role::updateOrCreate(
                 ['name' => $roleName, 'guard_name' => 'api'],
                 $attributes
             );
-            $role->update($attributes);
         }
 
         // 2. Team Members / Users Seeding Data (in exact sequence)
@@ -72,14 +71,14 @@ class SuperAdminSeeder extends Seeder
                 'name' => 'Praveen Suthar',
                 'first_name' => 'Praveen',
                 'last_name' => 'Suthar',
-                'email' => env('MAIL_FROM_ADDRESS', 'thesothua@gmail.com'),
+                'email' => config('mail.from.address', 'thesothua@gmail.com'),
                 'bio' => 'Providing technical guidance and managing Furrydom India’s website, digital platforms, and technology initiatives to support the organization’s operations, outreach, and mission.',
                 'roles' => ['Technical Advisor'],
             ],
         ];
 
         foreach ($teamMembers as $member) {
-            $user = User::firstOrCreate(
+            $user = User::updateOrCreate(
                 ['email' => $member['email']],
                 [
                     'name' => $member['name'],
@@ -91,14 +90,6 @@ class SuperAdminSeeder extends Seeder
                     'show_in_website' => true,
                 ]
             );
-
-            $user->update([
-                'name' => $member['name'],
-                'first_name' => $member['first_name'],
-                'last_name' => $member['last_name'],
-                'bio' => $member['bio'],
-                'show_in_website' => true,
-            ]);
 
             foreach ($member['roles'] as $roleName) {
                 if (!$user->hasRole($roleName)) {

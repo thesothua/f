@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            SuperAdminSeeder::class,
             VolunteerRoleSeeder::class,
+            SuperAdminSeeder::class,
             PermissionSeeder::class,
             VolunteerSeeder::class,
             CausePlansSeeder::class,
@@ -26,13 +26,5 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             PageSeeder::class,
         ]);
-
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => bcrypt('password'),
-            ]
-        );
     }
 }

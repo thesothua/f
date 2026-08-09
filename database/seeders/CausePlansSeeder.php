@@ -13,7 +13,7 @@ class CausePlansSeeder extends Seeder
      */
     public function run(): void
     {
-        $userId = User::query()->value('id');
+        $userId = User::first()?->id;
 
         $causes = [
             [
