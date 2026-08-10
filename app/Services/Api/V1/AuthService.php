@@ -15,6 +15,9 @@ class AuthService
             if (strtolower($user->status ?? 'Active') === 'inactive') {
                 return ['error' => 'Your account is inactive. Please contact administrator.', 'status_code' => 403];
             }
+            if ($user->hasRole('Visitor')) {
+                return ['error' => 'Access denied. Visitor accounts are not allowed to access the admin portal.', 'status_code' => 403];
+            }
             if (Hash::check($data['password'], $user->password)) {
                 $token = $user->createToken('auth_token')->plainTextToken;
                 return [
@@ -39,13 +42,18 @@ class AuthService
             'status' => 'Active',
         ]);
 
-        // Assign default 'User' role if Spatie Role exists
-        if (class_exists(\Spatie\Permission\Models\Role::class)) {
-            $userRole = \Spatie\Permission\Models\Role::where('name', 'User')->first();
-            if ($userRole) {
-                $user->assignRole($userRole);
+            // Assign default 'Visitor' role
+            if (class_exists(\Spatie\Permission\Models\Role::class)) {
+                $visitorRole = \Spatie\Permission\Models\Role::firstOrCreate(
+                    ['name' => 'Visitor', 'guard_name' => 'api'],
+                    [
+                        'allow_notification' => false,
+                        'is_volunteer' => false,
+                        'role_description' => 'Default role for registered website visitors.'
+                    ]
+                );
+                $user->assignRole($visitorRole);
             }
-        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -84,10 +92,15 @@ class AuthService
             ]);
 
             if (class_exists(\Spatie\Permission\Models\Role::class)) {
-                $userRole = \Spatie\Permission\Models\Role::where('name', 'User')->first();
-                if ($userRole) {
-                    $user->assignRole($userRole);
-                }
+                $visitorRole = \Spatie\Permission\Models\Role::firstOrCreate(
+                    ['name' => 'Visitor', 'guard_name' => 'api'],
+                    [
+                        'allow_notification' => false,
+                        'is_volunteer' => false,
+                        'role_description' => 'Default role for registered website visitors.'
+                    ]
+                );
+                $user->assignRole($visitorRole);
             }
         } else {
             $updated = false;

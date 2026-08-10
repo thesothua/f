@@ -16,9 +16,9 @@ class UserService
             $search = $params['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
@@ -137,7 +137,14 @@ class UserService
 
     public function getTeamMembers()
     {
-        return User::with('roles')->where('show_in_website', true)->latest()->get();
+        return User::with('roles')
+            ->where('show_in_website', true)
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('is_volunteer', true)
+                    ->orWhere('name', 'Visitor');
+            })
+            ->latest()
+            ->get();
     }
 
     public function deleteUser($id)

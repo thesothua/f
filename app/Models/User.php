@@ -98,7 +98,7 @@ class User extends Authenticatable
 
     public function getRoleAttribute()
     {
-        return $this->roles->first()?->name ?? 'User';
+        return $this->roles->first()?->name ?? 'Visitor';
     }
 
     public function getShowInWebsiteAttribute()

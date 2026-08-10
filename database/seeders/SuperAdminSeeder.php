@@ -19,11 +19,12 @@ class SuperAdminSeeder extends Seeder
 
         // 1. Roles Definition (in exact sequence)
         $rolesData = [
-            'Founder & Director' => ['allow_notification' => false, 'is_volunteer' => false],
-            'Director for Operations (COO)' => ['allow_notification' => false, 'is_volunteer' => false],
-            'Rescue & Field Operations Head' => ['allow_notification' => false, 'is_volunteer' => false],
-            'Social Media & Content Manager' => ['allow_notification' => false, 'is_volunteer' => false],
-            'Technical Advisor' => ['allow_notification' => false, 'is_volunteer' => false],
+            'Founder & Director' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Organization Founder & Director'],
+            'Director for Operations (COO)' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Operations & Strategy Lead'],
+            'Rescue & Field Operations Head' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Rescue & Medical Lead'],
+            'Social Media & Content Manager' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Media & Digital Lead'],
+            'Technical Advisor' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Technology & Platform Advisor'],
+            'Visitor' => ['allow_notification' => false, 'is_volunteer' => false, 'role_description' => 'Default role for registered website visitors.'],
         ];
 
         foreach ($rolesData as $roleName => $attributes) {
@@ -74,6 +75,7 @@ class SuperAdminSeeder extends Seeder
                 'email' => config('mail.from.address', 'thesothua@gmail.com'),
                 'bio' => 'Providing technical guidance and managing Furrydom India’s website, digital platforms, and technology initiatives to support the organization’s operations, outreach, and mission.',
                 'roles' => ['Technical Advisor'],
+                'show_in_website' => true,
             ],
         ];
 
@@ -87,7 +89,7 @@ class SuperAdminSeeder extends Seeder
                     'bio' => $member['bio'],
                     'password' => Hash::make('password'),
                     'email_verified_at' => now(),
-                    'show_in_website' => true,
+                    'show_in_website' => $member['show_in_website'] ?? true,
                 ]
             );
 
@@ -98,6 +100,47 @@ class SuperAdminSeeder extends Seeder
             }
         }
 
-        $this->command->info('Roles and Team Members seeded successfully in exact sequence!');
+        // 3. Visitor Users Seeding Data
+        $visitorUsers = [
+            [
+                'name' => 'Rahul Verma',
+                'first_name' => 'Rahul',
+                'last_name' => 'Verma',
+                'email' => 'rahul.verma@example.com',
+                'bio' => 'Animal lover and regular website visitor.',
+                'roles' => ['Visitor'],
+            ],
+            [
+                'name' => 'Priya Patel',
+                'first_name' => 'Priya',
+                'last_name' => 'Patel',
+                'email' => 'priya.patel@example.com',
+                'bio' => 'Community supporter interested in animal welfare initiatives.',
+                'roles' => ['Visitor'],
+            ],
+        ];
+
+        foreach ($visitorUsers as $visitor) {
+            $user = User::updateOrCreate(
+                ['email' => $visitor['email']],
+                [
+                    'name' => $visitor['name'],
+                    'first_name' => $visitor['first_name'],
+                    'last_name' => $visitor['last_name'],
+                    'bio' => $visitor['bio'],
+                    'password' => Hash::make('password'),
+                    'email_verified_at' => now(),
+                    'show_in_website' => false,
+                ]
+            );
+
+            foreach ($visitor['roles'] as $roleName) {
+                if (!$user->hasRole($roleName)) {
+                    $user->assignRole($roleName);
+                }
+            }
+        }
+
+        $this->command->info('Roles, Team Members, and Visitors seeded successfully in exact sequence!');
     }
 }

@@ -105,6 +105,7 @@ class NotificationRoutingService
                     ->where(function ($q) {
                         $q->where('is_volunteer', false)->orWhereNull('is_volunteer');
                     })
+                    ->where('name', '!=', 'Visitor')
                     ->with('users')
                     ->get();
 
