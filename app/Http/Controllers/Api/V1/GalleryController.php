@@ -17,7 +17,7 @@ class GalleryController extends Controller
 
     public function index(Request $request)
     {
-        $galleries = $this->galleryService->getAllGalleryItems($request->all());
+        $galleries = $this->galleryService->getAllGalleryItems($request->only(['search', 'category', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($galleries, 'Gallery items retrieved successfully.');
     }
 
@@ -44,7 +44,7 @@ class GalleryController extends Controller
         ]);
 
         $file = $request->file('file');
-        $gallery = $this->galleryService->createGalleryItem($request->all(), $file);
+        $gallery = $this->galleryService->createGalleryItem($request->only(['title', 'src', 'alt', 'category', 'desc', 'status', 'sortOrder']), $file);
 
         return $this->successResponse($gallery, 'Gallery item created successfully.', 201);
     }
@@ -63,7 +63,7 @@ class GalleryController extends Controller
         ]);
 
         $file = $request->file('file');
-        $gallery = $this->galleryService->updateGalleryItem($id, $request->all(), $file);
+        $gallery = $this->galleryService->updateGalleryItem($id, $request->only(['title', 'src', 'alt', 'category', 'desc', 'status', 'sortOrder']), $file);
 
         if (!$gallery) {
             return $this->errorResponse('Gallery item not found.', 404);

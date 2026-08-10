@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $result = $this->authService->login($request->all());
+        $result = $this->authService->login($request->only(['email', 'password']));
         if (is_array($result) && isset($result['error'])) {
             return $this->errorResponse($result['error'], $result['status_code'] ?? 403);
         }
@@ -45,7 +45,7 @@ class AuthController extends Controller
             'avatar' => 'nullable',
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['name', 'email', 'password', 'phone', 'dob', 'anniversary']);
 
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
@@ -60,7 +60,7 @@ class AuthController extends Controller
 
     public function googleLogin(Request $request)
     {
-        $data = $request->all();
+        $data = $request->only(['email', 'name', 'avatar', 'credential', 'access_token', 'phone', 'dob', 'gender', 'anniversary']);
 
         // 1. If access_token is provided, use Google People API to fetch birthdays, genders, phone numbers, name, email & photo
         if (!empty($request->access_token)) {
@@ -145,7 +145,10 @@ class AuthController extends Controller
                     $payload = $response->json();
                     
                     $clientId = config('services.google.client_id');
-                    if (!empty($clientId) && isset($payload['aud']) && $payload['aud'] !== $clientId) {
+                    if (empty($clientId)) {
+                        return $this->errorResponse('Google Client ID is not configured on the server.', 500);
+                    }
+                    if (isset($payload['aud']) && $payload['aud'] !== $clientId) {
                         return $this->errorResponse('Invalid Google Client ID token.', 401);
                     }
 
@@ -155,16 +158,7 @@ class AuthController extends Controller
                         $data['avatar'] = $payload['picture'] ?? ($data['avatar'] ?? null);
                     }
                 } else {
-                    // Fallback to manual payload decode if tokeninfo endpoint is unreachable
-                    $parts = explode('.', $request->credential);
-                    if (count($parts) === 3) {
-                        $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
-                        if ($payload && isset($payload['email'])) {
-                            $data['email'] = $payload['email'];
-                            $data['name'] = $payload['name'] ?? ($data['name'] ?? null);
-                            $data['avatar'] = $payload['picture'] ?? ($data['avatar'] ?? null);
-                        }
-                    }
+                    return $this->errorResponse('Google token verification failed.', 401);
                 }
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::warning('Google token verification error: ' . $e->getMessage());

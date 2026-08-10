@@ -37,17 +37,19 @@ class VolunteerService
             $query->where('status', $params['status']);
         }
 
-        $sortBy = $params['sortBy'] ?? 'created_at';
-        // Map camelCase sort fields to snake_case column names if necessary
-        if ($sortBy === 'fullName') {
-            $sortBy = 'full_name';
+        $allowedSorts = ['full_name', 'email', 'phone', 'city', 'role', 'status', 'created_at'];
+        $sortByInput = $params['sortBy'] ?? 'created_at';
+        if ($sortByInput === 'fullName') {
+            $sortByInput = 'full_name';
         }
+        $sortBy = in_array($sortByInput, $allowedSorts) ? $sortByInput : 'created_at';
 
         $order = strtolower($params['order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
         $query->orderBy($sortBy, $order);
 
-        if (!empty($params['page']) && !empty($params['limit'])) {
-            return $query->paginate((int) $params['limit']);
+        $limit = min((int) ($params['limit'] ?? 15), 100);
+        if (!empty($params['page']) || !empty($params['limit'])) {
+            return $query->paginate($limit);
         }
 
         return $query->get();
@@ -201,8 +203,6 @@ class VolunteerService
                     'id'              => $user->id,
                     'full_name'       => $user->name,
                     'fullName'        => $user->name,
-                    'email'           => $user->email,
-                    'phone'           => $user->phone,
                     'city'            => $user->city ?? 'Pune',
                     'role'            => $roleName,
                     'reason'          => $user->bio,

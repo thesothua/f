@@ -11,7 +11,7 @@
         $logoUrl = url($logoUrl);
     }
     
-    $frontendUrl = env('FRONTEND_URL', config('app.url'));
+    $frontendUrl = config('app.frontend_url', config('app.url'));
 @endphp
 
 <x-mail::layout>

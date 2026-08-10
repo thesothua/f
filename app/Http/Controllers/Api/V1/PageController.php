@@ -44,9 +44,13 @@ class PageController extends Controller
     {
         $page = Page::with(['sections' => function ($query) {
             $query->orderBy('sort_order', 'asc');
-        }])->findOrFail($id);
+        }])->find($id);
 
-        return response()->json($page);
+        if (!$page) {
+            return $this->errorResponse('Page not found.', 404);
+        }
+
+        return $this->successResponse($page, 'Page retrieved successfully.');
     }
 
     /**
@@ -59,9 +63,13 @@ class PageController extends Controller
             ->with(['sections' => function ($query) {
                 $query->where('is_active', true)->orderBy('sort_order', 'asc');
             }])
-            ->firstOrFail();
+            ->first();
 
-        return response()->json($page);
+        if (!$page) {
+            return $this->errorResponse('Page not found.', 404);
+        }
+
+        return $this->successResponse($page, 'Page retrieved successfully.');
     }
 
     /**

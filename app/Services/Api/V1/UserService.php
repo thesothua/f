@@ -22,15 +22,19 @@ class UserService
             });
         }
 
-        if (!empty($params['sortBy'])) {
+        $allowedSorts = ['name', 'email', 'created_at', 'status', 'first_name', 'last_name'];
+        $sortBy = in_array($params['sortBy'] ?? '', $allowedSorts) ? $params['sortBy'] : null;
+
+        if ($sortBy) {
             $order = strtolower($params['order'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
-            $query->orderBy($params['sortBy'], $order);
+            $query->orderBy($sortBy, $order);
         } else {
             $query->latest();
         }
 
-        if (!empty($params['page']) && !empty($params['limit'])) {
-            return $query->paginate($params['limit']);
+        $limit = min((int) ($params['limit'] ?? 15), 100);
+        if (!empty($params['page']) || !empty($params['limit'])) {
+            return $query->paginate($limit);
         }
 
         return $query->get();
@@ -137,14 +141,14 @@ class UserService
 
     public function getTeamMembers()
     {
-        return User::with('roles')
+        return User::with('roles:id,name')
             ->where('show_in_website', true)
             ->whereDoesntHave('roles', function ($query) {
                 $query->where('is_volunteer', true)
                     ->orWhere('name', 'Visitor');
             })
             ->latest()
-            ->get();
+            ->get(['id', 'name', 'first_name', 'last_name', 'avatar', 'bio', 'show_in_website']);
     }
 
     public function deleteUser($id)

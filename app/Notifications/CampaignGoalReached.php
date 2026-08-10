@@ -59,7 +59,7 @@ class CampaignGoalReached extends Notification implements ShouldQueue
             ->line('**Campaign Details:**')
             ->line('• Target Goal: ' . $this->campaign->currency . ' ' . number_format($this->campaign->goal_amount, 2))
             ->line('• Total Raised: ' . $this->campaign->currency . ' ' . number_format($this->campaign->raised_amount, 2))
-            ->action('View Campaign Details', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/campaigns"))
+            ->action('View Campaign Details', url(config('app.frontend_url', 'http://127.0.0.1:5173') . "/admin/campaigns"))
             ->line('Thank you for making a difference!');
     }
 

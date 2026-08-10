@@ -12,8 +12,8 @@ class RazorpayService
 
     public function __construct()
     {
-        $keyId = env('RAZORPAY_KEY_ID', 'rzp_test_placeholder');
-        $keySecret = env('RAZORPAY_KEY_SECRET', 'placeholder_secret');
+        $keyId = config('services.razorpay.key_id', '');
+        $keySecret = config('services.razorpay.key_secret', '');
         $this->api = new Api($keyId, $keySecret);
     }
 

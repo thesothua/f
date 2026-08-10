@@ -62,7 +62,7 @@ class NewContactInquiryReceived extends Notification implements ShouldQueue
             ->line('• Subject: ' . ($this->contact->subject ?? 'General Inquiry'))
             ->line('**Message:**')
             ->line('"' . $this->contact->message . '"')
-            ->action('View Messages', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/contacts"))
+            ->action('View Messages', url(config('app.frontend_url', 'http://127.0.0.1:5173') . "/admin/contacts"))
             ->line('Please follow up with the sender as soon as possible.');
     }
 

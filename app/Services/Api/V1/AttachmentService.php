@@ -55,6 +55,11 @@ class AttachmentService
                 $attachment->addMedia($webpFile)
                     ->usingFileName(time() . '_' . Str::slug(pathinfo($webpName, PATHINFO_FILENAME)) . '.webp')
                     ->toMediaCollection('attachments');
+
+                // Cleanup temporary converted WebP file
+                if (file_exists($webpFile)) {
+                    @unlink($webpFile);
+                }
             } else {
                 // Fallback: upload original if conversion fails (e.g. SVG)
                 $attachment->addMedia($file)

@@ -63,7 +63,7 @@ class NewVolunteerRegistered extends Notification implements ShouldQueue
             ->line('• Location: ' . ($this->volunteer->city ?? 'N/A'))
             ->line('**Reason for Joining:**')
             ->line('"' . $this->volunteer->reason . '"')
-            ->action('Review Application', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/volunteers"))
+            ->action('Review Application', url(config('app.frontend_url', 'http://127.0.0.1:5173') . "/admin/volunteers"))
             ->line('Manage your volunteers from the dashboard.');
     }
 

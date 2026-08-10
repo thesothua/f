@@ -89,7 +89,7 @@ class DonationService
                 'razorpay_order_id' => $order['id'],
                 'amount' => $amount,
                 'currency' => $currency,
-                'key_id' => env('RAZORPAY_KEY_ID', '')
+                'key_id' => config('services.razorpay.key_id', '')
             ];
         });
     }
@@ -218,7 +218,7 @@ class DonationService
                 'razorpay_subscription_id' => $subscription['id'],
                 'amount' => $amount,
                 'currency' => $currency,
-                'key_id' => env('RAZORPAY_KEY_ID', '')
+                'key_id' => config('services.razorpay.key_id', '')
             ];
         });
     }

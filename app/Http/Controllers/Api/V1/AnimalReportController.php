@@ -73,7 +73,7 @@ class AnimalReportController extends Controller
             'video.max'                => 'The video must not exceed 50MB.',
         ]);
 
-        $report = $this->animalReportService->createReport($request->all());
+        $report = $this->animalReportService->createReport($request->only(['reporter_name', 'reporter_mobile', 'reporter_email', 'animal_type', 'approximate_age', 'color', 'gender', 'injuries', 'address', 'landmark', 'latitude', 'longitude', 'urgency', 'description', 'photos', 'video']));
 
         // Trigger Admin Notification via NotificationRoutingService
         \App\Services\Api\V1\NotificationRoutingService::send('animal_report', new \App\Notifications\NewAnimalReportReceived($report));
@@ -90,7 +90,7 @@ class AnimalReportController extends Controller
      */
     public function index(Request $request)
     {
-        $reports = $this->animalReportService->getAllReports($request->all());
+        $reports = $this->animalReportService->getAllReports($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($reports, 'Animal reports retrieved successfully.');
     }
 
@@ -116,7 +116,7 @@ class AnimalReportController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
-        $report = $this->animalReportService->updateReport($id, $request->all());
+        $report = $this->animalReportService->updateReport($id, $request->only(['status', 'admin_notes']));
         if (!$report) {
             return $this->errorResponse('Animal report not found.', 404);
         }
@@ -141,7 +141,7 @@ class AnimalReportController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
-        $case = $this->animalReportService->acceptReport($id, $request->all());
+        $case = $this->animalReportService->acceptReport($id, $request->only(['rescuer_id', 'status', 'description', 'admin_notes']));
         if (!$case) {
             return $this->errorResponse('Animal report not found or could not be accepted.', 404);
         }

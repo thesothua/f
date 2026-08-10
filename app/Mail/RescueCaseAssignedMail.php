@@ -37,7 +37,7 @@ class RescueCaseAssignedMail extends Mailable implements ShouldQueue
     {
         $this->case = $case;
         $this->volunteer = $volunteer ?? $case->rescuer;
-        $this->adminUrl = env('FRONTEND_URL', 'http://localhost:5173') . '/admin/rescue-cases/' . $case->id;
+        $this->adminUrl = config('app.frontend_url', 'http://127.0.0.1:5173') . '/admin/rescue-cases/' . $case->id;
     }
 
     public function envelope(): Envelope

@@ -20,7 +20,7 @@ class DonationController extends Controller
      */
     public function index(Request $request)
     {
-        $donations = $this->donationService->getAllDonations($request->all());
+        $donations = $this->donationService->getAllDonations($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($donations, 'Donation records retrieved successfully.');
     }
 
@@ -57,10 +57,10 @@ class DonationController extends Controller
         try {
             $type = $request->input('type');
             if ($type === 'one_time') {
-                $response = $this->donationService->initiateOneTimeDonation($request->all());
+                $response = $this->donationService->initiateOneTimeDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'type', 'anonymous']));
                 return $this->successResponse($response, 'One-time donation order created successfully.', 201);
             } else {
-                $response = $this->donationService->initiateRecurringDonation($request->all());
+                $response = $this->donationService->initiateRecurringDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'type', 'anonymous', 'cause_name']));
                 return $this->successResponse($response, 'Recurring monthly donation plan initiated.', 201);
             }
         } catch (\Exception $e) {
@@ -84,10 +84,10 @@ class DonationController extends Controller
         try {
             $type = $request->input('type');
             if ($type === 'one_time') {
-                $donation = $this->donationService->verifyOneTimeDonation($request->all());
+                $donation = $this->donationService->verifyOneTimeDonation($request->only(['type', 'razorpay_payment_id', 'razorpay_signature', 'razorpay_order_id']));
                 return $this->successResponse($donation, 'Payment verified and donation completed successfully.');
             } else {
-                $subscription = $this->donationService->verifyRecurringDonation($request->all());
+                $subscription = $this->donationService->verifyRecurringDonation($request->only(['type', 'razorpay_payment_id', 'razorpay_signature', 'razorpay_subscription_id']));
                 return $this->successResponse($subscription, 'Payment verified and subscription activated.');
             }
         } catch (\Exception $e) {
@@ -100,7 +100,7 @@ class DonationController extends Controller
      */
     public function subscriptions(Request $request)
     {
-        $subscriptions = $this->donationService->getAllSubscriptions($request->all());
+        $subscriptions = $this->donationService->getAllSubscriptions($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($subscriptions, 'Recurring subscriptions retrieved successfully.');
     }
 
@@ -155,7 +155,7 @@ class DonationController extends Controller
         ]);
 
         try {
-            $subscription = $this->donationService->updateSubscription($id, $request->all());
+            $subscription = $this->donationService->updateSubscription($id, $request->only(['status', 'admin_notes']));
             if (!$subscription) {
                 return $this->errorResponse('Subscription not found.', 404);
             }
@@ -214,7 +214,7 @@ class DonationController extends Controller
         ]);
 
         try {
-            $donation = $this->donationService->createManualDonation($request->all());
+            $donation = $this->donationService->createManualDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'status', 'payment_gateway', 'gateway_transaction_id', 'anonymous', 'created_at']));
             return $this->successResponse($donation, 'Manual donation record created successfully.', 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to create donation record: ' . $e->getMessage(), 500);

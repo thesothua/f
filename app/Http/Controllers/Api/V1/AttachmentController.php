@@ -17,7 +17,7 @@ class AttachmentController extends Controller
 
     public function index(Request $request)
     {
-        $attachments = $this->attachmentService->getAllAttachments($request->all());
+        $attachments = $this->attachmentService->getAllAttachments($request->only(['search', 'page', 'limit']));
         return $this->successResponse($attachments, 'Attachments retrieved successfully.');
     }
 
@@ -40,7 +40,7 @@ class AttachmentController extends Controller
         ]);
 
         $file = $request->file('file');
-        $attachment = $this->attachmentService->uploadAttachment($file, $request->all());
+        $attachment = $this->attachmentService->uploadAttachment($file, $request->only(['name', 'attachable_type', 'attachable_id']));
 
         return $this->successResponse($attachment, 'Attachment uploaded successfully via Spatie Media Library.', 201);
     }

@@ -26,12 +26,14 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Public Auth routes
-Route::post("/login", [AuthController::class, "login"]);
-Route::post("/register", [AuthController::class, "register"]);
-Route::post("/auth/google", [AuthController::class, "googleLogin"]);
-Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
-Route::post("/reset-password", [AuthController::class, "resetPassword"]);
+// Public Auth routes (rate limited to prevent brute-force)
+Route::middleware('throttle:5,1')->group(function () {
+    Route::post("/login", [AuthController::class, "login"]);
+    Route::post("/register", [AuthController::class, "register"]);
+    Route::post("/auth/google", [AuthController::class, "googleLogin"]);
+    Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
+    Route::post("/reset-password", [AuthController::class, "resetPassword"]);
+});
 
 // Public Settings route
 Route::get("/settings/public", [SettingController::class, "publicIndex"]);
@@ -62,27 +64,23 @@ Route::prefix('galleries')->controller(GalleryController::class)->group(function
     Route::get("/", "index");
     Route::get("/{id}", "show");
 });
-Route::prefix('media')->controller(GalleryController::class)->group(function () {
-    Route::get("/", "index");
-    Route::get("/{id}", "show");
-});
 
-// Public Contact Submission
-Route::post("/contacts", [ContactController::class, "store"]);
+// Public Contact Submission (rate limited)
+Route::post("/contacts", [ContactController::class, "store"])->middleware('throttle:10,1');
 
 // Public Volunteer Submission & Public Volunteers Listing & Roles
 Route::get("/volunteer-roles/public", [RoleController::class, "publicVolunteerRoles"]);
 Route::get("/volunteers/public", [VolunteerController::class, "publicVolunteers"]);
-Route::post("/volunteers", [VolunteerController::class, "store"]);
+Route::post("/volunteers", [VolunteerController::class, "store"])->middleware('throttle:5,1');
 
-// Public Animal Report Submission
-Route::post("/animal-reports", [AnimalReportController::class, "store"]);
+// Public Animal Report Submission (rate limited)
+Route::post("/animal-reports", [AnimalReportController::class, "store"])->middleware('throttle:5,1');
 
 // Public Team Members route
 Route::get("/team", [UserController::class, "teamMembers"]);
 
-// Public Donation/Razorpay Payment Initiation & Verification
-Route::prefix('donations')->controller(DonationController::class)->group(function () {
+// Public Donation/Razorpay Payment Initiation & Verification (rate limited)
+Route::prefix('donations')->controller(DonationController::class)->middleware('throttle:10,1')->group(function () {
     Route::post("/initiate", "initiate");
     Route::post("/verify", "verify");
 });
@@ -116,7 +114,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('attachments')->controller(AttachmentController::class)->group(function () {
         Route::get("/", "index")->middleware('permission:view media');
         Route::get("/{id}", "show")->middleware('permission:view media');
-        Route::post("/", "store");
+        Route::post("/", "store")->middleware('permission:create media');
         Route::delete("/{id}", "destroy")->middleware('permission:delete media');
     });
 
@@ -144,11 +142,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Administrative Media routes
     Route::prefix('galleries')->controller(GalleryController::class)->group(function () {
-        Route::post("/", "store")->middleware('permission:create media');
-        Route::put("/{id}", "update")->middleware('permission:edit media');
-        Route::delete("/{id}", "destroy")->middleware('permission:delete media');
-    });
-    Route::prefix('media')->controller(GalleryController::class)->group(function () {
         Route::post("/", "store")->middleware('permission:create media');
         Route::put("/{id}", "update")->middleware('permission:edit media');
         Route::delete("/{id}", "destroy")->middleware('permission:delete media');

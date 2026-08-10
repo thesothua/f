@@ -38,7 +38,7 @@ class VolunteerApprovedMail extends Mailable implements ShouldQueue
         $this->user = $user;
         $this->password = $password;
         $this->roleName = $roleName;
-        $this->loginUrl = env('FRONTEND_URL', 'http://localhost:5173') . '/admin/login';
+        $this->loginUrl = config('app.frontend_url', 'http://127.0.0.1:5173') . '/admin/login';
     }
 
     public function envelope(): Envelope

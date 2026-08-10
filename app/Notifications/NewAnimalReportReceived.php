@@ -73,7 +73,7 @@ class NewAnimalReportReceived extends Notification implements ShouldQueue
             ->line('• Email: ' . ($this->report->reporter_email ?? 'N/A'))
             ->line('**Description:**')
             ->line('"' . $this->report->description . '"')
-            ->action('View Animal Reports', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/animal-reports"))
+            ->action('View Animal Reports', url(config('app.frontend_url', 'http://127.0.0.1:5173') . "/admin/animal-reports"))
             ->line('Please review the report details and dispatch a rescuer if appropriate.');
     }
 

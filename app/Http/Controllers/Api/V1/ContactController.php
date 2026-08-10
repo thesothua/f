@@ -17,7 +17,7 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contacts = $this->contactService->getAllContacts($request->all());
+        $contacts = $this->contactService->getAllContacts($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($contacts, 'Contact messages retrieved successfully.');
     }
 
@@ -44,7 +44,7 @@ class ContactController extends Controller
         $recaptchaToken = $request->input('recaptcha_token');
 
         $response = \Illuminate\Support\Facades\Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'secret' => config('services.recaptcha.secret_key'),
             'response' => $recaptchaToken,
             'remoteip' => $request->ip(),
         ]);
@@ -53,7 +53,7 @@ class ContactController extends Controller
             return $this->errorResponse('reCAPTCHA verification failed. Please try again.', 422);
         }
 
-        $contact = $this->contactService->createContact($request->all());
+        $contact = $this->contactService->createContact($request->only(['name', 'email', 'phone', 'subject', 'message']));
 
         // Send Email to Contact Sender
         try {
@@ -77,7 +77,7 @@ class ContactController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
-        $contact = $this->contactService->updateContact($id, $request->all());
+        $contact = $this->contactService->updateContact($id, $request->only(['status', 'adminNotes', 'admin_notes']));
 
         if (!$contact) {
             return $this->errorResponse('Contact message not found.', 404);

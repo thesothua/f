@@ -64,7 +64,7 @@ class NewDonationReceived extends Notification implements ShouldQueue
             ->line('• Amount: ' . $this->donation->currency . ' ' . number_format($this->donation->amount, 2))
             ->line('• Purpose/Cause: ' . $desc)
             ->line('• Payment ID: ' . ($this->donation->gateway_transaction_id ?? 'N/A'))
-            ->action('View Donation Record', url(env('FRONTEND_URL', 'http://127.0.0.1:5173') . "/admin/donations"))
+            ->action('View Donation Record', url(config('app.frontend_url', 'http://127.0.0.1:5173') . "/admin/donations"))
             ->line('Thank you for supporting ' . config('app.name') . '!');
     }
 

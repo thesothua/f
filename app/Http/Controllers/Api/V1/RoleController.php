@@ -69,7 +69,7 @@ class RoleController extends Controller
     {
         $roles = \App\Models\Role::where('guard_name', 'api')
             ->where('is_volunteer', true)
-            ->get();
+            ->get(['id', 'name', 'role_description']);
 
         return $this->successResponse($roles, 'Public volunteer roles retrieved successfully.');
     }

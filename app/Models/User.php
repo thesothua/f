@@ -114,7 +114,7 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $frontendUrl = env('FRONTEND_URL', 'http://127.0.0.1:5173');
+        $frontendUrl = config('app.frontend_url', 'http://127.0.0.1:5173');
         $url = $frontendUrl . '/admin/reset-password?token=' . $token . '&email=' . urlencode($this->email);
 
         $this->notify(new \App\Notifications\ResetPasswordNotification($url));

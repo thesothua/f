@@ -41,4 +41,14 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'razorpay' => [
+        'key_id' => env('RAZORPAY_KEY_ID', ''),
+        'key_secret' => env('RAZORPAY_KEY_SECRET', ''),
+    ],
+
+    'recaptcha' => [
+        'secret_key' => env('RECAPTCHA_SECRET_KEY', ''),
+        'site_key' => env('RECAPTCHA_SITE_KEY', ''),
+    ],
+
 ];

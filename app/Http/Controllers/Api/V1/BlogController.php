@@ -17,7 +17,7 @@ class BlogController extends Controller
 
     public function index(Request $request)
     {
-        $blogs = $this->blogService->getAllBlogs($request->all());
+        $blogs = $this->blogService->getAllBlogs($request->only(['search', 'category', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($blogs, 'Blogs retrieved successfully.');
     }
 
@@ -44,7 +44,7 @@ class BlogController extends Controller
         ]);
 
         $file = $request->file('file');
-        $blog = $this->blogService->createBlog($request->all(), $file);
+        $blog = $this->blogService->createBlog($request->only(['title', 'slug', 'author', 'category', 'tags', 'excerpt', 'content', 'status', 'featuredImage', 'featured_image', 'seo']), $file);
 
         return $this->successResponse($blog, 'Blog created successfully.', 201);
     }
@@ -63,7 +63,7 @@ class BlogController extends Controller
         ]);
 
         $file = $request->file('file');
-        $blog = $this->blogService->updateBlog($id, $request->all(), $file);
+        $blog = $this->blogService->updateBlog($id, $request->only(['title', 'slug', 'author', 'category', 'tags', 'excerpt', 'content', 'status', 'featuredImage', 'featured_image', 'seo']), $file);
 
         if (!$blog) {
             return $this->errorResponse('Blog not found.', 404);

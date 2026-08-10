@@ -76,13 +76,15 @@ class DashboardController extends Controller
         $now = Carbon::now();
 
         // ─── OVERVIEW TOTALS ─────────────────────────────────────
-        $totalDonationAmount = Donation::where('status', 'captured')->sum('amount');
-        $totalDonationCount  = Donation::where('status', 'captured')->count();
-        $thisMonthDonations  = Donation::where('status', 'captured')
+        // ─── OVERVIEW TOTALS ─────────────────────────────────────
+        $successfulStatuses = ['succeeded', 'captured'];
+        $totalDonationAmount = Donation::whereIn('status', $successfulStatuses)->sum('amount');
+        $totalDonationCount  = Donation::whereIn('status', $successfulStatuses)->count();
+        $thisMonthDonations  = Donation::whereIn('status', $successfulStatuses)
             ->whereMonth('created_at', $now->month)
             ->whereYear('created_at', $now->year)
             ->sum('amount');
-        $lastMonthDonations  = Donation::where('status', 'captured')
+        $lastMonthDonations  = Donation::whereIn('status', $successfulStatuses)
             ->whereMonth('created_at', $now->copy()->subMonth()->month)
             ->whereYear('created_at', $now->copy()->subMonth()->year)
             ->sum('amount');
@@ -124,7 +126,7 @@ class DashboardController extends Controller
             $month = $now->copy()->subMonths($i);
             $monthLabels[] = $month->format('M Y');
 
-            $monthlyDonations[] = (float) Donation::where('status', 'captured')
+            $monthlyDonations[] = (float) Donation::whereIn('status', $successfulStatuses)
                 ->whereMonth('created_at', $month->month)
                 ->whereYear('created_at', $month->year)
                 ->sum('amount');
@@ -145,7 +147,7 @@ class DashboardController extends Controller
             ->toArray();
 
         // ─── PAYMENT METHOD BREAKDOWN ────────────────────────────
-        $paymentMethodBreakdown = Donation::where('status', 'captured')
+        $paymentMethodBreakdown = Donation::whereIn('status', $successfulStatuses)
             ->select('payment_method', DB::raw('count(*) as count'), DB::raw('sum(amount) as total'))
             ->groupBy('payment_method')
             ->get()
@@ -160,15 +162,18 @@ class DashboardController extends Controller
             ->toArray();
 
         // ─── DONATIONS BY PLAN ────────────────────────────────────
-        $donationsByPlan = Donation::where('status', 'captured')
+        $planGroup = Donation::whereIn('status', $successfulStatuses)
             ->whereNotNull('plan_id')
             ->select('plan_id', DB::raw('count(*) as count'), DB::raw('sum(amount) as total'))
             ->groupBy('plan_id')
-            ->get()
-            ->map(function ($item) {
-                $plan = Plan::find($item->plan_id);
+            ->get();
+        $planIds = $planGroup->pluck('plan_id')->filter()->unique();
+        $plansMap = Plan::whereIn('id', $planIds)->pluck('title', 'id');
+
+        $donationsByPlan = $planGroup
+            ->map(function ($item) use ($plansMap) {
                 return [
-                    'name'  => $plan ? $plan->title : 'Unknown Plan',
+                    'name'  => $plansMap->get($item->plan_id) ?: 'Unknown Plan',
                     'count' => (int) $item->count,
                     'total' => (float) $item->total,
                 ];
@@ -178,15 +183,18 @@ class DashboardController extends Controller
             ->toArray();
 
         // ─── DONATIONS BY CAMPAIGN ───────────────────────────────
-        $donationsByCampaign = Donation::where('status', 'captured')
+        $campaignGroup = Donation::whereIn('status', $successfulStatuses)
             ->whereNotNull('campaign_id')
             ->select('campaign_id', DB::raw('count(*) as count'), DB::raw('sum(amount) as total'))
             ->groupBy('campaign_id')
-            ->get()
-            ->map(function ($item) {
-                $campaign = Campaign::find($item->campaign_id);
+            ->get();
+        $campaignIds = $campaignGroup->pluck('campaign_id')->filter()->unique();
+        $campaignsMap = Campaign::whereIn('id', $campaignIds)->pluck('title', 'id');
+
+        $donationsByCampaign = $campaignGroup
+            ->map(function ($item) use ($campaignsMap) {
                 return [
-                    'name'  => $campaign ? $campaign->title : 'Unknown Campaign',
+                    'name'  => $campaignsMap->get($item->campaign_id) ?: 'Unknown Campaign',
                     'count' => (int) $item->count,
                     'total' => (float) $item->total,
                 ];

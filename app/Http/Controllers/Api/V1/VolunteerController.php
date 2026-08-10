@@ -17,7 +17,7 @@ class VolunteerController extends Controller
 
     public function index(Request $request)
     {
-        $volunteers = $this->volunteerService->getAllVolunteers($request->all());
+        $volunteers = $this->volunteerService->getAllVolunteers($request->only(['search', 'status', 'role', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($volunteers, 'Volunteers retrieved successfully.');
     }
 
@@ -58,7 +58,7 @@ class VolunteerController extends Controller
             'email.email'        => 'Please enter a valid email address.',
         ]);
 
-        $volunteer = $this->volunteerService->createVolunteer($request->all());
+        $volunteer = $this->volunteerService->createVolunteer($request->only(['fullName', 'full_name', 'email', 'phone', 'city', 'role', 'reason', 'status', 'adminNotes', 'admin_notes']));
 
         // Send Email to Volunteer
         try {
@@ -93,7 +93,7 @@ class VolunteerController extends Controller
             'admin_notes'     => 'nullable|string',
         ]);
 
-        $volunteer = $this->volunteerService->updateVolunteer($id, $request->all());
+        $volunteer = $this->volunteerService->updateVolunteer($id, $request->only(['fullName', 'full_name', 'email', 'phone', 'city', 'role', 'reason', 'status', 'adminNotes', 'admin_notes']));
 
         if (!$volunteer) {
             return $this->errorResponse('Volunteer application not found.', 404);

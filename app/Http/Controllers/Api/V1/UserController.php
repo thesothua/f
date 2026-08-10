@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = $this->userService->getAllUsers($request->all());
+        $users = $this->userService->getAllUsers($request->only(['search', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($users, 'Users retrieved successfully.');
     }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
             'showInWebsite' => 'nullable|boolean',
         ]);
 
-        $user = $this->userService->createUser($request->all());
+        $user = $this->userService->createUser($request->only(['email', 'firstName', 'lastName', 'first_name', 'last_name', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
         return $this->successResponse($user, 'User created successfully.', 201);
     }
 
@@ -76,7 +76,7 @@ class UserController extends Controller
             'showInWebsite' => 'nullable|boolean',
         ]);
 
-        $updatedUser = $this->userService->updateUser($id, $request->all());
+        $updatedUser = $this->userService->updateUser($id, $request->only(['email', 'firstName', 'lastName', 'first_name', 'last_name', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
         return $this->successResponse($updatedUser, 'User updated successfully.');
     }
 

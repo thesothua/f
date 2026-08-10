@@ -20,7 +20,7 @@ class CampaignController extends Controller
      */
     public function index(Request $request)
     {
-        $campaigns = $this->campaignService->getAllCampaigns($request->all());
+        $campaigns = $this->campaignService->getAllCampaigns($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
         return $this->successResponse($campaigns, 'Campaigns retrieved successfully.');
     }
 
@@ -63,7 +63,7 @@ class CampaignController extends Controller
             $coverFile = $request->file('cover_image_file');
             $galleryFiles = $request->file('gallery_image_files') ?? [];
 
-            $campaign = $this->campaignService->createCampaign($request->all(), $coverFile, $galleryFiles);
+            $campaign = $this->campaignService->createCampaign($request->only(['title', 'slug', 'description', 'goal_amount', 'raised_amount', 'start_date', 'end_date', 'status']), $coverFile, $galleryFiles);
 
             return $this->successResponse($campaign, 'Campaign created successfully.', 201);
         } catch (\Exception $e) {
@@ -93,7 +93,7 @@ class CampaignController extends Controller
             $coverFile = $request->file('cover_image_file');
             $galleryFiles = $request->file('gallery_image_files') ?? [];
 
-            $campaign = $this->campaignService->updateCampaign($id, $request->all(), $coverFile, $galleryFiles);
+            $campaign = $this->campaignService->updateCampaign($id, $request->only(['title', 'slug', 'description', 'goal_amount', 'raised_amount', 'start_date', 'end_date', 'status']), $coverFile, $galleryFiles);
 
             if (!$campaign) {
                 return $this->errorResponse('Campaign not found.', 404);

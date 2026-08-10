@@ -17,13 +17,13 @@ Please find the official status report and case details attached as a PDF to thi
 **Medical Expenses:**
 The medical expenses incurred for this rescue operation total **INR {{ number_format($case->recovery_details['expenses'], 2) }}**. If you would like to contribute towards these medical expenses, please use the button below:
 
-@component('mail::button', ['url' => env('FRONTEND_URL', 'https://furrydom-front.vercel.app') . '/donate?amount=' . $case->recovery_details['expenses']])
+@component('mail::button', ['url' => config('app.frontend_url', 'http://127.0.0.1:5173') . '/donate?amount=' . $case->recovery_details['expenses']])
 Donate for Medical Expenses
 @endcomponent
 @else
 If you would like to support our general rescue operations and help us save more animals in distress, please consider making a donation:
 
-@component('mail::button', ['url' => env('FRONTEND_URL', 'https://furrydom-front.vercel.app') . '/donate'])
+@component('mail::button', ['url' => config('app.frontend_url', 'http://127.0.0.1:5173') . '/donate'])
 Donate Now
 @endcomponent
 @endif

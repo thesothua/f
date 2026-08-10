@@ -14,7 +14,7 @@ Thank you for reporting the distressed animal. We are pleased to inform you that
 
 Our rescue team is taking action to provide immediate care and assistance to the animal.
 
-@component('mail::button', ['url' => env('FRONTEND_URL', 'https://furrydom-front.vercel.app')])
+@component('mail::button', ['url' => config('app.frontend_url', 'http://127.0.0.1:5173')])
 Visit Furrydom Website
 @endcomponent
 
