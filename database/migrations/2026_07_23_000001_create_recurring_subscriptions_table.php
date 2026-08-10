@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('plan_id')->nullable()->constrained('plans')->nullOnDelete(); // Target cause
+            $table->foreignId('campaign_id')->nullable()->constrained('campaigns')->nullOnDelete();
             $table->string('donor_name');
             $table->string('donor_email');
             $table->string('donor_phone')->nullable();

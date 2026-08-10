@@ -41,6 +41,11 @@ return new class extends Migration
             $table->string('color');
             $table->string('gender')->nullable();
             $table->string('status')->default('dispatched'); // dispatched, admitted, in_treatment, recovered, released, adopted, deceased
+            $table->json('clinic_details')->nullable();
+            $table->json('recovery_details')->nullable();
+            $table->json('adoption_details')->nullable();
+            $table->json('release_details')->nullable();
+            $table->json('deceased_details')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

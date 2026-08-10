@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('plan_id')->nullable()->constrained('plans')->nullOnDelete(); // Target cause
+            $table->foreignId('campaign_id')->nullable()->constrained('campaigns')->nullOnDelete();
             $table->foreignId('subscription_id')->nullable()->constrained('recurring_subscriptions')->nullOnDelete(); // Links transaction to subscription
             $table->string('donor_name');
             $table->string('donor_email');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('currency', 3)->default('INR');
             $table->string('status')->default('pending'); // pending, succeeded, failed
             $table->string('payment_gateway')->default('razorpay');
+            $table->string('payment_method')->nullable();
             $table->string('gateway_transaction_id')->nullable()->unique(); // Razorpay payment ID
             $table->string('gateway_order_id')->nullable()->unique(); // Razorpay order ID
             $table->string('receipt_url')->nullable();

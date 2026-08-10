@@ -43,6 +43,9 @@ return new class extends Migration
             }
             $table->string('name');
             $table->string('guard_name');
+            $table->boolean('allow_notification')->default(false);
+            $table->boolean('is_volunteer')->default(false);
+            $table->text('role_description')->nullable();
             $table->timestamps();
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);
