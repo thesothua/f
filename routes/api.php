@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Route;
 // Public Auth routes (rate limited to prevent brute-force)
 Route::middleware('throttle:5,1')->group(function () {
     Route::post("/login", [AuthController::class, "login"]);
-    Route::post("/register", [AuthController::class, "register"]);
-    Route::post("/auth/google", [AuthController::class, "googleLogin"]);
+    // Route::post("/register", [AuthController::class, "register"]);
+    // Route::post("/auth/google", [AuthController::class, "googleLogin"]);
     Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
     Route::post("/reset-password", [AuthController::class, "resetPassword"]);
 });

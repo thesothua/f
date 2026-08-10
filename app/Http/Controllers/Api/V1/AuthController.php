@@ -143,7 +143,7 @@ class AuthController extends Controller
 
                 if ($response->successful()) {
                     $payload = $response->json();
-                    
+
                     $clientId = config('services.google.client_id');
                     if (empty($clientId)) {
                         return $this->errorResponse('Google Client ID is not configured on the server.', 500);
