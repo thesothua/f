@@ -204,8 +204,6 @@ class AuthController extends Controller
         $user = $request->user();
 
         $request->validate([
-            'first_name' => 'nullable|string|max:255',
-            'last_name' => 'nullable|string|max:255',
             'name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
             'gender' => 'nullable|string|max:50',
@@ -225,8 +223,7 @@ class AuthController extends Controller
         }
 
         $user->fill($request->only([
-            'first_name',
-            'last_name',
+            'name',
             'phone',
             'gender',
             'dob',
@@ -234,12 +231,6 @@ class AuthController extends Controller
             'bio',
             'avatar',
         ]));
-
-        if ($request->filled('name')) {
-            $user->name = $request->input('name');
-        } else if ($request->filled('first_name') || $request->filled('last_name')) {
-            $user->name = trim($request->input('first_name') . ' ' . $request->input('last_name'));
-        }
 
         if (empty($user->name)) {
             $user->name = $user->email;

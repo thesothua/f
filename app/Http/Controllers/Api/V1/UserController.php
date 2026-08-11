@@ -41,8 +41,7 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users,email',
-            'firstName' => 'nullable|string',
-            'lastName' => 'nullable|string',
+            'name' => 'required|string|max:255',
             'status' => 'nullable|string|in:Active,Inactive',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
@@ -52,7 +51,7 @@ class UserController extends Controller
             'showInWebsite' => 'nullable|boolean',
         ]);
 
-        $user = $this->userService->createUser($request->only(['email', 'firstName', 'lastName', 'first_name', 'last_name', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
+        $user = $this->userService->createUser($request->only(['email', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
         return $this->successResponse($user, 'User created successfully.', 201);
     }
 
@@ -65,8 +64,7 @@ class UserController extends Controller
 
         $request->validate([
             'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignore($id)],
-            'firstName' => 'nullable|string',
-            'lastName' => 'nullable|string',
+            'name' => 'sometimes|required|string|max:255',
             'status' => 'nullable|string|in:Active,Inactive',
             'bio' => 'nullable|string',
             'avatar' => 'nullable|string',
@@ -76,7 +74,7 @@ class UserController extends Controller
             'showInWebsite' => 'nullable|boolean',
         ]);
 
-        $updatedUser = $this->userService->updateUser($id, $request->only(['email', 'firstName', 'lastName', 'first_name', 'last_name', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
+        $updatedUser = $this->userService->updateUser($id, $request->only(['email', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
         return $this->successResponse($updatedUser, 'User updated successfully.');
     }
 

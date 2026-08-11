@@ -16,13 +16,11 @@ class UserService
             $search = $params['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
-        $allowedSorts = ['name', 'email', 'created_at', 'status', 'first_name', 'last_name'];
+        $allowedSorts = ['name', 'email', 'created_at', 'status'];
         $sortBy = in_array($params['sortBy'] ?? '', $allowedSorts) ? $params['sortBy'] : null;
 
         if ($sortBy) {
@@ -47,14 +45,10 @@ class UserService
 
     public function createUser($data)
     {
-        $firstName = $data['firstName'] ?? $data['first_name'] ?? '';
-        $lastName = $data['lastName'] ?? $data['last_name'] ?? '';
-        $name = trim(($data['name'] ?? null) ?: "{$firstName} {$lastName}");
+        $name = trim($data['name'] ?? ($data['email'] ?? 'User'));
 
         $userData = [
-            'name' => $name ?: ($data['email'] ?? 'User'),
-            'first_name' => $firstName,
-            'last_name' => $lastName,
+            'name' => $name,
             'email' => $data['email'],
             'gender' => $data['gender'] ?? null,
             'phone' => $data['phone'] ?? null,
@@ -87,14 +81,8 @@ class UserService
             return null;
         }
 
-        $firstName = $data['firstName'] ?? $data['first_name'] ?? $user->first_name;
-        $lastName = $data['lastName'] ?? $data['last_name'] ?? $user->last_name;
-        $name = trim(($data['name'] ?? null) ?: "{$firstName} {$lastName}");
-
         $userData = [
-            'name' => $name,
-            'first_name' => $firstName,
-            'last_name' => $lastName,
+            'name' => trim($data['name'] ?? $user->name),
             'email' => $data['email'] ?? $user->email,
             'gender' => $data['gender'] ?? $user->gender,
         ];
@@ -148,7 +136,7 @@ class UserService
                     ->orWhere('name', 'Visitor');
             })
             ->latest()
-            ->get(['id', 'name', 'first_name', 'last_name', 'avatar', 'bio', 'show_in_website']);
+            ->get(['id', 'name', 'avatar', 'bio', 'show_in_website']);
     }
 
     public function deleteUser($id)

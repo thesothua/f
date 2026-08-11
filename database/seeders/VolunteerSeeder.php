@@ -79,13 +79,10 @@ class VolunteerSeeder extends Seeder
                 );
 
                 // Create/Update User account with volunteer role
-                $parts = explode(' ', trim($v['full_name']), 2);
                 $user = User::updateOrCreate(
                     ['email' => $v['email']],
                     [
                         'name' => $v['full_name'],
-                        'first_name' => $parts[0] ?? '',
-                        'last_name' => $parts[1] ?? '',
                         'phone' => $v['phone'],
                         'bio' => $v['reason'],
                         'password' => Hash::make('password'),

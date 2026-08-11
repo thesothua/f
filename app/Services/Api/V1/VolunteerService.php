@@ -154,19 +154,12 @@ class VolunteerService
             return;
         }
 
-        // Split name into first and last name
-        $parts = explode(' ', trim($volunteer->full_name), 2);
-        $firstName = $parts[0] ?? '';
-        $lastName = $parts[1] ?? '';
-
         // Generate clean temporary password
         $password = Str::random(10);
 
         // Create the user
         $user = User::create([
             'name' => $volunteer->full_name,
-            'first_name' => $firstName,
-            'last_name' => $lastName,
             'email' => $volunteer->email,
             'phone' => $volunteer->phone,
             'bio' => $volunteer->reason ?? ("As a " . $volunteer->role),

@@ -28,8 +28,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'first_name',
-        'last_name',
         'email',
         'password',
         'gender',
@@ -58,8 +56,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $appends = [
-        'firstName',
-        'lastName',
         'role',
         'showInWebsite',
     ];
@@ -76,24 +72,6 @@ class User extends Authenticatable
             'password' => 'hashed',
             'show_in_website' => 'boolean',
         ];
-    }
-
-    public function getFirstNameAttribute()
-    {
-        if (!empty($this->attributes['first_name'])) {
-            return $this->attributes['first_name'];
-        }
-        $parts = explode(' ', $this->name ?? '', 2);
-        return $parts[0] ?? '';
-    }
-
-    public function getLastNameAttribute()
-    {
-        if (!empty($this->attributes['last_name'])) {
-            return $this->attributes['last_name'];
-        }
-        $parts = explode(' ', $this->name ?? '', 2);
-        return $parts[1] ?? '';
     }
 
     public function getRoleAttribute()

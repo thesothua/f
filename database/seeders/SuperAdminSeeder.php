@@ -38,40 +38,30 @@ class SuperAdminSeeder extends Seeder
         $teamMembers = [
             [
                 'name' => 'Amit Kumar',
-                'first_name' => 'Amit',
-                'last_name' => 'Kumar',
                 'email' => 'amit.kumar@furrydom.org',
                 'bio' => 'Founder & Director at Furrydom India, working towards animal welfare, rescue missions, sustainable feeding initiatives, and child development programs since 2020.',
                 'roles' => ['Founder & Director'],
             ],
             [
                 'name' => 'Divya Kumariya',
-                'first_name' => 'Divya',
-                'last_name' => 'Kumariya',
                 'email' => 'divya.kumariya@furrydom.org',
                 'bio' => 'Managing fundraising operations and donor engagement initiatives across Maharashtra and Karnataka.',
                 'roles' => ['Director for Operations (COO)'],
             ],
             [
                 'name' => 'Jatin Jadhav',
-                'first_name' => 'Jatin',
-                'last_name' => 'Jadhav',
                 'email' => 'jatin.jadhav@furrydom.org',
                 'bio' => 'Managing rescue operations, emergency response, treatment coordination, and animal adoption initiatives.',
                 'roles' => ['Rescue & Field Operations Head'],
             ],
             [
                 'name' => 'Sakshi More',
-                'first_name' => 'Sakshi',
-                'last_name' => 'More',
                 'email' => 'sakshi.more@furrydom.org',
                 'bio' => 'Managing social media content, supporter engagement, and digital outreach initiatives.',
                 'roles' => ['Social Media & Content Manager'],
             ],
             [
                 'name' => 'Praveen Suthar',
-                'first_name' => 'Praveen',
-                'last_name' => 'Suthar',
                 'email' => config('mail.from.address', 'thesothua@gmail.com'),
                 'bio' => 'Providing technical guidance and managing Furrydom India’s website, digital platforms, and technology initiatives to support the organization’s operations, outreach, and mission.',
                 'roles' => ['Technical Advisor'],
@@ -84,8 +74,6 @@ class SuperAdminSeeder extends Seeder
                 ['email' => $member['email']],
                 [
                     'name' => $member['name'],
-                    'first_name' => $member['first_name'],
-                    'last_name' => $member['last_name'],
                     'bio' => $member['bio'],
                     'password' => Hash::make('password'),
                     'email_verified_at' => now(),
@@ -104,16 +92,12 @@ class SuperAdminSeeder extends Seeder
         $visitorUsers = [
             [
                 'name' => 'Rahul Verma',
-                'first_name' => 'Rahul',
-                'last_name' => 'Verma',
                 'email' => 'rahul.verma@example.com',
                 'bio' => 'Animal lover and regular website visitor.',
                 'roles' => ['Visitor'],
             ],
             [
                 'name' => 'Priya Patel',
-                'first_name' => 'Priya',
-                'last_name' => 'Patel',
                 'email' => 'priya.patel@example.com',
                 'bio' => 'Community supporter interested in animal welfare initiatives.',
                 'roles' => ['Visitor'],
@@ -125,8 +109,6 @@ class SuperAdminSeeder extends Seeder
                 ['email' => $visitor['email']],
                 [
                     'name' => $visitor['name'],
-                    'first_name' => $visitor['first_name'],
-                    'last_name' => $visitor['last_name'],
                     'bio' => $visitor['bio'],
                     'password' => Hash::make('password'),
                     'email_verified_at' => now(),
