@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Route;
 // Public Auth routes (rate limited to prevent brute-force)
 Route::middleware('throttle:5,1')->group(function () {
     Route::post("/login", [AuthController::class, "login"]);
-    // Route::post("/register", [AuthController::class, "register"]);
-    // Route::post("/auth/google", [AuthController::class, "googleLogin"]);
+    Route::post("/register", [AuthController::class, "register"]);
+    Route::post("/auth/google", [AuthController::class, "googleLogin"]);
     Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
     Route::post("/reset-password", [AuthController::class, "resetPassword"]);
 });
@@ -93,22 +93,37 @@ Route::prefix('donations')->controller(DonationController::class)->middleware('t
 */
 Route::middleware('auth:sanctum')->group(function () {
 
-    // Dashboard Stats
-    Route::get('/dashboard/stats', [DashboardController::class, 'getStats'])->middleware('permission:view dashboard');
-
-    // Authenticated User Profile & Logout
+    // Authenticated User Profile & Logout (Available to all authenticated users including Visitors)
     Route::controller(AuthController::class)->group(function () {
         Route::get("/me", "me");
         Route::post("/me", "updateProfile");
         Route::post("/logout", "logout");
     });
 
-    // Roles routes
-    Route::get("/roles", [RoleController::class, "index"])->middleware('permission:view roles');
-    Route::get("/permissions", [RoleController::class, "permissions"])->middleware('permission:view roles');
-    Route::post("/roles", [RoleController::class, "store"])->middleware('permission:create roles');
-    Route::put("/roles/{id}", [RoleController::class, "update"])->middleware('permission:edit roles');
-    Route::delete("/roles/{id}", [RoleController::class, "destroy"])->middleware('permission:delete roles');
+    // Notifications routes (accessible to all authenticated users)
+    Route::prefix('notifications')->controller(NotificationController::class)->group(function () {
+        Route::get("/", "index");
+        Route::put("/read-all", "markAllAsRead");
+        Route::put("/{id}/read", "markAsRead");
+        Route::delete("/{id}", "destroy");
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin-Only Routes (Strictly blocked for Visitor accounts)
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware('block_visitor')->group(function () {
+
+        // Dashboard Stats
+        Route::get('/dashboard/stats', [DashboardController::class, 'getStats'])->middleware('permission:view dashboard');
+
+        // Roles routes
+        Route::get("/roles", [RoleController::class, "index"])->middleware('permission:view roles');
+        Route::get("/permissions", [RoleController::class, "permissions"])->middleware('permission:view roles');
+        Route::post("/roles", [RoleController::class, "store"])->middleware('permission:create roles');
+        Route::put("/roles/{id}", [RoleController::class, "update"])->middleware('permission:edit roles');
+        Route::delete("/roles/{id}", [RoleController::class, "destroy"])->middleware('permission:delete roles');
 
     // Administrative Attachments routes
     Route::prefix('attachments')->controller(AttachmentController::class)->group(function () {
@@ -209,14 +224,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/{id}/cancel", "cancelSubscription")->middleware('permission:cancel subscriptions');
     });
 
-    // Notifications routes (accessible to all authenticated users)
-    Route::prefix('notifications')->controller(NotificationController::class)->group(function () {
-        Route::get("/", "index");
-        Route::put("/read-all", "markAllAsRead");
-        Route::put("/{id}/read", "markAsRead");
-        Route::delete("/{id}", "destroy");
-    });
-
     // Administrative Settings routes
     Route::prefix('settings')->controller(SettingController::class)->group(function () {
         Route::get("/", "index")->middleware('permission:view settings');
@@ -236,5 +243,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put("/sections/{sectionId}", "updateSection")->middleware('permission:edit pages');
         Route::delete("/sections/{sectionId}", "destroySection")->middleware('permission:edit pages');
         Route::put("/{pageId}/reorder-sections", "reorderSections")->middleware('permission:edit pages');
+    });
     });
 });
