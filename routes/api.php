@@ -60,10 +60,12 @@ Route::prefix('plans')->controller(PlanController::class)->group(function () {
 });
 
 // Public Galleries / Media routes
-Route::prefix('galleries')->controller(GalleryController::class)->group(function () {
-    Route::get("/", "index");
-    Route::get("/{id}", "show");
-});
+foreach (['galleries', 'media'] as $prefix) {
+    Route::prefix($prefix)->controller(GalleryController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{id}", "show");
+    });
+}
 
 // Public Contact Submission (rate limited)
 Route::post("/contacts", [ContactController::class, "store"])->middleware('throttle:10,1');
@@ -155,12 +157,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete("/{id}", "destroy")->middleware('permission:delete plans');
     });
 
-    // Administrative Media routes
-    Route::prefix('galleries')->controller(GalleryController::class)->group(function () {
-        Route::post("/", "store")->middleware('permission:create media');
-        Route::put("/{id}", "update")->middleware('permission:edit media');
-        Route::delete("/{id}", "destroy")->middleware('permission:delete media');
-    });
+    // Administrative Media / Galleries routes
+    foreach (['galleries', 'media'] as $prefix) {
+        Route::prefix($prefix)->controller(GalleryController::class)->group(function () {
+            Route::post("/", "store")->middleware('permission:create media');
+            Route::put("/{id}", "update")->middleware('permission:edit media');
+            Route::delete("/{id}", "destroy")->middleware('permission:delete media');
+        });
+    }
 
     // Administrative Users routes
     Route::prefix('users')->controller(UserController::class)->group(function () {
