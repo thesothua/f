@@ -16,7 +16,6 @@ use App\Http\Controllers\Api\V1\SettingController;
 use App\Http\Controllers\Api\V1\AnimalReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\RescueCaseController;
-use App\Http\Controllers\Api\V1\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +36,6 @@ Route::middleware('throttle:5,1')->group(function () {
 
 // Public Settings route
 Route::get("/settings/public", [SettingController::class, "publicIndex"]);
-
-// Public Pages route (by slug)
-Route::get("/pages/by-slug/{slug}", [PageController::class, "showBySlug"]);
 
 // Public Blogs routes
 Route::prefix('blogs')->controller(BlogController::class)->group(function () {
@@ -234,19 +230,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put("/", "update")->middleware('permission:edit settings');
     });
 
-    // Administrative Pages & Page Sections (CMS) routes
-    Route::prefix('pages')->controller(PageController::class)->group(function () {
-        Route::get("/", "index")->middleware('permission:view pages');
-        Route::post("/", "store")->middleware('permission:create pages');
-        Route::get("/{id}", "show")->middleware('permission:view pages');
-        Route::put("/{id}", "update")->middleware('permission:edit pages');
-        Route::delete("/{id}", "destroy")->middleware('permission:delete pages');
 
-        // Section management sub-routes
-        Route::post("/{pageId}/sections", "storeSection")->middleware('permission:edit pages');
-        Route::put("/sections/{sectionId}", "updateSection")->middleware('permission:edit pages');
-        Route::delete("/sections/{sectionId}", "destroySection")->middleware('permission:edit pages');
-        Route::put("/{pageId}/reorder-sections", "reorderSections")->middleware('permission:edit pages');
-    });
     });
 });

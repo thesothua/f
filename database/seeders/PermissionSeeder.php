@@ -94,12 +94,6 @@ class PermissionSeeder extends Seeder
             'view rescue cases',
             'edit rescue cases',
             'delete rescue cases',
-
-            // Pages (CMS)
-            'view pages',
-            'create pages',
-            'edit pages',
-            'delete pages',
         ];
 
         foreach ($permissions as $permName) {
