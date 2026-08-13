@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\V1\SettingController;
 use App\Http\Controllers\Api\V1\AnimalReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\RescueCaseController;
+use App\Http\Controllers\Api\V1\ContributionController;
+use App\Http\Controllers\Api\V1\WishlistItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +84,17 @@ Route::prefix('donations')->controller(DonationController::class)->middleware('t
     Route::post("/initiate", "initiate");
     Route::post("/verify", "verify");
 });
+
+// Public Contributions routes ("Ways to Give")
+Route::prefix('contributions')->controller(ContributionController::class)->group(function () {
+    Route::get("/types", "getTypes");
+    Route::get("/impact-summary", "publicImpactSummary");
+    Route::post("/", "store")->middleware('throttle:5,1');
+    Route::get("/track/{referenceNumber}", "trackByReference");
+});
+
+// Public Wishlist Items route
+Route::get("/wishlist-items", [WishlistItemController::class, "indexPublic"]);
 
 
 /*
@@ -214,6 +227,26 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/{id}/send-invoice", "sendInvoice")->middleware('permission:send donations invoice');
         Route::post("/{id}/verify-qr", "verifyQrCode")->middleware('permission:create donations');
         Route::delete("/{id}", "destroy")->middleware('permission:delete donations');
+    });
+
+    // Administrative Contributions routes ("Ways to Give")
+    Route::prefix('contributions')->controller(ContributionController::class)->group(function () {
+        Route::get("/", "index")->middleware('permission:view contributions');
+        Route::get("/stats", "stats")->middleware('permission:view contributions');
+        Route::get("/{id}", "show")->middleware('permission:view contributions');
+        Route::patch("/{id}/status", "updateStatus")->middleware('permission:edit contributions');
+        Route::post("/{id}/notes", "addNote")->middleware('permission:edit contributions');
+        Route::delete("/{id}", "destroy")->middleware('permission:delete contributions');
+    });
+
+    // Administrative Wishlist Items routes
+    Route::prefix('admin/wishlist-items')->controller(WishlistItemController::class)->group(function () {
+        Route::get("/", "indexAdmin");
+        Route::post("/", "store");
+        Route::put("/{id}", "update");
+        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-urgent", "toggleUrgent");
+        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-progress", "toggleProgressBar");
+        Route::delete("/{id}", "destroy");
     });
 
     // Administrative Subscriptions routes

@@ -13,6 +13,8 @@ use App\Models\RescueCase;
 use App\Models\RecurringSubscription;
 use App\Models\User;
 use App\Models\Volunteer;
+use App\Models\Contribution;
+use App\Models\ContributionItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -115,6 +117,11 @@ class DashboardController extends Controller
         $totalContacts       = Contact::count();
         $pendingContacts     = Contact::where('status', 'Pending')->count();
         $activeSubscriptions = RecurringSubscription::where('status', 'active')->count();
+
+        $totalContributions     = Contribution::count();
+        $pendingContributions   = Contribution::where('status', 'pending')->count();
+        $totalFoodKg            = (float) ContributionItem::where('category', 'Food')->sum('quantity');
+        $totalSupplyUnits       = (float) ContributionItem::where('category', '!=', 'Food')->sum('quantity');
 
         // ─── MONTHLY TRENDS (Last 6 months) ─────────────────────
         $monthlyDonations = [];
@@ -272,6 +279,10 @@ class DashboardController extends Controller
                 'totalContacts'        => $totalContacts,
                 'pendingContacts'      => $pendingContacts,
                 'activeSubscriptions'  => $activeSubscriptions,
+                'totalContributions'   => $totalContributions,
+                'pendingContributions' => $pendingContributions,
+                'totalFoodKg'          => $totalFoodKg,
+                'totalSupplyUnits'     => $totalSupplyUnits,
             ],
             'trends' => [
                 'labels'              => $monthLabels,
