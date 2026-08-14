@@ -241,12 +241,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Administrative Wishlist Items routes
     Route::prefix('admin/wishlist-items')->controller(WishlistItemController::class)->group(function () {
-        Route::get("/", "indexAdmin");
-        Route::post("/", "store");
-        Route::put("/{id}", "update");
-        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-urgent", "toggleUrgent");
-        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-progress", "toggleProgressBar");
-        Route::delete("/{id}", "destroy");
+        Route::get("/", "indexAdmin")->middleware('permission:view contributions');
+        Route::post("/", "store")->middleware('permission:create contributions');
+        Route::put("/{id}", "update")->middleware('permission:edit contributions');
+        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-urgent", "toggleUrgent")->middleware('permission:edit contributions');
+        Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-progress", "toggleProgressBar")->middleware('permission:edit contributions');
+        Route::delete("/{id}", "destroy")->middleware('permission:delete contributions');
     });
 
     // Administrative Subscriptions routes
