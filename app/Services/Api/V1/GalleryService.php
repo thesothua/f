@@ -29,10 +29,19 @@ class GalleryService
 
         $sortBy = $params['sortBy'] ?? 'sort_order';
         $order = strtolower($params['order'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
-        $query->orderBy($sortBy, $order);
+        
+        if ($sortBy === 'random' || $sortBy === 'rand') {
+            $query->inRandomOrder();
+        } else {
+            $query->orderBy($sortBy, $order);
+        }
 
         if (!empty($params['page']) && !empty($params['limit'])) {
             return $query->paginate((int) $params['limit']);
+        }
+
+        if (!empty($params['limit'])) {
+            $query->take((int) $params['limit']);
         }
 
         return $query->get();
