@@ -56,3 +56,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+<!-- ---------------- -->
+
+## Recommended Immediate Action Steps
+
+- [ ] Submit Sitemap to Google Search Console to ensure all campaign & detail pages are indexed.
+- [ ] Implement react-helmet-async across all dynamic routes for rich WhatsApp/Facebook card previews.
+- [ ] Verify Google My Business listing with website links to your rescue and donation pages.
+- [ ] Apply for Google Ad Grants to secure free search advertising budget.
+- [ ] Publish 2–3 emotional rescue stories per week with clear social share buttons.
