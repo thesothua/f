@@ -98,6 +98,9 @@ class CampaignService
                 'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
                 'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
                 'keywords' => $seoData['keywords'] ?? [],
+                'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
+                'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
+                'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
             ]);
         }
 
@@ -158,9 +161,6 @@ class CampaignService
         }
 
         if (!empty($galleryFiles)) {
-            // Keep old gallery images if appending, or clear if overwriting?
-            // Usually we clear and replace if they upload new ones, but let's clear existing gallery
-            // only if we explicitly receive new gallery files
             $campaign->clearMediaCollection('campaign_gallery');
             foreach ($galleryFiles as $gFile) {
                 $campaign->addMedia($gFile)->toMediaCollection('campaign_gallery');
@@ -176,6 +176,9 @@ class CampaignService
                     'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
                     'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
                     'keywords' => $seoData['keywords'] ?? [],
+                    'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
+                    'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
+                    'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
                 ]
             );
         }

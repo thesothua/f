@@ -92,6 +92,9 @@ class Blog extends Model implements HasMedia
                 'metaTitle' => '',
                 'metaDescription' => '',
                 'keywords' => [],
+                'ogImage' => '',
+                'canonicalUrl' => '',
+                'noIndex' => false,
             ];
         }
 
@@ -99,6 +102,9 @@ class Blog extends Model implements HasMedia
             'metaTitle' => $seo->meta_title ?? '',
             'metaDescription' => $seo->meta_description ?? '',
             'keywords' => $seo->keywords ?? [],
+            'ogImage' => $seo->og_image ?? '',
+            'canonicalUrl' => $seo->canonical_url ?? '',
+            'noIndex' => (bool) ($seo->no_index ?? false),
         ];
     }
 }

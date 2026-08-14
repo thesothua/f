@@ -13,12 +13,16 @@ class Seo extends Model
         'meta_title',
         'meta_description',
         'keywords',
+        'og_image',
+        'canonical_url',
+        'no_index',
         'seoable_type',
         'seoable_id',
     ];
 
     protected $casts = [
         'keywords' => 'array',
+        'no_index' => 'boolean',
     ];
 
     public function seoable()

@@ -38,6 +38,8 @@ Route::middleware('throttle:5,1')->group(function () {
 
 // Public Settings route
 Route::get("/settings/public", [SettingController::class, "publicIndex"]);
+Route::get("/sitemap.xml", [\App\Http\Controllers\SitemapController::class, "index"]);
+
 
 // Public Blogs routes
 Route::prefix('blogs')->controller(BlogController::class)->group(function () {

@@ -79,6 +79,9 @@ class BlogService
                 'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
                 'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
                 'keywords' => $seoData['keywords'] ?? [],
+                'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
+                'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
+                'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
             ]);
         }
 
@@ -128,6 +131,9 @@ class BlogService
                     'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
                     'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
                     'keywords' => $seoData['keywords'] ?? [],
+                    'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
+                    'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
+                    'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
                 ]
             );
         }
