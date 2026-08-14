@@ -67,7 +67,7 @@
 
     @foreach($campaigns as $campaign)
     <url>
-        <loc>{{ $baseUrl }}/campaigns/{{ $campaign->slug ?: $campaign->id }}</loc>
+        <loc>{{ $baseUrl }}/causes/{{ $campaign->slug ?: $campaign->id }}</loc>
         <lastmod>{{ $campaign->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
