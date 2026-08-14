@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('category')->default('MEDICAL'); // MEDICAL, FOOD, HYGIENE, EQUIPMENT
             $table->string('price');
-            $table->string('image_url')->nullable();
-            $table->string('flipkart_url')->nullable();
-            $table->string('amazon_url')->nullable();
+            $table->text('image_url')->nullable();
+            $table->text('flipkart_url')->nullable();
+            $table->text('amazon_url')->nullable();
             $table->integer('target_quantity')->default(50);
             $table->integer('received_quantity')->default(0);
             $table->boolean('is_urgent')->default(false);
