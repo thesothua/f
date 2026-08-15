@@ -76,6 +76,11 @@ class PermissionSeeder extends Seeder
             'edit media',
             'delete media',
 
+            // Attachments
+            'view attachments',
+            'create attachments',
+            'delete attachments',
+
             // Contacts
             'view contacts',
             'edit contacts',

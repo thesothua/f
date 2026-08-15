@@ -23,7 +23,14 @@ class Attachment extends Model implements HasMedia
 
     public function getUrlAttribute()
     {
-        return $this->getFirstMediaUrl('attachments') ?: $this->getFirstMediaUrl();
+        $url = $this->getFirstMediaUrl('attachments') ?: $this->getFirstMediaUrl();
+        if ($url) {
+            if (!str_starts_with($url, 'http://') && !str_starts_with($url, 'https://')) {
+                return asset($url);
+            }
+            return $url;
+        }
+        return null;
     }
 
     public function getFileNameAttribute()
