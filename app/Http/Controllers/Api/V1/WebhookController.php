@@ -18,7 +18,11 @@ class WebhookController extends Controller
         $signature = $request->header('X-Razorpay-Signature');
 
         // Verify Razorpay Webhook Signature if secret is configured
-        if (!empty($webhookSecret) && !empty($signature)) {
+        if (!empty($webhookSecret)) {
+            if (empty($signature)) {
+                Log::warning('Razorpay webhook request missing X-Razorpay-Signature header.');
+                return response()->json(['status' => 'error', 'message' => 'Missing webhook signature header'], 400);
+            }
             $expectedSignature = hash_hmac('sha256', $request->getContent(), $webhookSecret);
             if (!hash_equals($expectedSignature, $signature)) {
                 Log::warning('Invalid Razorpay webhook signature received.');
