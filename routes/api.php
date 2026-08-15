@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\RescueCaseController;
 use App\Http\Controllers\Api\V1\ContributionController;
 use App\Http\Controllers\Api\V1\WishlistItemController;
+use App\Http\Controllers\Api\V1\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -86,6 +87,9 @@ Route::prefix('donations')->controller(DonationController::class)->middleware('t
     Route::post("/initiate", "initiate");
     Route::post("/verify", "verify");
 });
+
+// Public Razorpay Webhooks
+Route::post("/webhooks/razorpay", [WebhookController::class, "handleRazorpayWebhook"]);
 
 // Public Contributions routes ("Ways to Give")
 Route::prefix('contributions')->controller(ContributionController::class)->group(function () {

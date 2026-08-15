@@ -384,14 +384,36 @@ class DonationService
                 return false;
             }
 
-            // Call Razorpay API to cancel subscription
-            $this->razorpay->cancelSubscription($subscription->gateway_subscription_id);
+            // Call Razorpay API to cancel subscription if exists
+            if ($subscription->gateway_subscription_id) {
+                try {
+                    $this->razorpay->cancelSubscription($subscription->gateway_subscription_id);
+                } catch (\Exception $e) {
+                    Log::error('Failed to cancel Razorpay subscription ' . $subscription->gateway_subscription_id . ': ' . $e->getMessage());
+                }
+            }
 
             // Update locally
             $subscription->update([
                 'status' => 'cancelled',
                 'ends_at' => now()
             ]);
+
+            $causer = auth()->user();
+            $causerName = $causer ? $causer->name : 'System';
+            $isAdmin = $causer ? ($causer->hasRole('Super Admin') || $causer->hasRole('Admin')) : false;
+            $typeLabel = $causer ? ($isAdmin ? 'admin' : 'donor') : 'system';
+            $displayRole = $causer ? ($isAdmin ? 'Admin' : 'Donor') : 'System';
+
+            activity('subscriptions')
+                ->performedOn($subscription)
+                ->causedBy($causer)
+                ->withProperties([
+                    'cancelled_by' => $causerName,
+                    'cancelled_by_type' => $typeLabel,
+                    'causer_email' => $causer ? $causer->email : null,
+                ])
+                ->log("Subscription cancelled by {$displayRole} ({$causerName})");
 
             return true;
         });
@@ -420,12 +442,40 @@ class DonationService
             return null;
         }
 
+        $oldStatus = $sub->status;
         $updateData = [];
         if (isset($data['status'])) $updateData['status'] = $data['status'];
         if (isset($data['admin_notes'])) $updateData['admin_notes'] = $data['admin_notes'];
 
+        // If status changed to cancelled, cancel gateway and set ends_at date
+        if (isset($data['status']) && strtolower($data['status']) === 'cancelled' && strtolower($oldStatus) !== 'cancelled') {
+            $updateData['ends_at'] = now();
+            if ($sub->gateway_subscription_id) {
+                try {
+                    $this->razorpay->cancelSubscription($sub->gateway_subscription_id);
+                } catch (\Exception $e) {
+                    Log::error('Razorpay cancel subscription error: ' . $e->getMessage());
+                }
+            }
+        }
+
         $sub->update($updateData);
-        return $sub->fresh();
+
+        $causer = auth()->user();
+        if (isset($data['status']) && strtolower($data['status']) === 'cancelled' && strtolower($oldStatus) !== 'cancelled') {
+            activity('subscriptions')
+                ->performedOn($sub)
+                ->causedBy($causer)
+                ->withProperties([
+                    'cancelled_by' => $causer ? $causer->name : 'Admin',
+                    'cancelled_by_type' => 'admin',
+                    'causer_email' => $causer ? $causer->email : null,
+                    'admin_notes' => $data['admin_notes'] ?? null,
+                ])
+                ->log("Subscription status set to Cancelled by Admin (" . ($causer ? $causer->name : 'Admin') . ")");
+        }
+
+        return $sub->fresh(['plan', 'activities.causer']);
     }
 
     /**
