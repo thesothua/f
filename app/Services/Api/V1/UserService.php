@@ -135,8 +135,12 @@ class UserService
                 $query->where('is_volunteer', true)
                     ->orWhere('name', 'Visitor');
             })
-            ->latest()
-            ->get(['id', 'name', 'avatar', 'bio', 'show_in_website']);
+            ->orderBy('id', 'asc')
+            ->get(['id', 'name', 'avatar', 'bio', 'show_in_website'])
+            ->map(function ($user) {
+                $user->role = $user->roles->first()?->name ?? 'Team Member';
+                return $user;
+            });
     }
 
     public function deleteUser($id)
