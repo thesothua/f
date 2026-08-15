@@ -233,4 +233,82 @@ class DonationController extends Controller
             return $this->errorResponse('Verification failed: ' . $e->getMessage(), 500);
         }
     }
+
+    /**
+     * Get authenticated user's / donor's donation and subscription records
+     */
+    public function myDonations(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return $this->errorResponse('Unauthenticated.', 401);
+        }
+
+        $donations = \App\Models\Donation::with(['plan', 'campaign', 'subscription'])
+            ->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+                if (!empty($user->email)) {
+                    $q->orWhere('donor_email', $user->email);
+                }
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $subscriptions = \App\Models\RecurringSubscription::with(['plan', 'campaign'])
+            ->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+                if (!empty($user->email)) {
+                    $q->orWhere('donor_email', $user->email);
+                }
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $this->successResponse([
+            'donations' => $donations,
+            'subscriptions' => $subscriptions
+        ], 'My donations retrieved successfully.');
+    }
+
+    /**
+     * Download donation invoice PDF
+     */
+    public function downloadInvoice(Request $request, $id)
+    {
+        $donation = \App\Models\Donation::with(['plan', 'campaign'])->find($id);
+
+        if (!$donation) {
+            return $this->errorResponse('Donation record not found.', 404);
+        }
+
+        $user = auth()->user();
+        
+        if ($user) {
+            $isOwner = ($donation->user_id && $donation->user_id === $user->id) || 
+                       (strtolower($donation->donor_email) === strtolower($user->email));
+            $isAdmin = $user->hasRole('Super Admin') || $user->hasRole('Admin');
+
+            if (!$isOwner && !$isAdmin) {
+                return $this->errorResponse('Unauthorized access to invoice.', 403);
+            }
+        }
+
+        try {
+            $settings = app(\App\Settings\GeneralSettings::class);
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.invoice', [
+                'donation' => $donation,
+                'settings' => $settings
+            ]);
+
+            $filename = 'invoice-donation-' . ($donation->gateway_transaction_id ?? $donation->id) . '.pdf';
+
+            return response($pdf->output(), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ]);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to generate PDF invoice: ' . $e->getMessage());
+            return $this->errorResponse('Failed to generate PDF invoice: ' . $e->getMessage(), 500);
+        }
+    }
 }

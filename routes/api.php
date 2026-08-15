@@ -125,6 +125,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete("/{id}", "destroy");
     });
 
+    // Donor / User Personal Donations & Invoice Download
+    Route::get("/my-donations", [DonationController::class, "myDonations"]);
+    Route::get("/donations/{id}/invoice/download", [DonationController::class, "downloadInvoice"]);
+
     /*
     |--------------------------------------------------------------------------
     | Admin-Only Routes (Strictly blocked for Visitor accounts)

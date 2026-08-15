@@ -199,7 +199,7 @@ class AuthController extends Controller
             'dob' => 'nullable|date',
             'anniversary' => 'nullable|date',
             'bio' => 'nullable|string',
-            'avatar' => 'nullable|string|max:1000',
+            'avatar' => 'nullable',
             'current_password' => 'nullable|string|required_with:password',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
@@ -211,6 +211,13 @@ class AuthController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
 
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = asset('storage/' . $path);
+        } elseif ($request->filled('avatar') && is_string($request->input('avatar'))) {
+            $user->avatar = $request->input('avatar');
+        }
+
         $user->fill($request->only([
             'name',
             'phone',
@@ -218,7 +225,6 @@ class AuthController extends Controller
             'dob',
             'anniversary',
             'bio',
-            'avatar',
         ]));
 
         if (empty($user->name)) {
