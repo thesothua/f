@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\RescueCaseController;
 use App\Http\Controllers\Api\V1\ContributionController;
 use App\Http\Controllers\Api\V1\WishlistItemController;
 use App\Http\Controllers\Api\V1\WebhookController;
+use App\Http\Controllers\Api\V1\PlacesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ Route::middleware('throttle:5,1')->group(function () {
 // Public Settings route
 Route::get("/settings/public", [SettingController::class, "publicIndex"]);
 Route::get("/sitemap.xml", [\App\Http\Controllers\SitemapController::class, "index"]);
+
+// Public Google Places API (New) endpoints
+Route::get("/places/autocomplete", [PlacesController::class, "autocomplete"]);
+Route::get("/places/details/{placeId}", [PlacesController::class, "details"]);
 
 
 // Public Blogs routes
