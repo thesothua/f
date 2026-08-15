@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\ContactService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Contact Enquiries
+ *
+ * APIs for submitting public contact forms and managing inquiry messages.
+ */
 class ContactController extends Controller
 {
     public $contactService;

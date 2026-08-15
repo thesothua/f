@@ -19,6 +19,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Dashboard & Analytics
+ *
+ * APIs for administrative KPI summaries, rescue statistics, and donation analytics.
+ */
 class DashboardController extends Controller
 {
     /**

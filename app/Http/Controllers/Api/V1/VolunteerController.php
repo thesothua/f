@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\VolunteerService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Volunteers
+ *
+ * APIs for volunteer applications, approvals, and volunteer directory management.
+ */
 class VolunteerController extends Controller
 {
     public $volunteerService;

@@ -10,6 +10,11 @@ use App\Settings\NotificationSettings;
 use App\Services\Api\V1\NotificationRoutingService;
 use Illuminate\Http\Request;
 
+/**
+ * @group System Settings
+ *
+ * APIs for site configuration, payment gateway keys, and general settings.
+ */
 class SettingController extends Controller
 {
     public function index(GeneralSettings $general, SocialSettings $social, SeoSettings $seo)

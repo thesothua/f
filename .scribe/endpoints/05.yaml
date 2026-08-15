@@ -1,0 +1,526 @@
+name: 'Plans & Causes'
+description: |-
+
+  APIs for managing cause plans, sponsorship packages, and goals.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/plans
+    metadata:
+      custom: []
+      groupName: 'Plans & Causes'
+      groupDescription: |-
+
+        APIs for managing cause plans, sponsorship packages, and goals.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Plans retrieved successfully.","data":[{"id":1,"card_type":"cause","title":"Animal Rescue","description":"24\/7 rescue squads across Pune for injured & abandoned animals.","category":"Animal Welfare","sort_order":1,"image":"https:\/\/images.unsplash.com\/photo-1601979031925-424e53b6caaa?w=400&q=80","alt":"Man holding rescued dog on street","goal_amount":2500,"raised_amount":"0.00","status":"Active","featured":true,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":1,"goalAmount":2500,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":2,"card_type":"cause","title":"Emergency Medical Care","description":"On-ground triage, surgeries and post-op rehabilitation.","category":"Medical Support","sort_order":2,"image":"https:\/\/images.unsplash.com\/photo-1587300003388-59208cc962cb?w=400&q=80","alt":"Puppy receiving veterinary care","goal_amount":3200,"raised_amount":"0.00","status":"Active","featured":true,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":2,"goalAmount":3200,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":3,"card_type":"cause","title":"Daily Feeding Drives","description":"Hot meals for 1,200+ street animals every single day.","category":"Feeding Programs","sort_order":3,"image":"https:\/\/images.unsplash.com\/photo-1548199973-03cce0bbc87b?w=400&q=80","alt":"Woman feeding stray dogs on street","goal_amount":1800,"raised_amount":"0.00","status":"Active","featured":true,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":3,"goalAmount":1800,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":4,"card_type":"cause","title":"Child Education Support","description":"School kits, fees and tuition for underprivileged children.","category":"Education","sort_order":4,"image":"https:\/\/furydom-heartbeat-impact.lovable.app\/assets\/education-tQ1cevW9.jpg","alt":"Children reading in a classroom","goal_amount":200,"raised_amount":"400.00","status":"Active","featured":true,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-15T11:00:25.000000Z","cardType":"cause","sortOrder":4,"goalAmount":200,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":5,"card_type":"cause","title":"Women Hygiene Programs","description":"Sanitary kits and awareness across slum communities.","category":"Women Empowerment","sort_order":5,"image":"https:\/\/images.unsplash.com\/photo-1594824476967-48c8b964273f?w=400&q=80","alt":"Woman receiving hygiene kit","goal_amount":1500,"raised_amount":"0.00","status":"Active","featured":false,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":5,"goalAmount":1500,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":6,"card_type":"cause","title":"Ration Kit Distribution","description":"Monthly grocery kits for families in extreme need.","category":"Community Relief","sort_order":6,"image":"https:\/\/images.unsplash.com\/photo-1488521787991-ed7bbaae773c?w=400&q=80","alt":"Volunteers distributing food kits","goal_amount":2200,"raised_amount":"0.00","status":"Active","featured":false,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":6,"goalAmount":2200,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":7,"card_type":"cause","title":"Animal Rehabilitation","description":"Post-rescue care and rehoming for recovering animals.","category":"Animal Welfare","sort_order":7,"image":"https:\/\/images.unsplash.com\/photo-1509062522246-3755977927d7?w=400&q=80","alt":"Animal rehabilitation centre","goal_amount":2800,"raised_amount":"0.00","status":"Active","featured":false,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":7,"goalAmount":2800,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}},{"id":8,"card_type":"cause","title":"Community Development","description":"Building resilient communities through sustainable initiatives.","category":"Community Development","sort_order":8,"image":"https:\/\/images.unsplash.com\/photo-1559027615-cd4628902d4a?w=400&q=80","alt":"Community development initiative","goal_amount":3000,"raised_amount":"0.00","status":"Active","featured":false,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":8,"goalAmount":3000,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: 'Plans & Causes'
+      groupDescription: |-
+
+        APIs for managing cause plans, sponsorship packages, and goals.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Plan retrieved successfully.","data":{"id":1,"card_type":"cause","title":"Animal Rescue","description":"24\/7 rescue squads across Pune for injured & abandoned animals.","category":"Animal Welfare","sort_order":1,"image":"https:\/\/images.unsplash.com\/photo-1601979031925-424e53b6caaa?w=400&q=80","alt":"Man holding rescued dog on street","goal_amount":2500,"raised_amount":"0.00","status":"Active","featured":true,"user_id":8,"created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","cardType":"cause","sortOrder":1,"goalAmount":2500,"media":[],"user":{"id":8,"name":"Ananya Joshi","gender":null,"phone":"+91 95432 10987","bio":"Corporate communications lead looking to connect NGO with CSR initiatives.","avatar":null,"dob":null,"anniversary":null,"email":"ananya.j@example.com","email_verified_at":"2026-08-14T17:57:26.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:51.000000Z","updated_at":"2026-08-14T17:57:26.000000Z","role":"Fundraising Volunteer","showInWebsite":true,"roles":[{"id":3,"name":"Fundraising Volunteer","guard_name":"api","allow_notification":false,"is_volunteer":true,"role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:04:48.000000Z","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","pivot":{"model_type":"App\\Models\\User","model_id":8,"role_id":3}}]}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/plans
+    metadata:
+      custom: []
+      groupName: 'Plans & Causes'
+      groupDescription: |-
+
+        APIs for managing cause plans, sponsorship packages, and goals.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cardType:
+        custom: []
+        name: cardType
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      card_type:
+        custom: []
+        name: card_type
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: true
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goalAmount:
+        custom: []
+        name: goalAmount
+        description: 'Must be at least 0.'
+        required: false
+        example: 39
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Draft
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+          - Draft
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      featured:
+        custom: []
+        name: featured
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      cardType: mission
+      card_type: mission
+      title: bngz
+      description: 'Eius et animi quos velit et.'
+      category: architecto
+      sortOrder: 16
+      image: architecto
+      alt: architecto
+      goalAmount: 39
+      status: Draft
+      featured: true
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: 'Plans & Causes'
+      groupDescription: |-
+
+        APIs for managing cause plans, sponsorship packages, and goals.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cardType:
+        custom: []
+        name: cardType
+        description: ''
+        required: false
+        example: cause
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      card_type:
+        custom: []
+        name: card_type
+        description: ''
+        required: false
+        example: mission
+        type: string
+        enumValues:
+          - cause
+          - mission
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      goalAmount:
+        custom: []
+        name: goalAmount
+        description: 'Must be at least 0.'
+        required: false
+        example: 39
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+          - Draft
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      featured:
+        custom: []
+        name: featured
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      cardType: cause
+      card_type: mission
+      title: bngz
+      description: 'Eius et animi quos velit et.'
+      category: architecto
+      sortOrder: 16
+      image: architecto
+      alt: architecto
+      goalAmount: 39
+      status: Active
+      featured: false
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/plans/{id}'
+    metadata:
+      custom: []
+      groupName: 'Plans & Causes'
+      groupDescription: |-
+
+        APIs for managing cause plans, sponsorship packages, and goals.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the plan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

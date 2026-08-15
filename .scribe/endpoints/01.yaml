@@ -1,0 +1,133 @@
+name: 'System Settings'
+description: |-
+
+  APIs for site configuration, payment gateway keys, and general settings.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/settings/public
+    metadata:
+      custom: []
+      groupName: 'System Settings'
+      groupDescription: |-
+
+        APIs for site configuration, payment gateway keys, and general settings.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Public settings retrieved successfully.","data":{"general":{"site_name":"Furrydom India","site_slogan":"All Lives Matter","contact_email":"care@furrydom.org","contact_phone":"+91 98220 14785","site_address":"Plot 14, Baner Road,\nPune, Maharashtra 411045","logo_url":"http:\/\/127.0.0.1:8000\/storage\/3\/1786789655_furrydom-logo.webp","favicon_url":"\/favicon.ico","signature_url":"http:\/\/127.0.0.1:8000\/storage\/4\/1786789854_signature-freedom.webp"},"social":{"facebook_url":"https:\/\/facebook.com","instagram_url":"https:\/\/instagram.com","twitter_url":"https:\/\/twitter.com","youtube_url":"https:\/\/youtube.com","linkedin_url":"https:\/\/linkedin.com","whatsapp_group_url":"https:\/\/chat.whatsapp.com\/demo","google_maps_embed":""},"seo":{"website_name":"Furrydom India","meta_title":"Furrydom India \u2014 Animal Welfare, Child Development & Relief Foundation","meta_description":"Furrydom is a registered non-profit organization dedicated to animal rescue, medical treatment, stray feeding drives, and child education programs.","og_image":"\/assets\/images\/herosection.gif","favicon":"\/favicon.ico","google_analytics_id":null,"google_search_console":null,"robots":"index, follow"}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/settings
+    metadata:
+      custom: []
+      groupName: 'System Settings'
+      groupDescription: |-
+
+        APIs for site configuration, payment gateway keys, and general settings.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/settings
+    metadata:
+      custom: []
+      groupName: 'System Settings'
+      groupDescription: |-
+
+        APIs for site configuration, payment gateway keys, and general settings.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      notification:
+        custom: []
+        name: notification
+        description: ''
+        required: false
+        example: null
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

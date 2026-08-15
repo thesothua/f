@@ -1,0 +1,838 @@
+name: 'Media & Gallery'
+description: |-
+
+  APIs for managing media items, photo galleries, and shelter photos.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/galleries
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery items retrieved successfully.","data":[{"id":1,"title":"my image","src":"https:\/\/images.pexels.com\/photos\/8583581\/pexels-photo-8583581.jpeg","alt":"dummy image","category":"Rescue & recovery","desc":"test","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:12:30.000000Z","updated_at":"2026-08-14T15:12:30.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":2,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/16465615\/pexels-photo-16465615.jpeg","alt":"dummy image","category":"Community Events","desc":"test","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:13:15.000000Z","updated_at":"2026-08-14T15:13:15.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":3,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/38369207\/pexels-photo-38369207.jpeg","alt":"ee","category":"Community Events","desc":"testt","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:15:09.000000Z","updated_at":"2026-08-14T15:15:09.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":4,"title":"Ingured","src":"https:\/\/images.pexels.com\/photos\/7469274\/pexels-photo-7469274.jpeg","alt":"te","category":"Volunteer Activities","desc":"tset","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:16:00.000000Z","updated_at":"2026-08-14T15:16:00.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":5,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/7008099\/pexels-photo-7008099.jpeg","alt":"Feeding stray dogs in Pune","category":"Feeding Programs","desc":"tstete","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:16:58.000000Z","updated_at":"2026-08-14T15:16:58.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":6,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/16652369\/pexels-photo-16652369.jpeg","alt":"dummy image","category":"Radium collar Initiative","desc":"tetgsdf","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:18:12.000000Z","updated_at":"2026-08-14T15:18:12.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":7,"title":"my image","src":"https:\/\/images.pexels.com\/photos\/16465614\/pexels-photo-16465614.jpeg","alt":"Feeding stray dogs in Pune","category":"Auto Feeder Project","desc":"tsersdf","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:18:47.000000Z","updated_at":"2026-08-14T15:18:47.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":8,"title":"Ingured","src":"https:\/\/images.pexels.com\/photos\/36625705\/pexels-photo-36625705.jpeg","alt":"Feeding stray dogs in Pune","category":"Volunteer Activities","desc":"stest","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:19:31.000000Z","updated_at":"2026-08-14T15:19:31.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":9,"title":"Meals support","src":"https:\/\/images.pexels.com\/photos\/25204930\/pexels-photo-25204930.jpeg","alt":"Meals support","category":"Meals & Ration Support","desc":"Meals support","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:21:01.000000Z","updated_at":"2026-08-14T15:21:01.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":10,"title":"Meals support","src":"https:\/\/images.pexels.com\/photos\/35247605\/pexels-photo-35247605.jpeg","alt":"https:\/\/images.pexels.com\/photos\/35247605\/pexels-photo-35247605.jpeg","category":"Meals & Ration Support","desc":"vse","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:21:51.000000Z","updated_at":"2026-08-14T15:21:51.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":11,"title":"child","src":"https:\/\/images.pexels.com\/photos\/37249876\/pexels-photo-37249876.jpeg","alt":"Feeding stray dogs in Pune","category":"Child Education Program","desc":"child education","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T16:44:16.000000Z","updated_at":"2026-08-14T16:44:16.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":12,"title":"child school","src":"https:\/\/images.pexels.com\/photos\/18012456\/pexels-photo-18012456.jpeg","alt":"child school","category":"Child Education Program","desc":"child school","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T16:45:14.000000Z","updated_at":"2026-08-14T16:45:14.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery item retrieved successfully.","data":{"id":1,"title":"my image","src":"https:\/\/images.pexels.com\/photos\/8583581\/pexels-photo-8583581.jpeg","alt":"dummy image","category":"Rescue & recovery","desc":"test","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:12:30.000000Z","updated_at":"2026-08-14T15:12:30.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/media
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Gallery items retrieved successfully.","data":[{"id":1,"title":"my image","src":"https:\/\/images.pexels.com\/photos\/8583581\/pexels-photo-8583581.jpeg","alt":"dummy image","category":"Rescue & recovery","desc":"test","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:12:30.000000Z","updated_at":"2026-08-14T15:12:30.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":2,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/16465615\/pexels-photo-16465615.jpeg","alt":"dummy image","category":"Community Events","desc":"test","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:13:15.000000Z","updated_at":"2026-08-14T15:13:15.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":3,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/38369207\/pexels-photo-38369207.jpeg","alt":"ee","category":"Community Events","desc":"testt","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:15:09.000000Z","updated_at":"2026-08-14T15:15:09.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":4,"title":"Ingured","src":"https:\/\/images.pexels.com\/photos\/7469274\/pexels-photo-7469274.jpeg","alt":"te","category":"Volunteer Activities","desc":"tset","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:16:00.000000Z","updated_at":"2026-08-14T15:16:00.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":5,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/7008099\/pexels-photo-7008099.jpeg","alt":"Feeding stray dogs in Pune","category":"Feeding Programs","desc":"tstete","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:16:58.000000Z","updated_at":"2026-08-14T15:16:58.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":6,"title":"Feeding Stray Dogs","src":"https:\/\/images.pexels.com\/photos\/16652369\/pexels-photo-16652369.jpeg","alt":"dummy image","category":"Radium collar Initiative","desc":"tetgsdf","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:18:12.000000Z","updated_at":"2026-08-14T15:18:12.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":7,"title":"my image","src":"https:\/\/images.pexels.com\/photos\/16465614\/pexels-photo-16465614.jpeg","alt":"Feeding stray dogs in Pune","category":"Auto Feeder Project","desc":"tsersdf","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:18:47.000000Z","updated_at":"2026-08-14T15:18:47.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":8,"title":"Ingured","src":"https:\/\/images.pexels.com\/photos\/36625705\/pexels-photo-36625705.jpeg","alt":"Feeding stray dogs in Pune","category":"Volunteer Activities","desc":"stest","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:19:31.000000Z","updated_at":"2026-08-14T15:19:31.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":9,"title":"Meals support","src":"https:\/\/images.pexels.com\/photos\/25204930\/pexels-photo-25204930.jpeg","alt":"Meals support","category":"Meals & Ration Support","desc":"Meals support","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:21:01.000000Z","updated_at":"2026-08-14T15:21:01.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":10,"title":"Meals support","src":"https:\/\/images.pexels.com\/photos\/35247605\/pexels-photo-35247605.jpeg","alt":"https:\/\/images.pexels.com\/photos\/35247605\/pexels-photo-35247605.jpeg","category":"Meals & Ration Support","desc":"vse","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T15:21:51.000000Z","updated_at":"2026-08-14T15:21:51.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":11,"title":"child","src":"https:\/\/images.pexels.com\/photos\/37249876\/pexels-photo-37249876.jpeg","alt":"Feeding stray dogs in Pune","category":"Child Education Program","desc":"child education","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T16:44:16.000000Z","updated_at":"2026-08-14T16:44:16.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}},{"id":12,"title":"child school","src":"https:\/\/images.pexels.com\/photos\/18012456\/pexels-photo-18012456.jpeg","alt":"child school","category":"Child Education Program","desc":"child school","status":"Active","sort_order":1,"user_id":5,"created_at":"2026-08-14T16:45:14.000000Z","updated_at":"2026-08-14T16:45:14.000000Z","sortOrder":1,"media":[],"user":{"id":5,"name":"Praveen Suthar","gender":"Male","phone":"+919783410487","bio":"Providing technical guidance and managing Furrydom India\u2019s website, digital platforms, and technology initiatives to support the organization\u2019s operations, outreach, and mission.","avatar":"http:\/\/127.0.0.1:8000\/storage\/1\/1786380872_airbrush-20190909234508-01.webp","dob":"2026-08-20","anniversary":"2026-08-19","email":"praveensuthar9553@gmail.com","email_verified_at":"2026-08-15T11:52:58.000000Z","show_in_website":true,"status":"Active","created_at":"2026-08-10T16:04:50.000000Z","updated_at":"2026-08-15T11:52:58.000000Z","role":"Technical Advisor","showInWebsite":true,"roles":[{"id":9,"name":"Technical Advisor","guard_name":"api","allow_notification":false,"is_volunteer":false,"role_description":"Technology & Platform Advisor","created_at":"2026-08-10T16:04:48.000000Z","updated_at":"2026-08-10T16:38:35.000000Z","roleDescription":"Technology & Platform Advisor","pivot":{"model_type":"App\\Models\\User","model_id":5,"role_id":9}}]}}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 500
+        content: |-
+          {
+              "message": "Server Error"
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/galleries
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/galleries/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the gallery.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/media
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: true
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Active
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must be at least 2 characters.'
+        required: false
+        example: bngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      src:
+        custom: []
+        name: src
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      alt:
+        custom: []
+        name: alt
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      desc:
+        custom: []
+        name: desc
+        description: 'Must not be greater than 300 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Inactive
+        type: string
+        enumValues:
+          - Active
+          - Inactive
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sortOrder:
+        custom: []
+        name: sortOrder
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 10240 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: bngz
+      src: architecto
+      alt: architecto
+      category: architecto
+      desc: 'n'
+      status: Inactive
+      sortOrder: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/media/{id}'
+    metadata:
+      custom: []
+      groupName: 'Media & Gallery'
+      groupDescription: |-
+
+        APIs for managing media items, photo galleries, and shelter photos.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the medium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

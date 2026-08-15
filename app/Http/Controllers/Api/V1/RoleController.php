@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\RoleService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Role & Access Control (RBAC)
+ *
+ * APIs for defining security roles, permissions, and access controls.
+ */
 class RoleController extends Controller
 {
     public $roleService;

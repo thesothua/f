@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\DonationService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Donations & Subscriptions
+ *
+ * APIs for processing online/offline donations, recurring monthly subscriptions, invoice generation, and donor receipts.
+ */
 class DonationController extends Controller
 {
     protected $donationService;
@@ -178,7 +183,7 @@ class DonationController extends Controller
         try {
             \Illuminate\Support\Facades\Mail::to($donation->donor_email)
                 ->send(new \App\Mail\DonationInvoiceMail($donation));
-            
+
             // Log this action to the activity timeline
             activity('donations')
                 ->performedOn($donation)
@@ -282,10 +287,10 @@ class DonationController extends Controller
         }
 
         $user = auth()->user();
-        
+
         if ($user) {
-            $isOwner = ($donation->user_id && $donation->user_id === $user->id) || 
-                       (strtolower($donation->donor_email) === strtolower($user->email));
+            $isOwner = ($donation->user_id && $donation->user_id === $user->id) ||
+                (strtolower($donation->donor_email) === strtolower($user->email));
             $isAdmin = $user->hasRole('Super Admin') || $user->hasRole('Admin');
 
             if (!$isOwner && !$isAdmin) {

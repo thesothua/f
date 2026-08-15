@@ -7,6 +7,11 @@ use App\Models\WishlistItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Wishlist Management
+ *
+ * APIs for shelter wishlist items, urgent needs, and stock tracking.
+ */
 class WishlistItemController extends Controller
 {
     /**
@@ -49,7 +54,7 @@ class WishlistItemController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'category' => 'required|string|in:MEDICAL,FOOD,HYGIENE,EQUIPMENT',
+            'category' => 'required|string|in:MEDICAL,STATIONARY,SHELTER COMFORT,FOOD,CLOTH,OTHER,HYGIENE,EQUIPMENT',
             'price' => 'required|string|max:50',
             'image_url' => 'nullable|url|max:2048',
             'flipkart_url' => 'nullable|url|max:2048',
@@ -90,7 +95,7 @@ class WishlistItemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'sometimes|required|string|max:255',
-            'category' => 'sometimes|required|string|in:MEDICAL,FOOD,HYGIENE,EQUIPMENT',
+            'category' => 'sometimes|required|string|in:MEDICAL,STATIONARY,SHELTER COMFORT,FOOD,CLOTH,OTHER,HYGIENE,EQUIPMENT',
             'price' => 'sometimes|required|string|max:50',
             'image_url' => 'nullable|url|max:2048',
             'flipkart_url' => 'nullable|url|max:2048',
@@ -140,7 +145,7 @@ class WishlistItemController extends Controller
     /**
      * Admin: Toggle item urgency.
      */
-    public function toggleUrgent($id)
+    public function toggleUrgent(Request $request, $id)
     {
         $item = WishlistItem::find($id);
 
@@ -148,7 +153,12 @@ class WishlistItemController extends Controller
             return response()->json(['success' => false, 'message' => 'Wishlist item not found.'], 404);
         }
 
-        $item->is_urgent = !$item->is_urgent;
+        if ($request->has('is_urgent')) {
+            $item->is_urgent = filter_var($request->input('is_urgent'), FILTER_VALIDATE_BOOLEAN);
+        } else {
+            $item->is_urgent = !$item->is_urgent;
+        }
+
         $item->save();
 
         return response()->json([
@@ -161,7 +171,7 @@ class WishlistItemController extends Controller
     /**
      * Admin: Toggle show progress bar option.
      */
-    public function toggleProgressBar($id)
+    public function toggleProgressBar(Request $request, $id)
     {
         $item = WishlistItem::find($id);
 
@@ -169,7 +179,12 @@ class WishlistItemController extends Controller
             return response()->json(['success' => false, 'message' => 'Wishlist item not found.'], 404);
         }
 
-        $item->show_progress_bar = !$item->show_progress_bar;
+        if ($request->has('show_progress_bar')) {
+            $item->show_progress_bar = filter_var($request->input('show_progress_bar'), FILTER_VALIDATE_BOOLEAN);
+        } else {
+            $item->show_progress_bar = !$item->show_progress_bar;
+        }
+
         $item->save();
 
         return response()->json([

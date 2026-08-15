@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+/**
+ * @group Notifications
+ *
+ * APIs for user notifications, unread badges, and marking notifications as read.
+ */
 class NotificationController extends Controller
 {
     public function index(Request $request)

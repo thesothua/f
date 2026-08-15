@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\AnimalReportService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Animal Reports
+ *
+ * APIs for submitting, viewing, and processing public animal distress reports.
+ */
 class AnimalReportController extends Controller
 {
     protected $animalReportService;

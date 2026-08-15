@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @group Rescue Management
+ *
+ * APIs for rescue cases, case assignments, status workflows, and animal care tracking.
+ */
 class RescueCaseController extends Controller
 {
     /**

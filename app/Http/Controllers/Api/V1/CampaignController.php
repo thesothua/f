@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\CampaignService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Campaigns
+ *
+ * APIs for managing fundraising campaigns, targets, and progress metrics.
+ */
 class CampaignController extends Controller
 {
     protected $campaignService;

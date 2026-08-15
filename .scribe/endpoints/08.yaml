@@ -1,0 +1,401 @@
+name: 'Role & Access Control (RBAC)'
+description: |-
+
+  APIs for defining security roles, permissions, and access controls.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/volunteer-roles/public
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":true,"message":"Public volunteer roles retrieved successfully.","data":[{"id":1,"name":"Rescue Volunteer","role_description":"Responsible for emergency field rescue operations, animal transportation, and medical care coordination.","roleDescription":"Responsible for emergency field rescue operations, animal transportation, and medical care coordination."},{"id":2,"name":"Event Volunteer","role_description":"Assists in organizing adoption drives, community awareness campaigns, and local events.","roleDescription":"Assists in organizing adoption drives, community awareness campaigns, and local events."},{"id":3,"name":"Fundraising Volunteer","role_description":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns.","roleDescription":"Helps with donor engagement, corporate CSR outreach, and fundraising campaigns."},{"id":4,"name":"Social Media Volunteer","role_description":"Manages digital media content, creates reels, and engages supporters across social channels.","roleDescription":"Manages digital media content, creates reels, and engages supporters across social channels."}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/roles
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/permissions
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/roles
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_volunteer:
+        custom: []
+        name: is_volunteer
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      allow_notification:
+        custom: []
+        name: allow_notification
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      role_description:
+        custom: []
+        name: role_description
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      roleDescription:
+        custom: []
+        name: roleDescription
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      permissions:
+        custom: []
+        name: permissions
+        description: ''
+        required: false
+        example:
+          - architecto
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: architecto
+      is_volunteer: true
+      allow_notification: false
+      role_description: architecto
+      roleDescription: architecto
+      permissions:
+        - architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/roles/{id}'
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the role.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_volunteer:
+        custom: []
+        name: is_volunteer
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      allow_notification:
+        custom: []
+        name: allow_notification
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      role_description:
+        custom: []
+        name: role_description
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      roleDescription:
+        custom: []
+        name: roleDescription
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      permissions:
+        custom: []
+        name: permissions
+        description: ''
+        required: false
+        example:
+          - architecto
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      is_volunteer: true
+      allow_notification: false
+      role_description: architecto
+      roleDescription: architecto
+      permissions:
+        - architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/roles/{id}'
+    metadata:
+      custom: []
+      groupName: 'Role & Access Control (RBAC)'
+      groupDescription: |-
+
+        APIs for defining security roles, permissions, and access controls.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the role.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

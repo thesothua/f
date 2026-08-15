@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\PlanService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Plans & Causes
+ *
+ * APIs for managing cause plans, sponsorship packages, and goals.
+ */
 class PlanController extends Controller
 {
     public $planService;

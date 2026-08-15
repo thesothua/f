@@ -7,6 +7,11 @@ use App\Services\Api\V1\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+/**
+ * @group User & Profile Management
+ *
+ * APIs for user management, account details, and role assignments.
+ */
 class UserController extends Controller
 {
     public $userService;

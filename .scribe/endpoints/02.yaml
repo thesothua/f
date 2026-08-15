@@ -1,0 +1,383 @@
+name: 'General Endpoints'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/sitemap.xml
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Generate dynamic sitemap XML containing static pages, blogs, and active campaigns.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+              <url>
+                  <loc>https://furrydom-front.vercel.app/</loc>
+                  <changefreq>daily</changefreq>
+                  <priority>1.0</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/about</loc>
+                  <changefreq>monthly</changefreq>
+                  <priority>0.8</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/causes</loc>
+                  <changefreq>daily</changefreq>
+                  <priority>0.9</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/ways-to-give</loc>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.9</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/volunteer</loc>
+                  <changefreq>monthly</changefreq>
+                  <priority>0.8</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/blog</loc>
+                  <changefreq>daily</changefreq>
+                  <priority>0.9</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/contact</loc>
+                  <changefreq>monthly</changefreq>
+                  <priority>0.7</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/gallery</loc>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.7</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/report-injured</loc>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.9</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/privacy-policy</loc>
+                  <changefreq>yearly</changefreq>
+                  <priority>0.3</priority>
+              </url>
+              <url>
+                  <loc>https://furrydom-front.vercel.app/terms-of-use</loc>
+                  <changefreq>yearly</changefreq>
+                  <priority>0.3</priority>
+              </url>
+
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/blog/10-ways-help-stray-animals-neighborhood</loc>
+                  <lastmod>2026-08-14T17:57:26+00:00</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.8</priority>
+              </url>
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/blog/understanding-animal-rescue-what-happens-after-call</loc>
+                  <lastmod>2026-08-14T17:57:26+00:00</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.8</priority>
+              </url>
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/blog/why-daily-feeding-drives-matter-street-dogs</loc>
+                  <lastmod>2026-08-14T18:08:27+00:00</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.8</priority>
+              </url>
+              
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/causes/buy-animal-ambulance</loc>
+                  <lastmod>2026-08-14T17:57:26+00:00</lastmod>
+                  <changefreq>daily</changefreq>
+                  <priority>0.9</priority>
+              </url>
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/causes/purchase-land-animal-shelter</loc>
+                  <lastmod>2026-08-14T17:57:26+00:00</lastmod>
+                  <changefreq>daily</changefreq>
+                  <priority>0.9</priority>
+              </url>
+                  <url>
+                  <loc>https://furrydom-front.vercel.app/causes/medical-treatment-fund</loc>
+                  <lastmod>2026-08-14T17:57:26+00:00</lastmod>
+                  <changefreq>daily</changefreq>
+                  <priority>0.9</priority>
+              </url>
+              </urlset>
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: 'text/xml; charset=utf-8'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/webhooks/razorpay
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Handle Razorpay incoming webhooks for subscription events.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/attachments
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/attachments/{id}'
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/attachments
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      file:
+        custom: []
+        name: file
+        description: 'Must be a file. Must be an image. Must not be greater than 20480 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      attachable_type:
+        custom: []
+        name: attachable_type
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      attachable_id:
+        custom: []
+        name: attachable_id
+        description: ''
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: architecto
+      attachable_type: architecto
+      attachable_id: 16
+    fileParameters:
+      file: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/attachments/{id}'
+    metadata:
+      custom: []
+      groupName: 'General Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

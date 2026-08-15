@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-
+/**
+ * @group Authentication Management
+ *
+ * APIs for user authentication, registration, Google OAuth, password resets, and profile management.
+ */
 class AuthController extends Controller
 {
     public $authService;

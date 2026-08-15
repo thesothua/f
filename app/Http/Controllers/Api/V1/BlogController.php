@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\BlogService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Blog & Content CMS
+ *
+ * APIs for managing blog posts, categories, and articles.
+ */
 class BlogController extends Controller
 {
     public $blogService;

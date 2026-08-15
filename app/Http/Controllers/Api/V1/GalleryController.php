@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\GalleryService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Media & Gallery
+ *
+ * APIs for managing media items, photo galleries, and shelter photos.
+ */
 class GalleryController extends Controller
 {
     public $galleryService;

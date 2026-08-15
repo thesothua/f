@@ -9,6 +9,11 @@ use App\Services\Api\V1\NotificationRoutingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group In-Kind Contributions
+ *
+ * APIs for physical item donations, food/supplies contributions, and logistics.
+ */
 class ContributionController extends Controller
 {
     protected ContributionService $contributionService;
