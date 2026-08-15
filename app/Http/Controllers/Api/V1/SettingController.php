@@ -33,35 +33,52 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'general.site_name' => 'required|string',
-            'general.site_slogan' => 'required|string',
-            'general.contact_email' => 'required|email',
-            'general.contact_phone' => 'required|string',
-            'general.site_address' => 'required|string',
-            'general.logo_url' => 'nullable|string',
-            'general.favicon_url' => 'nullable|string',
-            'general.signature_url' => 'nullable|string',
-
-            'social.facebook_url' => 'nullable|string',
-            'social.instagram_url' => 'nullable|string',
-            'social.twitter_url' => 'nullable|string',
-            'social.youtube_url' => 'nullable|string',
-            'social.linkedin_url' => 'nullable|string',
-            'social.whatsapp_group_url' => 'nullable|string',
-            'social.google_maps_embed' => 'nullable|string',
-
-            'seo.website_name' => 'required|string',
-            'seo.meta_title' => 'required|string',
-            'seo.meta_description' => 'required|string',
-            'seo.og_image' => 'nullable|string',
-            'seo.favicon' => 'nullable|string',
-            'seo.google_analytics_id' => 'nullable|string',
-            'seo.google_search_console' => 'nullable|string',
-            'seo.robots' => 'nullable|string',
-
+        $rules = [
             'notification' => 'nullable|array',
-        ]);
+        ];
+
+        // Only validate general fields when general group is submitted
+        if ($request->has('general')) {
+            $rules += [
+                'general.site_name' => 'required|string',
+                'general.site_slogan' => 'required|string',
+                'general.contact_email' => 'required|email',
+                'general.contact_phone' => 'required|string',
+                'general.site_address' => 'required|string',
+                'general.logo_url' => 'nullable|string',
+                'general.favicon_url' => 'nullable|string',
+                'general.signature_url' => 'nullable|string',
+            ];
+        }
+
+        // Only validate social fields when social group is submitted
+        if ($request->has('social')) {
+            $rules += [
+                'social.facebook_url' => 'nullable|string',
+                'social.instagram_url' => 'nullable|string',
+                'social.twitter_url' => 'nullable|string',
+                'social.youtube_url' => 'nullable|string',
+                'social.linkedin_url' => 'nullable|string',
+                'social.whatsapp_group_url' => 'nullable|string',
+                'social.google_maps_embed' => 'nullable|string',
+            ];
+        }
+
+        // Only validate SEO fields when seo group is submitted
+        if ($request->has('seo')) {
+            $rules += [
+                'seo.website_name' => 'required|string',
+                'seo.meta_title' => 'required|string',
+                'seo.meta_description' => 'required|string',
+                'seo.og_image' => 'nullable|string',
+                'seo.favicon' => 'nullable|string',
+                'seo.google_analytics_id' => 'nullable|string',
+                'seo.google_search_console' => 'nullable|string',
+                'seo.robots' => 'nullable|string',
+            ];
+        }
+
+        $request->validate($rules);
 
         if ($request->has('general')) {
             $general = app(GeneralSettings::class);

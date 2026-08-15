@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Contribution;
 use App\Services\Api\V1\ContributionService;
+use App\Services\Api\V1\NotificationRoutingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,6 +83,16 @@ class ContributionController extends Controller
 
         try {
             $contribution = $this->contributionService->createContribution($request->all());
+
+            // Dispatch notification to configured roles & emails
+            try {
+                NotificationRoutingService::send(
+                    'new_contribution',
+                    new \App\Notifications\NewContributionReceived($contribution)
+                );
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning('Contribution notification dispatch error: ' . $e->getMessage());
+            }
 
             return response()->json([
                 'success' => true,

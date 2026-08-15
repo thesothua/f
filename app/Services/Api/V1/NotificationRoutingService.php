@@ -56,6 +56,14 @@ class NotificationRoutingService
                 'roles' => ['Super Admin', 'Admin'],
                 'custom_emails' => '',
             ],
+            'new_contribution' => [
+                'event_key' => 'new_contribution',
+                'title' => 'New Contribution / Ways to Give',
+                'description' => 'Alert sent when someone submits a donation-in-kind, supply order, or service contribution via Ways to Give.',
+                'enabled' => true,
+                'roles' => ['Super Admin', 'Admin'],
+                'custom_emails' => '',
+            ],
         ];
     }
 
