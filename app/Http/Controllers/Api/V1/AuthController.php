@@ -62,31 +62,29 @@ class AuthController extends Controller
     {
         $data = $request->only(['email', 'name', 'avatar', 'credential', 'access_token', 'phone', 'dob', 'gender', 'anniversary']);
 
-        // 1. If access_token is provided, use Google People API to fetch birthdays, genders, phone numbers, name, email & photo
+        // 1. If access_token is provided, fetch user profile from Google
         if (!empty($request->access_token)) {
             try {
+                // Primary: Use Google UserInfo endpoint (works with basic openid/email/profile scopes)
+                $userinfoResp = \Illuminate\Support\Facades\Http::withToken($request->access_token)
+                    ->get('https://www.googleapis.com/oauth2/v3/userinfo');
+
+                if ($userinfoResp->successful()) {
+                    $info = $userinfoResp->json();
+                    $data['email'] = $info['email'] ?? ($data['email'] ?? null);
+                    $data['name'] = $info['name'] ?? ($data['name'] ?? null);
+                    $data['avatar'] = $info['picture'] ?? ($data['avatar'] ?? null);
+                }
+
+                // Optional enrichment: Try People API for birthday, gender, phone
+                // This will only work if the user granted those scopes
                 $peopleResp = \Illuminate\Support\Facades\Http::withToken($request->access_token)
                     ->get('https://people.googleapis.com/v1/people/me', [
-                        'personFields' => 'names,emailAddresses,photos,phoneNumbers,birthdays,genders',
+                        'personFields' => 'phoneNumbers,birthdays,genders',
                     ]);
 
                 if ($peopleResp->successful()) {
                     $payload = $peopleResp->json();
-
-                    // Extract email
-                    if (!empty($payload['emailAddresses'][0]['value'])) {
-                        $data['email'] = $payload['emailAddresses'][0]['value'];
-                    }
-
-                    // Extract name
-                    if (!empty($payload['names'][0]['displayName'])) {
-                        $data['name'] = $payload['names'][0]['displayName'];
-                    }
-
-                    // Extract photo / avatar
-                    if (!empty($payload['photos'][0]['url'])) {
-                        $data['avatar'] = $payload['photos'][0]['url'];
-                    }
 
                     // Extract phone number
                     if (!empty($payload['phoneNumbers'][0]['value'])) {
@@ -118,19 +116,10 @@ class AuthController extends Controller
                         elseif ($g === 'other') $data['gender'] = 'Other';
                         else $data['gender'] = ucfirst($g);
                     }
-                } else {
-                    // Fallback to Google UserInfo endpoint
-                    $userinfoResp = \Illuminate\Support\Facades\Http::withToken($request->access_token)
-                        ->get('https://www.googleapis.com/oauth2/v3/userinfo');
-                    if ($userinfoResp->successful()) {
-                        $info = $userinfoResp->json();
-                        $data['email'] = $info['email'] ?? ($data['email'] ?? null);
-                        $data['name'] = $info['name'] ?? ($data['name'] ?? null);
-                        $data['avatar'] = $info['picture'] ?? ($data['avatar'] ?? null);
-                    }
                 }
+                // People API failure is non-fatal — basic login still works
             } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::warning('Google People API fetch error: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::warning('Google auth fetch error: ' . $e->getMessage());
             }
         }
 
