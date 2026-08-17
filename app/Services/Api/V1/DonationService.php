@@ -287,6 +287,9 @@ class DonationService
                 'plan_id' => $localSub->plan_id,
                 'campaign_id' => $localSub->campaign_id,
                 'subscription_id' => $localSub->id,
+                'auto_feeder_id' => $localSub->auto_feeder_id,
+                'new_feeder_name' => $localSub->new_feeder_name,
+                'new_feeder_address' => $localSub->new_feeder_address,
                 'donor_name' => $localSub->donor_name,
                 'donor_email' => $localSub->donor_email,
                 'donor_phone' => $localSub->donor_phone,
@@ -333,6 +336,11 @@ class DonationService
                         }
                     }
                 }
+            }
+
+            // Update associated Auto Feeder raised amount & generate timeline entry or create new feeder via AutoFeederService
+            if ($donation->auto_feeder_id || (!empty($donation->new_feeder_name) && !empty($donation->new_feeder_address))) {
+                $this->autoFeederService->recordSponsorshipDonation($donation);
             }
 
             // Trigger Admin Notification

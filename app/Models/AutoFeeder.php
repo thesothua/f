@@ -37,7 +37,7 @@ class AutoFeeder extends Model
      */
     public function activities()
     {
-        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject')->orderByDesc('created_at');
+        return $this->morphMany(\Spatie\Activitylog\Models\Activity::class, 'subject')->orderByDesc('id');
     }
 
     protected $fillable = [

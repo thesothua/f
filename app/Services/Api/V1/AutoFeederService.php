@@ -151,6 +151,9 @@ class AutoFeederService
             if ($newFeeder) {
                 $autoFeederId = $newFeeder->id;
                 $donation->update(['auto_feeder_id' => $autoFeederId]);
+                if (!empty($donation->subscription_id)) {
+                    \App\Models\RecurringSubscription::where('id', $donation->subscription_id)->update(['auto_feeder_id' => $autoFeederId]);
+                }
             }
         }
 
