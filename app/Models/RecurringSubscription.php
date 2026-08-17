@@ -50,6 +50,9 @@ class RecurringSubscription extends Model
         'next_billing_at',
         'ends_at',
         'campaign_id',
+        'auto_feeder_id',
+        'new_feeder_name',
+        'new_feeder_address',
         'admin_notes',
     ];
 

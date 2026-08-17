@@ -51,6 +51,9 @@ class Donation extends Model
         'receipt_url',
         'anonymous',
         'campaign_id',
+        'auto_feeder_id',
+        'new_feeder_name',
+        'new_feeder_address',
     ];
 
     protected $casts = [
@@ -71,6 +74,11 @@ class Donation extends Model
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
+    }
+
+    public function autoFeeder()
+    {
+        return $this->belongsTo(AutoFeeder::class, 'auto_feeder_id');
     }
 
     public function subscription()

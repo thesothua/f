@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Log;
 class DonationService
 {
     protected $razorpay;
+    protected $autoFeederService;
 
-    public function __construct(RazorpayService $razorpay)
+    public function __construct(RazorpayService $razorpay, AutoFeederService $autoFeederService)
     {
         $this->razorpay = $razorpay;
+        $this->autoFeederService = $autoFeederService;
     }
 
     /**
@@ -28,10 +30,10 @@ class DonationService
             $search = $params['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('donor_name', 'like', "%{$search}%")
-                  ->orWhere('donor_email', 'like', "%{$search}%")
-                  ->orWhere('donor_phone', 'like', "%{$search}%")
-                  ->orWhere('pan_number', 'like', "%{$search}%")
-                  ->orWhere('gateway_transaction_id', 'like', "%{$search}%");
+                    ->orWhere('donor_email', 'like', "%{$search}%")
+                    ->orWhere('donor_phone', 'like', "%{$search}%")
+                    ->orWhere('pan_number', 'like', "%{$search}%")
+                    ->orWhere('gateway_transaction_id', 'like', "%{$search}%");
             });
         }
 
@@ -72,6 +74,9 @@ class DonationService
                 'user_id' => $data['user_id'] ?? null,
                 'plan_id' => $data['plan_id'] ?? null, // Target Cause
                 'campaign_id' => $data['campaign_id'] ?? null, // Target Campaign
+                'auto_feeder_id' => $data['auto_feeder_id'] ?? null, // Target Auto Feeder Station
+                'new_feeder_name' => $data['new_feeder_name'] ?? null,
+                'new_feeder_address' => $data['new_feeder_address'] ?? null,
                 'donor_name' => $data['donor_name'],
                 'donor_email' => $data['donor_email'],
                 'donor_phone' => $data['donor_phone'] ?? null,
@@ -164,11 +169,16 @@ class DonationService
                     $oldProgress = $campaign->progress_percentage;
                     $campaign->increment('raised_amount', $donation->amount);
                     $campaign->refresh();
-                    
+
                     if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
                         \App\Services\Api\V1\NotificationRoutingService::send('campaign_goal', new \App\Notifications\CampaignGoalReached($campaign));
                     }
                 }
+            }
+
+            // Update associated Auto Feeder raised amount & generate timeline entry via AutoFeederService
+            if ($donation->auto_feeder_id || (!empty($donation->new_feeder_name) && !empty($donation->new_feeder_address))) {
+                $this->autoFeederService->recordSponsorshipDonation($donation);
             }
 
             // Trigger Admin Notification via NotificationRoutingService
@@ -202,6 +212,9 @@ class DonationService
                 'user_id' => $data['user_id'] ?? null,
                 'plan_id' => $data['plan_id'] ?? null, // Target cause ID
                 'campaign_id' => $data['campaign_id'] ?? null, // Target campaign ID
+                'auto_feeder_id' => $data['auto_feeder_id'] ?? null, // Target auto feeder ID
+                'new_feeder_name' => $data['new_feeder_name'] ?? null,
+                'new_feeder_address' => $data['new_feeder_address'] ?? null,
                 'donor_name' => $data['donor_name'],
                 'donor_email' => $data['donor_email'],
                 'donor_phone' => $data['donor_phone'] ?? null,
@@ -310,7 +323,7 @@ class DonationService
                     $oldProgress = $campaign->progress_percentage;
                     $campaign->increment('raised_amount', $localSub->amount);
                     $campaign->refresh();
-                    
+
                     if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
                         try {
                             $roles = \App\Models\Role::getNotificationRecipients();
@@ -345,10 +358,10 @@ class DonationService
             $search = $params['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('donor_name', 'like', "%{$search}%")
-                  ->orWhere('donor_email', 'like', "%{$search}%")
-                  ->orWhere('donor_phone', 'like', "%{$search}%")
-                  ->orWhere('pan_number', 'like', "%{$search}%")
-                  ->orWhere('gateway_subscription_id', 'like', "%{$search}%");
+                    ->orWhere('donor_email', 'like', "%{$search}%")
+                    ->orWhere('donor_phone', 'like', "%{$search}%")
+                    ->orWhere('pan_number', 'like', "%{$search}%")
+                    ->orWhere('gateway_subscription_id', 'like', "%{$search}%");
             });
         }
 
@@ -487,7 +500,7 @@ class DonationService
             $amount = floatval($data['amount']);
             $currency = $data['currency'] ?? 'INR';
             $status = $data['status'] ?? 'succeeded';
-            
+
             $gatewayInput = $data['payment_gateway'] ?? 'cash';
             $gateway = ($gatewayInput === 'razorpay_qr') ? 'razorpay_qr' : 'offline';
             $paymentMethod = $gatewayInput;
@@ -561,7 +574,7 @@ class DonationService
                 $oldProgress = $campaign->progress_percentage;
                 $campaign->increment('raised_amount', $donation->amount);
                 $campaign->refresh();
-                
+
                 if ($oldProgress < 100 && $campaign->progress_percentage >= 100) {
                     try {
                         $roles = \App\Models\Role::getNotificationRecipients();
@@ -571,6 +584,11 @@ class DonationService
                     }
                 }
             }
+        }
+
+        // Update associated Auto Feeder raised amount & log activity via AutoFeederService
+        if ($donation->auto_feeder_id || (!empty($donation->new_feeder_name) && !empty($donation->new_feeder_address))) {
+            $this->autoFeederService->recordSponsorshipDonation($donation);
         }
 
         // Send Email to Donor

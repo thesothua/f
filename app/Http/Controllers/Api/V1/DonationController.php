@@ -55,6 +55,9 @@ class DonationController extends Controller
             'pan_number' => 'nullable|string|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i', // Validation for PAN format
             'plan_id' => 'nullable|integer|exists:plans,id|prohibits:campaign_id',
             'campaign_id' => 'nullable|integer|exists:campaigns,id|prohibits:plan_id',
+            'auto_feeder_id' => 'nullable|integer|exists:auto_feeders,id',
+            'new_feeder_name' => 'nullable|string|max:255',
+            'new_feeder_address' => 'nullable|string',
             'type' => 'required|string|in:one_time,recurring',
             'anonymous' => 'nullable|boolean',
         ]);
@@ -62,10 +65,10 @@ class DonationController extends Controller
         try {
             $type = $request->input('type');
             if ($type === 'one_time') {
-                $response = $this->donationService->initiateOneTimeDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'type', 'anonymous']));
+                $response = $this->donationService->initiateOneTimeDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'auto_feeder_id', 'new_feeder_name', 'new_feeder_address', 'type', 'anonymous']));
                 return $this->successResponse($response, 'One-time donation order created successfully.', 201);
             } else {
-                $response = $this->donationService->initiateRecurringDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'type', 'anonymous', 'cause_name']));
+                $response = $this->donationService->initiateRecurringDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'auto_feeder_id', 'new_feeder_name', 'new_feeder_address', 'type', 'anonymous', 'cause_name']));
                 return $this->successResponse($response, 'Recurring monthly donation plan initiated.', 201);
             }
         } catch (\Exception $e) {
@@ -211,6 +214,7 @@ class DonationController extends Controller
             'pan_number' => 'nullable|string|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i',
             'plan_id' => 'nullable|integer|exists:plans,id|prohibits:campaign_id',
             'campaign_id' => 'nullable|integer|exists:campaigns,id|prohibits:plan_id',
+            'auto_feeder_id' => 'nullable|integer|exists:auto_feeders,id',
             'status' => 'required|string|in:succeeded,pending,failed',
             'payment_gateway' => 'required|string',
             'gateway_transaction_id' => 'nullable|string',
@@ -219,7 +223,7 @@ class DonationController extends Controller
         ]);
 
         try {
-            $donation = $this->donationService->createManualDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'status', 'payment_gateway', 'gateway_transaction_id', 'anonymous', 'created_at']));
+            $donation = $this->donationService->createManualDonation($request->only(['amount', 'currency', 'donor_name', 'donor_email', 'donor_phone', 'pan_number', 'plan_id', 'campaign_id', 'auto_feeder_id', 'status', 'payment_gateway', 'gateway_transaction_id', 'anonymous', 'created_at']));
             return $this->successResponse($donation, 'Manual donation record created successfully.', 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to create donation record: ' . $e->getMessage(), 500);

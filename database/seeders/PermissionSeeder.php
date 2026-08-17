@@ -105,6 +105,12 @@ class PermissionSeeder extends Seeder
             'create contributions',
             'edit contributions',
             'delete contributions',
+
+            // Auto Feeders
+            'view auto feeders',
+            'create auto feeders',
+            'edit auto feeders',
+            'delete auto feeders',
         ];
 
         foreach ($permissions as $permName) {

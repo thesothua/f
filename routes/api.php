@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\RescueCaseController;
 use App\Http\Controllers\Api\V1\ContributionController;
 use App\Http\Controllers\Api\V1\WishlistItemController;
+use App\Http\Controllers\Api\V1\AutoFeederController;
 use App\Http\Controllers\Api\V1\WebhookController;
 use App\Http\Controllers\Api\V1\PlacesController;
 use Illuminate\Http\Request;
@@ -106,6 +107,9 @@ Route::prefix('contributions')->controller(ContributionController::class)->group
 
 // Public Wishlist Items route
 Route::get("/wishlist-items", [WishlistItemController::class, "indexPublic"]);
+
+// Public Auto Feeders route
+Route::get("/auto-feeders", [AutoFeederController::class, "indexPublic"]);
 
 
 /*
@@ -262,6 +266,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::match(['get', 'post', 'patch', 'put'], "/{id}/toggle-progress", "toggleProgressBar")->middleware('permission:edit contributions');
         Route::put("/{id}", "update")->middleware('permission:edit contributions');
         Route::delete("/{id}", "destroy")->middleware('permission:delete contributions');
+    });
+
+    // Administrative Auto Feeders routes
+    Route::prefix('admin/auto-feeders')->controller(AutoFeederController::class)->group(function () {
+        Route::get("/", "indexAdmin")->middleware('permission:view auto feeders');
+        Route::post("/", "store")->middleware('permission:create auto feeders');
+        Route::get("/{id}", "show")->middleware('permission:view auto feeders');
+        Route::put("/{id}", "update")->middleware('permission:edit auto feeders');
+        Route::delete("/{id}", "destroy")->middleware('permission:delete auto feeders');
     });
 
     // Administrative Subscriptions routes
