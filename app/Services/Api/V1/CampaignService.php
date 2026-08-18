@@ -43,7 +43,7 @@ class CampaignService
      */
     public function getCampaignById($id)
     {
-        return Campaign::with(['media', 'seo'])->find($id);
+        return Campaign::with(['media', 'seo', 'activities.causer'])->find($id);
     }
 
     /**
@@ -51,7 +51,7 @@ class CampaignService
      */
     public function getCampaignBySlug($slug)
     {
-        return Campaign::with(['media', 'seo'])->where('slug', $slug)->first();
+        return Campaign::with(['media', 'seo', 'activities.causer'])->where('slug', $slug)->first();
     }
 
     /**
@@ -104,7 +104,7 @@ class CampaignService
             ]);
         }
 
-        return $campaign->fresh(['media', 'seo']);
+        return $campaign->fresh(['media', 'seo', 'activities.causer']);
     }
 
     /**
@@ -132,25 +132,25 @@ class CampaignService
             }
         }
 
-        if (isset($data['description'])) $updateData['description'] = $data['description'];
+        if (array_key_exists('description', $data)) $updateData['description'] = $data['description'];
         if (isset($data['goal_amount']) || isset($data['goalAmount'])) {
             $updateData['goal_amount'] = (float) ($data['goal_amount'] ?? $data['goalAmount']);
         }
         if (isset($data['raised_amount']) || isset($data['raisedAmount'])) {
             $updateData['raised_amount'] = (float) ($data['raised_amount'] ?? $data['raisedAmount']);
         }
-        if (isset($data['start_date']) || isset($data['startDate'])) {
-            $updateData['start_date'] = $data['start_date'] ?? $data['startDate'];
+        if (array_key_exists('start_date', $data) || array_key_exists('startDate', $data)) {
+            $updateData['start_date'] = $data['start_date'] ?? $data['startDate'] ?? null;
         }
-        if (isset($data['end_date']) || isset($data['endDate'])) {
-            $updateData['end_date'] = $data['end_date'] ?? $data['endDate'];
+        if (array_key_exists('end_date', $data) || array_key_exists('endDate', $data)) {
+            $updateData['end_date'] = $data['end_date'] ?? $data['endDate'] ?? null;
         }
         if (isset($data['status'])) $updateData['status'] = $data['status'];
-        if (isset($data['cover_image']) || isset($data['coverImage'])) {
-            $updateData['cover_image'] = $data['cover_image'] ?? $data['coverImage'];
+        if (array_key_exists('cover_image', $data) || array_key_exists('coverImage', $data)) {
+            $updateData['cover_image'] = $data['cover_image'] ?? $data['coverImage'] ?? null;
         }
-        if (isset($data['gallery_images']) || isset($data['galleryImages'])) {
-            $updateData['gallery_images'] = $data['gallery_images'] ?? $data['galleryImages'];
+        if (array_key_exists('gallery_images', $data) || array_key_exists('galleryImages', $data)) {
+            $updateData['gallery_images'] = $data['gallery_images'] ?? $data['galleryImages'] ?? null;
         }
 
         $campaign->update($updateData);
@@ -168,22 +168,24 @@ class CampaignService
         }
 
         // Update polymorphic SEO
-        if (isset($data['seo'])) {
+        if (array_key_exists('seo', $data)) {
             $seoData = is_string($data['seo']) ? json_decode($data['seo'], true) : $data['seo'];
-            $campaign->seo()->updateOrCreate(
-                ['seoable_id' => $campaign->id, 'seoable_type' => Campaign::class],
-                [
-                    'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
-                    'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
-                    'keywords' => $seoData['keywords'] ?? [],
-                    'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
-                    'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
-                    'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
-                ]
-            );
+            if (is_array($seoData)) {
+                $campaign->seo()->updateOrCreate(
+                    ['seoable_id' => $campaign->id, 'seoable_type' => Campaign::class],
+                    [
+                        'meta_title' => $seoData['metaTitle'] ?? $seoData['meta_title'] ?? null,
+                        'meta_description' => $seoData['metaDescription'] ?? $seoData['meta_description'] ?? null,
+                        'keywords' => $seoData['keywords'] ?? [],
+                        'og_image' => $seoData['ogImage'] ?? $seoData['og_image'] ?? null,
+                        'canonical_url' => $seoData['canonicalUrl'] ?? $seoData['canonical_url'] ?? null,
+                        'no_index' => (bool) ($seoData['noIndex'] ?? $seoData['no_index'] ?? false),
+                    ]
+                );
+            }
         }
 
-        return $campaign->fresh(['media', 'seo']);
+        return $campaign->fresh(['media', 'seo', 'activities.causer']);
     }
 
     /**

@@ -18,7 +18,6 @@ class Campaign extends Model implements HasMedia
         return LogOptions::defaults()
             ->logOnly([
                 'title',
-                'description',
                 'goal_amount',
                 'raised_amount',
                 'start_date',

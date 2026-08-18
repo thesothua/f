@@ -60,6 +60,9 @@ class CampaignController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
             'status' => 'nullable|string|in:Active,Completed,Closed',
+            'cover_image' => 'nullable|string',
+            'gallery_images' => 'nullable|array',
+            'seo' => 'nullable|array',
             'cover_image_file' => 'nullable|image|max:5120',
             'gallery_image_files.*' => 'nullable|image|max:5120',
         ]);
@@ -68,7 +71,7 @@ class CampaignController extends Controller
             $coverFile = $request->file('cover_image_file');
             $galleryFiles = $request->file('gallery_image_files') ?? [];
 
-            $campaign = $this->campaignService->createCampaign($request->only(['title', 'slug', 'description', 'goal_amount', 'raised_amount', 'start_date', 'end_date', 'status']), $coverFile, $galleryFiles);
+            $campaign = $this->campaignService->createCampaign($request->all(), $coverFile, $galleryFiles);
 
             return $this->successResponse($campaign, 'Campaign created successfully.', 201);
         } catch (\Exception $e) {
@@ -90,6 +93,9 @@ class CampaignController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
             'status' => 'sometimes|required|string|in:Active,Completed,Closed',
+            'cover_image' => 'nullable|string',
+            'gallery_images' => 'nullable|array',
+            'seo' => 'nullable|array',
             'cover_image_file' => 'nullable|image|max:5120',
             'gallery_image_files.*' => 'nullable|image|max:5120',
         ]);
@@ -98,7 +104,7 @@ class CampaignController extends Controller
             $coverFile = $request->file('cover_image_file');
             $galleryFiles = $request->file('gallery_image_files') ?? [];
 
-            $campaign = $this->campaignService->updateCampaign($id, $request->only(['title', 'slug', 'description', 'goal_amount', 'raised_amount', 'start_date', 'end_date', 'status']), $coverFile, $galleryFiles);
+            $campaign = $this->campaignService->updateCampaign($id, $request->all(), $coverFile, $galleryFiles);
 
             if (!$campaign) {
                 return $this->errorResponse('Campaign not found.', 404);

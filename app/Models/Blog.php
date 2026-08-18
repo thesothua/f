@@ -20,8 +20,7 @@ class Blog extends Model implements HasMedia
             ->logOnly([
                 'title',
                 'category',
-                'excerpt',
-                'content',
+                // 'excerpt',
                 'status',
             ])
             ->logOnlyDirty()
