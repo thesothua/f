@@ -284,7 +284,7 @@ class DonationController extends Controller
      */
     public function downloadInvoice(Request $request, $id)
     {
-        $donation = \App\Models\Donation::with(['plan', 'campaign'])->find($id);
+        $donation = $this->donationService->getDonationById($id);
 
         if (!$donation) {
             return $this->errorResponse('Donation record not found.', 404);

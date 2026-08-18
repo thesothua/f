@@ -54,12 +54,15 @@ class DonationInvoiceMail extends Mailable implements ShouldQueue
     {
         $settings = app(\App\Settings\GeneralSettings::class);
         
+        $donation = \App\Models\Donation::with(['plan', 'subscription.plan', 'subscription.campaign', 'subscription.autoFeeder', 'campaign', 'autoFeeder'])
+            ->find($this->donation->id) ?? $this->donation;
+
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.invoice', [
-            'donation' => $this->donation,
+            'donation' => $donation,
             'settings' => $settings
         ]);
 
-        $fileName = 'donation-invoice-' . ($this->donation->gateway_transaction_id ?? $this->donation->id) . '.pdf';
+        $fileName = 'donation-invoice-' . ($donation->gateway_transaction_id ?? $donation->id) . '.pdf';
 
         return [
             Attachment::fromData(fn () => $pdf->output(), $fileName)
