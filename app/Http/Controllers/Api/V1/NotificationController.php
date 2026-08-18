@@ -12,6 +12,25 @@ use Illuminate\Http\Request;
  */
 class NotificationController extends Controller
 {
+    private function getBaseQuery(Request $request)
+    {
+        $user = $request->user();
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        return \Illuminate\Notifications\DatabaseNotification::where(function ($q) use ($user, $roleIds) {
+            $q->where(function ($userQuery) use ($user) {
+                $userQuery->where('notifiable_type', get_class($user))
+                    ->where('notifiable_id', $user->id);
+            });
+            if (!empty($roleIds)) {
+                $q->orWhere(function ($roleQuery) use ($roleIds) {
+                    $roleQuery->where('notifiable_type', \App\Models\Role::class)
+                        ->whereIn('notifiable_id', $roleIds);
+                });
+            }
+        });
+    }
+
     public function index(Request $request)
     {
         $user = $request->user();
@@ -20,15 +39,13 @@ class NotificationController extends Controller
         }
 
         $limit = (int) $request->get('limit', 15);
-        $roleIds = $user->roles->pluck('id')->toArray();
+        $baseQuery = $this->getBaseQuery($request);
 
-        $notifications = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
-            ->whereIn('notifiable_id', $roleIds)
+        $notifications = (clone $baseQuery)
             ->orderBy('created_at', 'desc')
             ->paginate($limit);
 
-        $unreadCount = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
-            ->whereIn('notifiable_id', $roleIds)
+        $unreadCount = (clone $baseQuery)
             ->whereNull('read_at')
             ->count();
 
@@ -40,13 +57,7 @@ class NotificationController extends Controller
 
     public function markAsRead(Request $request, $id)
     {
-        $user = $request->user();
-        $roleIds = $user->roles->pluck('id')->toArray();
-
-        $notification = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
-            ->whereIn('notifiable_id', $roleIds)
-            ->findOrFail($id);
-
+        $notification = $this->getBaseQuery($request)->findOrFail($id);
         $notification->markAsRead();
 
         return $this->successResponse(null, 'Notification marked as read.');
@@ -54,11 +65,7 @@ class NotificationController extends Controller
 
     public function markAllAsRead(Request $request)
     {
-        $user = $request->user();
-        $roleIds = $user->roles->pluck('id')->toArray();
-
-        \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
-            ->whereIn('notifiable_id', $roleIds)
+        $this->getBaseQuery($request)
             ->whereNull('read_at')
             ->update(['read_at' => now()]);
 
@@ -67,13 +74,7 @@ class NotificationController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $user = $request->user();
-        $roleIds = $user->roles->pluck('id')->toArray();
-
-        $notification = \Illuminate\Notifications\DatabaseNotification::where('notifiable_type', \App\Models\Role::class)
-            ->whereIn('notifiable_id', $roleIds)
-            ->findOrFail($id);
-
+        $notification = $this->getBaseQuery($request)->findOrFail($id);
         $notification->delete();
 
         return $this->successResponse(null, 'Notification deleted successfully.');

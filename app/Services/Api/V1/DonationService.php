@@ -24,7 +24,7 @@ class DonationService
      */
     public function getAllDonations($params = [])
     {
-        $query = Donation::with(['plan', 'subscription', 'campaign']);
+        $query = Donation::with(['plan', 'subscription', 'campaign', 'autoFeeder']);
 
         if (!empty($params['search'])) {
             $search = $params['search'];
@@ -54,7 +54,7 @@ class DonationService
 
     public function getDonationById($id)
     {
-        return Donation::with(['plan', 'subscription', 'campaign', 'activities.causer'])->find($id);
+        return Donation::with(['plan', 'subscription', 'campaign', 'autoFeeder', 'activities.causer'])->find($id);
     }
 
     /**
@@ -360,7 +360,7 @@ class DonationService
      */
     public function getAllSubscriptions($params = [])
     {
-        $query = RecurringSubscription::with('plan');
+        $query = RecurringSubscription::with(['plan', 'campaign', 'autoFeeder']);
 
         if (!empty($params['search'])) {
             $search = $params['search'];
@@ -390,7 +390,7 @@ class DonationService
 
     public function getSubscriptionById($id)
     {
-        return RecurringSubscription::with(['plan', 'activities.causer'])->find($id);
+        return RecurringSubscription::with(['plan', 'campaign', 'autoFeeder', 'activities.causer'])->find($id);
     }
 
     /**

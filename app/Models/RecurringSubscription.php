@@ -77,6 +77,11 @@ class RecurringSubscription extends Model
         return $this->belongsTo(Campaign::class);
     }
 
+    public function autoFeeder()
+    {
+        return $this->belongsTo(AutoFeeder::class, 'auto_feeder_id');
+    }
+
     public function donations()
     {
         return $this->hasMany(Donation::class, 'subscription_id');
