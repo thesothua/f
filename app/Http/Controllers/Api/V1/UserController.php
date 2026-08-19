@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\TeamResource;
 
 /**
  * @group User & Profile Management
@@ -29,8 +31,12 @@ class UserController extends Controller
 
     public function teamMembers(Request $request)
     {
-        $users = $this->userService->getTeamMembers();
-        return $this->successResponse($users, 'Team members retrieved successfully.');
+        $data = Cache::remember('users.team_members', now()->addHours(24), function () {
+            $users = $this->userService->getTeamMembers();
+            return TeamResource::collection($users)->resolve();
+        });
+
+        return $this->successResponse($data, 'Team members retrieved successfully.');
     }
 
     public function show(Request $request, $id)
@@ -57,6 +63,9 @@ class UserController extends Controller
         ]);
 
         $user = $this->userService->createUser($request->only(['email', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
+        
+        Cache::forget('users.team_members');
+        
         return $this->successResponse($user, 'User created successfully.', 201);
     }
 
@@ -80,6 +89,9 @@ class UserController extends Controller
         ]);
 
         $updatedUser = $this->userService->updateUser($id, $request->only(['email', 'name', 'status', 'bio', 'avatar', 'dob', 'anniversary', 'show_in_website', 'showInWebsite', 'role', 'gender', 'phone', 'password']));
+        
+        Cache::forget('users.team_members');
+        
         return $this->successResponse($updatedUser, 'User updated successfully.');
     }
 

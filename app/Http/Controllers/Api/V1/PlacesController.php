@@ -55,15 +55,22 @@ class PlacesController extends Controller
         $apiKey = config('services.google.maps_key', env('GOOGLE_MAPS_API_KEY', 'AIzaSyA0xwpQM7wOsQ3UsjTyi4ZO0gPZvaVi8yM'));
 
         try {
-            $response = Http::withHeaders([
-                'X-Goog-Api-Key' => $apiKey,
-                'X-Goog-FieldMask' => 'id,displayName,location,formattedAddress',
-            ])->get("https://places.googleapis.com/v1/places/{$placeId}");
+            $data = \Illuminate\Support\Facades\Cache::remember('place_details.' . $placeId, now()->addDays(7), function () use ($apiKey, $placeId) {
+                $response = Http::withHeaders([
+                    'X-Goog-Api-Key' => $apiKey,
+                    'X-Goog-FieldMask' => 'id,displayName,location,formattedAddress',
+                ])->get("https://places.googleapis.com/v1/places/{$placeId}");
+                
+                if ($response->successful()) {
+                    return $response->json();
+                }
+                return null;
+            });
 
-            if ($response->successful()) {
+            if ($data) {
                 return response()->json([
                     'success' => true,
-                    'place' => $response->json()
+                    'place' => $data
                 ]);
             }
 

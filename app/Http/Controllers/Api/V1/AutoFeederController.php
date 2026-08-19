@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\V1\AutoFeederService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\AutoFeederResource;
 
 class AutoFeederController extends Controller
 {
@@ -21,13 +23,16 @@ class AutoFeederController extends Controller
      */
     public function indexPublic()
     {
-        $feeders = $this->autoFeederService->getPublicFeeders();
+        $data = Cache::remember('autofeeders.public', now()->addHours(6), function () {
+            $feeders = $this->autoFeederService->getPublicFeeders();
+            return AutoFeederResource::collection($feeders)->resolve();
+        });
 
         return response()->json([
             'success' => true,
             'status' => true,
-            'feeders' => $feeders,
-            'data' => $feeders,
+            'feeders' => $data,
+            'data' => $data,
         ]);
     }
 
@@ -74,6 +79,8 @@ class AutoFeederController extends Controller
         }
 
         $feeder = $this->autoFeederService->createFeeder($validator->validated());
+
+        Cache::forget('autofeeders.public');
 
         return response()->json([
             'success' => true,
@@ -146,6 +153,8 @@ class AutoFeederController extends Controller
 
         $updatedFeeder = $this->autoFeederService->updateFeeder($id, $validator->validated());
 
+        Cache::forget('autofeeders.public');
+
         return response()->json([
             'success' => true,
             'status' => true,
@@ -169,6 +178,8 @@ class AutoFeederController extends Controller
                 'message' => 'Auto feeder station not found.',
             ], 404);
         }
+
+        Cache::forget('autofeeders.public');
 
         return response()->json([
             'success' => true,

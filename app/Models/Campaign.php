@@ -72,7 +72,7 @@ class Campaign extends Model implements HasMedia
 
     public function getSeoAttribute()
     {
-        $seo = $this->seo()->first();
+        $seo = $this->relationLoaded('seo') ? $this->getRelation('seo') : $this->seo()->first();
         if (!$seo) {
             return [
                 'metaTitle' => '',

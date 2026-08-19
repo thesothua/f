@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\CampaignService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\CampaignResource;
 
 /**
  * @group Campaigns
@@ -25,8 +27,14 @@ class CampaignController extends Controller
      */
     public function index(Request $request)
     {
-        $campaigns = $this->campaignService->getAllCampaigns($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
-        return $this->successResponse($campaigns, 'Campaigns retrieved successfully.');
+        $cacheKey = 'campaigns.index.' . md5(json_encode($request->query()));
+        $data = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($request) {
+            $campaigns = $this->campaignService->getAllCampaigns($request->only(['search', 'status', 'sortBy', 'order', 'page', 'limit']));
+            $resource = CampaignResource::collection($campaigns);
+            return $request->has('page') ? $resource->response()->getData(true) : $resource->resolve();
+        });
+
+        return $this->successResponse($data, 'Campaigns retrieved successfully.');
     }
 
     /**
@@ -34,16 +42,20 @@ class CampaignController extends Controller
      */
     public function show(Request $request, $id)
     {
-        // Try finding by ID first, then by slug
-        $campaign = is_numeric($id) 
-            ? $this->campaignService->getCampaignById($id) 
-            : $this->campaignService->getCampaignBySlug($id);
+        $cacheKey = 'campaigns.show.' . $id;
+        $data = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($id) {
+            $campaign = is_numeric($id) 
+                ? $this->campaignService->getCampaignById($id) 
+                : $this->campaignService->getCampaignBySlug($id);
+            
+            return $campaign ? (new CampaignResource($campaign))->resolve() : null;
+        });
 
-        if (!$campaign) {
+        if (!$data) {
             return $this->errorResponse('Campaign not found.', 404);
         }
 
-        return $this->successResponse($campaign, 'Campaign retrieved successfully.');
+        return $this->successResponse($data, 'Campaign retrieved successfully.');
     }
 
     /**
@@ -72,6 +84,8 @@ class CampaignController extends Controller
             $galleryFiles = $request->file('gallery_image_files') ?? [];
 
             $campaign = $this->campaignService->createCampaign($request->all(), $coverFile, $galleryFiles);
+
+            $this->clearCampaignCache();
 
             return $this->successResponse($campaign, 'Campaign created successfully.', 201);
         } catch (\Exception $e) {
@@ -110,6 +124,8 @@ class CampaignController extends Controller
                 return $this->errorResponse('Campaign not found.', 404);
             }
 
+            $this->clearCampaignCache($campaign->id, $campaign->slug);
+
             return $this->successResponse($campaign, 'Campaign updated successfully.');
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update campaign: ' . $e->getMessage(), 500);
@@ -126,9 +142,16 @@ class CampaignController extends Controller
             if (!$deleted) {
                 return $this->errorResponse('Campaign not found.', 404);
             }
+            $this->clearCampaignCache($id);
             return $this->successResponse(null, 'Campaign deleted successfully.');
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to delete campaign: ' . $e->getMessage(), 500);
         }
+    }
+
+    private function clearCampaignCache($id = null, $slug = null)
+    {
+        if ($id) Cache::forget('campaigns.show.' . $id);
+        if ($slug) Cache::forget('campaigns.show.' . $slug);
     }
 }

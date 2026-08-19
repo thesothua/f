@@ -49,7 +49,9 @@ class ContributionController extends Controller
      */
     public function publicImpactSummary()
     {
-        $impact = $this->contributionService->getPublicImpactSummary();
+        $impact = \Illuminate\Support\Facades\Cache::remember('contributions.impact_summary', now()->addHours(6), function () {
+            return $this->contributionService->getPublicImpactSummary();
+        });
 
         return response()->json([
             'success' => true,
@@ -98,6 +100,8 @@ class ContributionController extends Controller
             } catch (\Throwable $e) {
                 \Illuminate\Support\Facades\Log::warning('Contribution notification dispatch error: ' . $e->getMessage());
             }
+
+            \Illuminate\Support\Facades\Cache::forget('contributions.impact_summary');
 
             return response()->json([
                 'success' => true,
@@ -193,6 +197,8 @@ class ContributionController extends Controller
             $request->input('assigned_to')
         );
 
+        \Illuminate\Support\Facades\Cache::forget('contributions.impact_summary');
+
         return response()->json([
             'success' => true,
             'message' => 'Contribution status updated successfully.',
@@ -242,6 +248,8 @@ class ContributionController extends Controller
     {
         $contribution = Contribution::findOrFail($id);
         $contribution->delete();
+
+        \Illuminate\Support\Facades\Cache::forget('contributions.impact_summary');
 
         return response()->json([
             'success' => true,

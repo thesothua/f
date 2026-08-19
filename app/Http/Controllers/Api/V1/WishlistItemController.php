@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\WishlistItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\WishlistItemResource;
 
 /**
  * @group Wishlist Management
@@ -19,15 +21,18 @@ class WishlistItemController extends Controller
      */
     public function indexPublic()
     {
-        $items = WishlistItem::active()
-            ->orderByDesc('is_urgent')
-            ->orderBy('order_priority')
-            ->orderByDesc('created_at')
-            ->get();
+        $data = Cache::remember('wishlist.public', now()->addHours(6), function () {
+            $items = WishlistItem::active()
+                ->orderByDesc('is_urgent')
+                ->orderBy('order_priority')
+                ->orderByDesc('created_at')
+                ->get();
+            return WishlistItemResource::collection($items)->resolve();
+        });
 
         return response()->json([
             'success' => true,
-            'items' => $items,
+            'items' => $data,
         ]);
     }
 
@@ -75,6 +80,8 @@ class WishlistItemController extends Controller
 
         $item = WishlistItem::create($validator->validated());
 
+        Cache::forget('wishlist.public');
+
         return response()->json([
             'success' => true,
             'message' => 'Wishlist item created successfully.',
@@ -116,6 +123,8 @@ class WishlistItemController extends Controller
 
         $item->update($validator->validated());
 
+        Cache::forget('wishlist.public');
+
         return response()->json([
             'success' => true,
             'message' => 'Wishlist item updated successfully.',
@@ -135,6 +144,8 @@ class WishlistItemController extends Controller
         }
 
         $item->delete();
+
+        Cache::forget('wishlist.public');
 
         return response()->json([
             'success' => true,
@@ -161,6 +172,8 @@ class WishlistItemController extends Controller
 
         $item->save();
 
+        Cache::forget('wishlist.public');
+
         return response()->json([
             'success' => true,
             'message' => 'Urgent status updated.',
@@ -186,6 +199,8 @@ class WishlistItemController extends Controller
         }
 
         $item->save();
+
+        Cache::forget('wishlist.public');
 
         return response()->json([
             'success' => true,

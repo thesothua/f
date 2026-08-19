@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\GalleryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\GalleryResource;
 
 /**
  * @group Media & Gallery
@@ -22,17 +24,28 @@ class GalleryController extends Controller
 
     public function index(Request $request)
     {
-        $galleries = $this->galleryService->getAllGalleryItems($request->only(['search', 'category', 'status', 'sortBy', 'order', 'page', 'limit']));
-        return $this->successResponse($galleries, 'Gallery items retrieved successfully.');
+        $cacheKey = 'galleries.index.' . md5(json_encode($request->query()));
+        $data = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($request) {
+            $galleries = $this->galleryService->getAllGalleryItems($request->only(['search', 'category', 'status', 'sortBy', 'order', 'page', 'limit']));
+            $resource = GalleryResource::collection($galleries);
+            return $request->has('page') ? $resource->response()->getData(true) : $resource->resolve();
+        });
+
+        return $this->successResponse($data, 'Gallery items retrieved successfully.');
     }
 
     public function show(Request $request, $id)
     {
-        $gallery = $this->galleryService->getGalleryItemById($id);
-        if (!$gallery) {
+        $cacheKey = 'galleries.show.' . $id;
+        $data = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($id) {
+            $gallery = $this->galleryService->getGalleryItemById($id);
+            return $gallery ? (new GalleryResource($gallery))->resolve() : null;
+        });
+
+        if (!$data) {
             return $this->errorResponse('Gallery item not found.', 404);
         }
-        return $this->successResponse($gallery, 'Gallery item retrieved successfully.');
+        return $this->successResponse($data, 'Gallery item retrieved successfully.');
     }
 
     public function store(Request $request)
@@ -50,6 +63,8 @@ class GalleryController extends Controller
 
         $file = $request->file('file');
         $gallery = $this->galleryService->createGalleryItem($request->only(['title', 'src', 'alt', 'category', 'desc', 'status', 'sortOrder']), $file);
+
+        $this->clearGalleryCache();
 
         return $this->successResponse($gallery, 'Gallery item created successfully.', 201);
     }
@@ -74,6 +89,8 @@ class GalleryController extends Controller
             return $this->errorResponse('Gallery item not found.', 404);
         }
 
+        $this->clearGalleryCache($gallery->id);
+
         return $this->successResponse($gallery, 'Gallery item updated successfully.');
     }
 
@@ -83,6 +100,14 @@ class GalleryController extends Controller
         if (!$deleted) {
             return $this->errorResponse('Gallery item not found.', 404);
         }
+        
+        $this->clearGalleryCache($id);
+
         return $this->successResponse(null, 'Gallery item deleted successfully.');
+    }
+
+    private function clearGalleryCache($id = null)
+    {
+        if ($id) Cache::forget('galleries.show.' . $id);
     }
 }

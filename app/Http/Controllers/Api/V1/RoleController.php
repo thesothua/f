@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Services\Api\V1\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @group Role & Access Control (RBAC)
@@ -48,6 +49,7 @@ class RoleController extends Controller
         $data['role_description'] = $request->input('role_description') ?? $request->input('roleDescription');
 
         $role = $this->roleService->createRole($data);
+        Cache::forget('roles.public_volunteer');
         return $this->successResponse($role, 'Role created successfully.');
     }
 
@@ -67,14 +69,17 @@ class RoleController extends Controller
         $data['role_description'] = $request->input('role_description') ?? $request->input('roleDescription');
 
         $role = $this->roleService->updateRole($id, $data);
+        Cache::forget('roles.public_volunteer');
         return $this->successResponse($role, 'Role updated successfully.');
     }
 
     public function publicVolunteerRoles()
     {
-        $roles = \App\Models\Role::where('guard_name', 'api')
-            ->where('is_volunteer', true)
-            ->get(['id', 'name', 'role_description']);
+        $roles = Cache::remember('roles.public_volunteer', now()->addDays(1), function () {
+            return \App\Models\Role::where('guard_name', 'api')
+                ->where('is_volunteer', true)
+                ->get(['id', 'name', 'role_description']);
+        });
 
         return $this->successResponse($roles, 'Public volunteer roles retrieved successfully.');
     }
