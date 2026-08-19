@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Volunteer;
 use App\Models\Contribution;
 use App\Models\ContributionItem;
+use App\Models\AutoFeeder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -128,6 +129,9 @@ class DashboardController extends Controller
         $totalFoodKg            = (float) ContributionItem::where('category', 'Food')->sum('quantity');
         $totalSupplyUnits       = (float) ContributionItem::where('category', '!=', 'Food')->sum('quantity');
 
+        $totalAutoFeeders       = AutoFeeder::count();
+        $activeAutoFeeders      = AutoFeeder::where('status', 'active')->count();
+
         // ─── MONTHLY TRENDS (Last 6 months) ─────────────────────
         $monthlyDonations = [];
         $monthlyRescueCases = [];
@@ -215,6 +219,27 @@ class DashboardController extends Controller
             ->values()
             ->toArray();
 
+        // ─── DONATIONS BY AUTO FEEDER ────────────────────────────
+        $feederGroup = Donation::whereIn('status', $successfulStatuses)
+            ->whereNotNull('auto_feeder_id')
+            ->select('auto_feeder_id', DB::raw('count(*) as count'), DB::raw('sum(amount) as total'))
+            ->groupBy('auto_feeder_id')
+            ->get();
+        $feederIds = $feederGroup->pluck('auto_feeder_id')->filter()->unique();
+        $feedersMap = AutoFeeder::whereIn('id', $feederIds)->pluck('name', 'id');
+
+        $donationsByAutoFeeder = $feederGroup
+            ->map(function ($item) use ($feedersMap) {
+                return [
+                    'name'  => $feedersMap->get($item->auto_feeder_id) ?: 'Unknown Feeder',
+                    'count' => (int) $item->count,
+                    'total' => (float) $item->total,
+                ];
+            })
+            ->sortByDesc('total')
+            ->values()
+            ->toArray();
+
         // ─── TOP CAMPAIGNS (Goal vs Raised) ─────────────────────
         $topCampaigns = Campaign::where('status', 'Active')
             ->orderByDesc('raised_amount')
@@ -288,6 +313,8 @@ class DashboardController extends Controller
                 'pendingContributions' => $pendingContributions,
                 'totalFoodKg'          => $totalFoodKg,
                 'totalSupplyUnits'     => $totalSupplyUnits,
+                'totalAutoFeeders'     => $totalAutoFeeders,
+                'activeAutoFeeders'    => $activeAutoFeeders,
             ],
             'trends' => [
                 'labels'              => $monthLabels,
@@ -300,6 +327,7 @@ class DashboardController extends Controller
                 'paymentMethods'      => $paymentMethodBreakdown,
                 'donationsByPlan'     => $donationsByPlan,
                 'donationsByCampaign' => $donationsByCampaign,
+                'donationsByAutoFeeder' => $donationsByAutoFeeder,
             ],
             'topCampaigns'   => $topCampaigns,
             'recentDonations'  => $recentDonations,
