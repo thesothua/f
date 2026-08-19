@@ -23,6 +23,7 @@ class BlogResource extends JsonResource
             'tags' => $this->tags,
             'excerpt' => $this->excerpt,
             'content' => $this->when(!request()->is('api/blogs'), $this->content),
+            'status' => $this->status,
             'featuredImage' => $this->featuredImage,
             'seo' => $this->seo,
             'created_at' => $this->created_at,

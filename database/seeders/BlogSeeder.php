@@ -49,17 +49,32 @@ class BlogSeeder extends Seeder
                 'user_id' => $adminId,
             ],
             [
-                'title' => 'Why Daily Feeding Drives Matter for Street Dogs',
-                'slug' => 'why-daily-feeding-drives-matter-street-dogs',
+                'title' => 'Empowering Youth: The Importance of Educational Support',
+                'slug' => 'empowering-youth-importance-of-educational-support',
                 'author' => 'Aman Sen',
-                'category' => 'Daily Feeding',
-                'tags' => ['Feeding Drives', 'Street Dogs', 'Dog Care'],
-                'excerpt' => 'Daily feeding drives do more than just fill bellies. They build trust, reduce aggression, and help monitor the health of street dogs.',
-                'content' => '<h3>Beyond Just Nutrition</h3><p>Feeding street dogs regularly helps calm their survival instinct. When animals know they do not have to fight for scraps of food in garbage piles, dog fights and territorial aggression decrease dramatically.</p><h3>Community Vaccination & Health Checks</h3><p>Feeding times are the perfect window to check on an animal’s health. Volunteers can spot new injuries, monitor pregnant dogs, and administer oral medications (like deworming or tick treatment) hidden inside the food.</p><h3>Connecting Humans and Strays</h3><p>Regular feeding drives foster a sense of friendship between local residents and street animals. This reduces complaints and builds a more compassionate community that watches out for their four-legged neighbors.',
+                'category' => 'Child Development',
+                'tags' => ['Education', 'Youth Empowerment', 'Community'],
+                'excerpt' => 'Education is the key to unlocking a child\'s potential. Discover how our child development pillar provides necessary resources to underprivileged students.',
+                'content' => '<h3>Providing School Supplies</h3><p>Many children drop out simply because they lack basic school supplies. By providing notebooks, pens, and backpacks, we ensure they are fully equipped to learn.</p><h3>Mentorship Programs</h3><p>Education goes beyond textbooks. Our volunteer mentorship programs help students navigate career choices and build vital life skills for their future.</p><h3>Creating Safe Learning Spaces</h3><p>A conducive learning environment is crucial. We work with local communities to establish safe, well-lit spaces where children can study after school hours.',
                 'status' => 'Published',
                 'featured_image' => [
-                    'url' => 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=800&q=80',
-                    'alt' => 'Feeding a street dog'
+                    'url' => 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80',
+                    'alt' => 'Children learning in school'
+                ],
+                'user_id' => $adminId,
+            ],
+            [
+                'title' => 'Eradicating Hunger: Our Weekly Dry Ration Drives',
+                'slug' => 'eradicating-hunger-weekly-dry-ration-drives',
+                'author' => 'Neha Gupta',
+                'category' => 'Hunger Relief',
+                'tags' => ['Food Drives', 'Community Support', 'Hunger Free'],
+                'excerpt' => 'See the impact of our weekly food distribution campaigns, designed to provide sustainable nutrition to families facing acute food insecurity.',
+                'content' => '<h3>Identifying Vulnerable Families</h3><p>We work closely with community leaders to identify households that struggle with daily sustenance, ensuring our relief efforts reach those who need it most.</p><h3>Nutritional Dry Ration Kits</h3><p>Each family receives a carefully curated kit containing rice, lentils, cooking oil, and essential spices designed to sustain a family of four for up to two weeks.</p><h3>Emergency Cooked Meals</h3><p>In addition to dry rations, our emergency kitchens provide hot, freshly cooked meals to individuals facing immediate hunger on the streets.',
+                'status' => 'Published',
+                'featured_image' => [
+                    'url' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
+                    'alt' => 'Food distribution drive'
                 ],
                 'user_id' => $adminId,
             ]
