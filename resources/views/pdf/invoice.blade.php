@@ -248,9 +248,9 @@
                 <td>
                     <div class="info-title">NGO Organization Details</div>
                     <strong>{{ $settings->site_name ?? 'Furrydom India Care Foundation' }}</strong><br>
-                    {!! nl2br(e($settings->site_address ?? 'Ahmedabad, Gujarat, India')) !!}<br>
-                    Email: {{ $settings->contact_email ?? 'contact@furrydom.org' }}<br>
-                    Phone: {{ $settings->contact_phone ?? '+91-9876543210' }}<br>
+                    {!! nl2br(e($settings->site_address ?? "203 2st Floor Rukmini Residenhaveli ,\nkesnand road, wagholi, pune 412207 Maharashtra")) !!}<br>
+                    Email: {{ $settings->contact_email ?? 'info@furrydomindia.org' }}<br>
+                    Phone: {{ $settings->contact_phone ?? '+91 77388 07882' }}<br>
                     <strong>Section-8 License No:</strong> 151483<br>
                     <strong>PAN:</strong> AAFCF7270D<br>
                     <strong>80G Reg. No:</strong> AAFCF7270DF20241

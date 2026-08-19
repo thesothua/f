@@ -30,7 +30,7 @@ Donate Now
 
 Thank you for being a vital part of our animal welfare community. Your vigilance helps save lives!
 
-If you have any questions or further updates, feel free to reply to this email or contact us at {{ app(\App\Settings\GeneralSettings::class)->contact_email ?? 'contact@furrydom.com' }}.
+If you have any questions or further updates, feel free to reply to this email or contact us at {{ app(\App\Settings\GeneralSettings::class)->contact_email ?? 'info@furrydomindia.org' }}.
 
 Warm regards,<br>
 The Team at {{ app(\App\Settings\GeneralSettings::class)->site_name ?? 'Furrydom NGO' }}

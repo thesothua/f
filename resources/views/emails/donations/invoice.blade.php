@@ -14,7 +14,7 @@ Your official donation receipt and invoice has been generated and is attached to
 
 Your contribution directly helps us rescue, feed, and find loving homes for animals in need. We are deeply grateful for your support!
 
-If you have any questions, feel free to contact us at {{ app(\App\Settings\GeneralSettings::class)->contact_email ?? 'contact@furrydom.com' }}.
+If you have any questions, feel free to contact us at {{ app(\App\Settings\GeneralSettings::class)->contact_email ?? 'info@furrydomindia.org' }}.
 
 Warm regards,<br>
 The Team at {{ app(\App\Settings\GeneralSettings::class)->site_name ?? 'Furrydom NGO' }}

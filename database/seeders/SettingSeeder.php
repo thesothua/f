@@ -17,9 +17,9 @@ class SettingSeeder extends Seeder
         $general = app(GeneralSettings::class);
         $general->site_name = 'Furrydom India';
         $general->site_slogan = 'All Lives Matter';
-        $general->contact_email = 'care@furrydom.org';
-        $general->contact_phone = '+91 98220 14785';
-        $general->site_address = "Plot 14, Baner Road,\nPune, Maharashtra 411045";
+        $general->contact_email = 'info@furrydomindia.org';
+        $general->contact_phone = '+91 77388 07882';
+        $general->site_address = "203 2st Floor Rukmini Residenhaveli ,\nkesnand road, wagholi, pune 412207 Maharashtra";
         $general->logo_url = '/assets/images/logo.png';
         $general->favicon_url = '/favicon.ico';
         $general->signature_url = null;

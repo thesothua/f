@@ -10,9 +10,9 @@ return new class extends SettingsMigration
         // General settings group
         $this->migrator->add('general.site_name', 'Furrydom India');
         $this->migrator->add('general.site_slogan', 'All Lives Matter');
-        $this->migrator->add('general.contact_email', 'info@furrydom.org');
-        $this->migrator->add('general.contact_phone', '+91 98765 43210');
-        $this->migrator->add('general.site_address', 'Shelter Road, New Delhi, India');
+        $this->migrator->add('general.contact_email', 'info@furrydomindia.org');
+        $this->migrator->add('general.contact_phone', '+91 77388 07882');
+        $this->migrator->add('general.site_address', "203 2st Floor Rukmini Residenhaveli ,\nkesnand road, wagholi, pune 412207 Maharashtra");
         $this->migrator->add('general.logo_url', '/images/furrydom-logo.png');
         $this->migrator->add('general.favicon_url', '/favicon.ico');
         $this->migrator->add('general.signature_url', null);
@@ -29,7 +29,7 @@ return new class extends SettingsMigration
         // Mail settings group
         $this->migrator->add('mail.notify_on_donation', true);
         $this->migrator->add('mail.notify_on_volunteer', true);
-        $this->migrator->add('mail.admin_notify_email', 'alerts@furrydom.org');
+        $this->migrator->add('mail.admin_notify_email', 'info@furrydomindia.org');
 
         // SEO settings group
         $this->migrator->add('seo.website_name', 'Furrydom India Care Foundation');
