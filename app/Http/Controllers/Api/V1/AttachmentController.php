@@ -33,7 +33,7 @@ class AttachmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file'            => 'required|file|image|mimes:jpeg,jpg,png,gif,webp,bmp,svg|max:20480',
+            'file'            => 'required|file|image|mimes:jpeg,jpg,png,gif,webp,bmp,svg|max:3072',
             'name'            => 'nullable|string',
             'attachable_type' => 'nullable|string',
             'attachable_id'   => 'nullable|integer',
